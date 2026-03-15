@@ -25,7 +25,6 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#games">Our Games</a></li>
-        <li><a href="#alpha">Alpha Games</a></li>
         <li><a href="#commissions">Commissions</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -63,8 +62,8 @@
         </div>
         <div class="about-stats">
           <div class="stat">
-            <span class="stat-number">1</span>
-            <span class="stat-label">Game in Development</span>
+            <span class="stat-number">2</span>
+            <span class="stat-label">Games in Development</span>
           </div>
           <div class="stat">
             <span class="stat-number">2025</span>
@@ -85,43 +84,6 @@
       <h2 class="section-title">Our Games</h2>
       <p class="section-subtitle">What we're working on</p>
       <div class="games-grid">
-        <div class="game-card">
-          <div class="game-image-placeholder">
-            <span>Coming Soon</span>
-          </div>
-          <div class="game-info">
-            <h3>Project Alpha</h3>
-            <span class="game-status status-development">In Development</span>
-          </div>
-        </div>
-        <div class="game-card">
-          <div class="game-image-placeholder">
-            <span>Coming Soon</span>
-          </div>
-          <div class="game-info">
-            <h3>Project Beta</h3>
-            <span class="game-status status-concept">Concept Phase</span>
-          </div>
-        </div>
-        <div class="game-card">
-          <div class="game-image-placeholder">
-            <span>Coming Soon</span>
-          </div>
-          <div class="game-info">
-            <h3>Project Gamma</h3>
-            <span class="game-status status-concept">Concept Phase</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Alpha Games Section -->
-  <section id="alpha" class="section alpha-games reveal">
-    <div class="container">
-      <h2 class="section-title">Alpha Games</h2>
-      <p class="section-subtitle">Early access builds available for testing</p>
-      <div class="games-grid">
         <div class="game-card alpha-card">
           <div class="alpha-badge">ALPHA</div>
           <div class="game-image-placeholder" style="padding: 0; overflow: hidden;">
@@ -141,6 +103,17 @@
             </div>
             <span class="game-status status-alpha">Alpha Build</span>
             <a href="games/SNAP-Alpha.zip" class="btn btn-primary btn-play" download>Download Alpha</a>
+          </div>
+        </div>
+        <div class="game-card alpha-card">
+          <div class="alpha-badge">ALPHA</div>
+          <div class="game-image-placeholder">
+            <span>Standards in Smoke</span>
+          </div>
+          <div class="game-info">
+            <h3>Standards in Smoke</h3>
+            <span class="game-status status-alpha">Alpha Build</span>
+            <a href="https://deadlydog3000.github.io/Standards-In-Smoke/" class="btn btn-primary btn-play" target="_blank">Play Now</a>
           </div>
         </div>
       </div>
@@ -239,6 +212,7 @@
     toggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       toggle.classList.toggle('active');
+      document.body.classList.toggle('nav-open');
     });
 
     // Close mobile nav on link click
@@ -246,6 +220,7 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         toggle.classList.remove('active');
+        document.body.classList.remove('nav-open');
       });
     });
 
