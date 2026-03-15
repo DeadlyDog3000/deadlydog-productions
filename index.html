@@ -25,18 +25,31 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#games">Our Games</a></li>
-        <li><a href="#commissions">Our Commissions</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#alpha">Alpha Games</a></li>
+        <li><a href="#commissions">Commissions</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section id="hero" class="hero">
+    <div class="hero-particles"></div>
     <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="deadlydog.png" alt="DeadlyDog Productions" class="hero-logo-img">
+      </div>
       <h1 class="hero-title">DEADLYDOG<br><span>PRODUCTIONS</span></h1>
+      <div class="hero-divider"></div>
       <p class="hero-tagline">Crafting unforgettable gaming experiences</p>
-      <a href="#games" class="btn btn-primary">View Our Games</a>
+      <div class="hero-buttons">
+        <a href="#games" class="btn btn-primary">Our Games</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
     </div>
   </section>
 
@@ -45,7 +58,23 @@
     <div class="container">
       <h2 class="section-title">Who We Are</h2>
       <div class="about-content">
-        <p>DeadlyDog Productions is an indie game development studio passionate about creating immersive, memorable games. We bring bold ideas to life with striking visuals, tight gameplay, and stories that stick with you long after the credits roll.</p>
+        <div class="about-text">
+          <p>DeadlyDog Productions is an indie game development studio passionate about creating immersive, memorable games. We bring bold ideas to life with striking visuals, tight gameplay, and stories that stick with you long after the credits roll.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Game in Development</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">2025</span>
+            <span class="stat-label">Founded</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Passion Driven</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -54,6 +83,7 @@
   <section id="games" class="section games reveal">
     <div class="container">
       <h2 class="section-title">Our Games</h2>
+      <p class="section-subtitle">What we're working on</p>
       <div class="games-grid">
         <div class="game-card">
           <div class="game-image-placeholder">
@@ -61,7 +91,6 @@
           </div>
           <div class="game-info">
             <h3>Project Alpha</h3>
-            <p>A thrilling action-adventure set in a post-apocalyptic world. Explore, survive, and uncover the truth.</p>
             <span class="game-status status-development">In Development</span>
           </div>
         </div>
@@ -71,7 +100,6 @@
           </div>
           <div class="game-info">
             <h3>Project Beta</h3>
-            <p>A fast-paced multiplayer experience that tests your reflexes and strategy against players worldwide.</p>
             <span class="game-status status-concept">Concept Phase</span>
           </div>
         </div>
@@ -81,8 +109,38 @@
           </div>
           <div class="game-info">
             <h3>Project Gamma</h3>
-            <p>A cozy narrative-driven puzzle game with hand-crafted art and a heartfelt story.</p>
             <span class="game-status status-concept">Concept Phase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alpha Games Section -->
+  <section id="alpha" class="section alpha-games reveal">
+    <div class="container">
+      <h2 class="section-title">Alpha Games</h2>
+      <p class="section-subtitle">Early access builds available for testing</p>
+      <div class="games-grid">
+        <div class="game-card alpha-card">
+          <div class="alpha-badge">ALPHA</div>
+          <div class="game-image-placeholder" style="padding: 0; overflow: hidden;">
+            <img src="snap-screenshot.png" alt="SNAP Screenshot" style="width: 100%; height: 100%; object-fit: contain; background: #0a0a0a;">
+          </div>
+          <div class="game-info">
+            <h3>SNAP <span class="info-toggle" onclick="this.parentElement.parentElement.querySelector('.install-instructions').classList.toggle('show')">...</span></h3>
+            <div class="install-instructions">
+              <p><strong>How to run:</strong></p>
+              <ol>
+                <li>Install <a href="https://www.python.org/downloads/" target="_blank">Python 3</a></li>
+                <li>Unzip the download</li>
+                <li>Open a terminal in the folder</li>
+                <li>Run: <code>pip install pygame</code></li>
+                <li>Run: <code>python snap.py</code></li>
+              </ol>
+            </div>
+            <span class="game-status status-alpha">Alpha Build</span>
+            <a href="games/SNAP-Alpha.zip" class="btn btn-primary btn-play" download>Download Alpha</a>
           </div>
         </div>
       </div>
@@ -103,7 +161,6 @@
           </div>
           <div class="game-info">
             <h3>Client Project 1</h3>
-            <p>A custom-built mobile game developed for a client, featuring unique mechanics and polished visuals.</p>
             <span class="game-status status-waiting">Waiting for Clients</span>
           </div>
         </div>
@@ -113,17 +170,15 @@
           </div>
           <div class="game-info">
             <h3>Client Project 2</h3>
-            <p>A PC strategy game commissioned by an indie publisher, delivered from prototype to final release.</p>
             <span class="game-status status-waiting">Waiting for Clients</span>
           </div>
         </div>
         <div class="game-card">
           <div class="game-image-placeholder">
-            <span>In Progress</span>
+            <span>Screenshot</span>
           </div>
           <div class="game-info">
             <h3>Client Project 3</h3>
-            <p>An ongoing commission for a multiplayer experience currently in active development.</p>
             <span class="game-status status-waiting">Waiting for Clients</span>
           </div>
         </div>
@@ -138,13 +193,15 @@
       <p class="section-subtitle">Have a project in mind or just want to say hello? Reach out!</p>
       <div class="contact-wrapper">
         <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>
@@ -167,7 +224,10 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <img src="deadlydog.png" alt="DeadlyDog Productions" height="40">
+      </div>
       <p>&copy; 2026 DeadlyDog Productions. All rights reserved.</p>
     </div>
   </footer>
@@ -218,7 +278,7 @@
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
     revealElements.forEach(el => observer.observe(el));
 
@@ -231,6 +291,16 @@
       const message = document.getElementById('message').value;
       const body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
       window.location.href = 'mailto:deadlydogdev@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+
+    // Parallax on hero
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero-content');
+      if (hero) {
+        const scroll = window.scrollY;
+        hero.style.transform = 'translateY(' + scroll * 0.3 + 'px)';
+        hero.style.opacity = 1 - scroll / 600;
+      }
     });
   </script>
 
