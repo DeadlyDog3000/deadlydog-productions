@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://deadlydog3000.github.io/deadlydog-productions/sitemap.xml
