@@ -429,6 +429,23 @@ body {
   margin-bottom: 56px;
 }
 
+.founder-credit {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.founder-credit strong {
+  color: var(--red-primary);
+  font-weight: 600;
+}
+
+.about-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .about-stats {
   display: flex;
   justify-content: center;
