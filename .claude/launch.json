@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8710", "--directory", "/Users/roanfraese/Forester"],
       "port": 8710
+    },
+    {
+      "name": "website",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8712", "--directory", "/Users/roanfraese/DeadlyDog Productions Website"],
+      "port": 8712
     }
   ]
 }

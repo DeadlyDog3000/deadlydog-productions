@@ -167,8 +167,16 @@
         </div>
         <div class="game-card beta-card">
           <div class="beta-badge">BETA</div>
+          <!-- The trailer stands in for the screenshot: it does not autoplay, it
+               carries no sound until asked, and it falls back to the still on any
+               browser that will not take the video. -->
           <div class="game-image-placeholder" style="padding: 0; overflow: hidden;">
-            <img src="forester_thumbnail.png" alt="Forester Screenshot" style="width: 100%; height: 100%; object-fit: cover; background: #0a0a0a; image-rendering: pixelated;">
+            <video class="game-trailer" controls preload="none"
+                   poster="forester_trailer_poster.jpg"
+                   style="width: 100%; height: 100%; object-fit: cover; background: #0a0a0a; display: block;">
+              <source src="forester_trailer.mp4" type="video/mp4">
+              <img src="forester_thumbnail.png" alt="Forester Screenshot" style="width: 100%; height: 100%; object-fit: cover; background: #0a0a0a; image-rendering: pixelated;">
+            </video>
           </div>
           <div class="game-info game-info-stacked">
             <h3>Forester</h3>
