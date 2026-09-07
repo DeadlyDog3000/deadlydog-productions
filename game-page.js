@@ -216,7 +216,15 @@
     '<path d="M2 21h3V9H2v12zM22 10c0-1.1-.9-2-2-2h-5.3l.8-3.8v-.3c0-.4-.2-.8-.4-1.1L14.2 2 7.6 8.6c-.4.4-.6.9-.6 1.4v9c0 1.1.9 2 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7c.1-.2.2-.5.2-.8v-2z"/>' +
     '</svg>';
 
-  function verdict(pct) {
+  /* The emphatic words only mean something once there are enough reviews
+     to carry them. Below that it stays plain: one five-star review is a
+     good review, not an overwhelming verdict. */
+  function verdict(pct, count) {
+    if (count < 5) {
+      if (pct >= 70) return { word: 'Positive', tone: '' };
+      if (pct >= 40) return { word: 'Mixed', tone: 'mixed' };
+      return { word: 'Negative', tone: 'negative' };
+    }
     if (pct >= 95) return { word: 'Overwhelmingly Positive', tone: '' };
     if (pct >= 80) return { word: 'Very Positive', tone: '' };
     if (pct >= 70) return { word: 'Mostly Positive', tone: '' };
@@ -312,14 +320,14 @@
     } else {
       var positive = reviews.filter(function (r) { return (Number(r.rating) || 0) >= 3; }).length;
       var pct = Math.round((positive / reviews.length) * 100);
-      var v = verdict(pct);
+      var v = verdict(pct, reviews.length);
 
       html =
         '<div class="sp-reviews-summary">' +
           '<span class="sp-reviews-label">Overall Reviews:</span>' +
           '<span class="sp-reviews-verdict ' + v.tone + '">' + v.word + '</span>' +
           '<span class="sp-reviews-count">' + pct + '% of the ' + reviews.length +
-            (reviews.length === 1 ? ' review' : ' reviews') + ' are positive</span>' +
+            (reviews.length === 1 ? ' review is' : ' reviews are') + ' positive</span>' +
         '</div>' +
         reviews.map(function (r) {
           var up = (Number(r.rating) || 0) >= 3;
