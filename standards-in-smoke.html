@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standards In Smoke — A Napoleonic-Era Strategy Game | DeadlyDog Productions</title>
+  <meta name="description" content="Standards In Smoke is a free browser hex-tile strategy game set in the Napoleonic era. Take one of twenty-one historical nations, found cities, research a tech tree, manage noble houses and win the map. Screenshots and reviews.">
+  <meta name="author" content="Roan Fraese">
+  <link rel="canonical" href="https://deadlydog3000.github.io/deadlydog-productions/standards-in-smoke.html">
+
+  <!-- Social cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DeadlyDog Productions">
+  <meta property="og:title" content="Standards In Smoke — A Napoleonic-Era Strategy Game">
+  <meta property="og:description" content="Twenty-one historical nations, a hex map, a tech tree and a court full of nobles who are running out of patience. Free in your browser.">
+  <meta property="og:url" content="https://deadlydog3000.github.io/deadlydog-productions/standards-in-smoke.html">
+  <meta property="og:image" content="https://deadlydog3000.github.io/deadlydog-productions/media/standards-in-smoke/01-title.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Standards In Smoke — A Napoleonic-Era Strategy Game">
+  <meta name="twitter:description" content="Twenty-one historical nations, a hex map, and a court full of nobles who are running out of patience.">
+  <meta name="twitter:image" content="https://deadlydog3000.github.io/deadlydog-productions/media/standards-in-smoke/01-title.jpg">
+
+  <!-- Structured data. No aggregateRating here on purpose: it belongs in this
+       block only once there are real player reviews to aggregate. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Standards In Smoke",
+    "url": "https://deadlydog3000.github.io/deadlydog-productions/standards-in-smoke.html",
+    "image": "https://deadlydog3000.github.io/deadlydog-productions/media/standards-in-smoke/01-title.jpg",
+    "description": "A browser-based Napoleonic-era hex tile strategy game: found cities, research technologies, manage noble houses and expand an empire across a procedurally generated map.",
+    "genre": ["Strategy", "4X", "Turn-based strategy"],
+    "gamePlatform": "Web browser",
+    "applicationCategory": "Game",
+    "operatingSystem": "Any (browser)",
+    "inLanguage": "en",
+    "author": { "@type": "Person", "name": "Roan Fraese" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DeadlyDog Productions",
+      "url": "https://deadlydog3000.github.io/deadlydog-productions/"
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="sp">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="deadlydog.png" alt="DeadlyDog Productions Logo">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html#games">Our Games</a></li>
+        <li><a href="#about-game">About</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#reviews-section">Reviews</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- The game's own art, blurred out behind the head of the page -->
+  <div class="sp-backdrop" style="background-image: url('media/standards-in-smoke/01-title.jpg')"></div>
+
+  <main class="sp-page">
+    <div class="sp-wrap">
+
+      <nav class="sp-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">DeadlyDog Productions</a>
+        <span>&rsaquo;</span>
+        <a href="index.html#games">All Games</a>
+        <span>&rsaquo;</span>
+        <span class="sp-here">Standards In Smoke</span>
+      </nav>
+
+      <h1 class="sp-title">Standards In Smoke</h1>
+
+      <div class="sp-top">
+
+        <!-- Media player. This game has no trailer, so the stage opens on
+             the first screenshot and the strip is screenshots throughout. -->
+        <section class="sp-media" aria-label="Screenshots">
+          <div class="sp-stage is-image" id="spStage">
+            <img src="media/standards-in-smoke/01-title.jpg" alt="Standards In Smoke title screen">
+            <div class="sp-stage-caption">The title screen, and twenty-one nations waiting behind it.</div>
+          </div>
+          <div class="sp-strip-wrap">
+            <button class="sp-strip-arrow" data-dir="-1" aria-label="Scroll thumbnails left">&#8249;</button>
+            <div class="sp-strip" id="spStrip">
+              <button class="sp-thumb is-active" data-type="image" data-src="media/standards-in-smoke/01-title.jpg"
+                      data-caption="The title screen, and twenty-one nations waiting behind it.">
+                <img src="media/standards-in-smoke/01-title.jpg" alt="Standards In Smoke title screen" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/02-map.png"
+                      data-caption="The hex map: terrain that decides where a city can live and how fast an army crosses it.">
+                <img src="media/standards-in-smoke/02-map.png" alt="A hex map with plains, forest, hills and rivers" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/03-world.png"
+                      data-caption="The wider world &mdash; borders, neighbours, and everything you have not taken yet.">
+                <img src="media/standards-in-smoke/03-world.png" alt="A zoomed-out view of the world map with national borders" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/04-city.png"
+                      data-caption="A city panel: the production queue, the jobs, and the tiles it is working.">
+                <img src="media/standards-in-smoke/04-city.png" alt="A city management panel showing production and jobs" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/05-tech.jpg"
+                      data-caption="The tech tree, and the long road out of the crossbow.">
+                <img src="media/standards-in-smoke/05-tech.jpg" alt="The technology tree" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/06-kingdoms.png"
+                      data-caption="Every kingdom on the map, and how it is doing against you.">
+                <img src="media/standards-in-smoke/06-kingdoms.png" alt="A panel listing every kingdom in the game" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/07-court.png"
+                      data-caption="The royal court: the houses, their opinion of you, and how close they are to acting on it.">
+                <img src="media/standards-in-smoke/07-court.png" alt="The royal court panel showing noble houses and their opinions" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/08-laws.png"
+                      data-caption="Laws of the realm &mdash; governance, labour, culture and order, and the trade each one asks for.">
+                <img src="media/standards-in-smoke/08-laws.png" alt="The laws of the realm panel" loading="lazy">
+              </button>
+            </div>
+            <button class="sp-strip-arrow" data-dir="1" aria-label="Scroll thumbnails right">&#8250;</button>
+          </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sp-side">
+          <img class="sp-capsule" src="standards_in_smoke_thumbnail.png" alt="Standards In Smoke key art">
+          <p class="sp-blurb">A Napoleonic-era strategy game on a hex map. Take one of <strong>twenty-one historical nations</strong>, put cities on the ground, research your way out of the crossbow, and hold a court full of noble houses that are running out of patience with you.</p>
+          <dl class="sp-meta">
+            <div><dt>All Reviews:</dt><dd id="spReviewSummary">No user reviews</dd></div>
+            <div><dt>Release Date:</dt><dd>In beta &mdash; 4.0</dd></div>
+            <div><dt>Developer:</dt><dd>Roan Fraese</dd></div>
+            <div><dt>Publisher:</dt><dd><a href="index.html">DeadlyDog Productions</a></dd></div>
+            <div><dt>Platform:</dt><dd>Any web browser</dd></div>
+          </dl>
+          <span class="sp-tag-label">Tags for this game:</span>
+          <div class="sp-tags">
+            <span class="sp-tag">4X</span>
+            <span class="sp-tag">Turn-Based Strategy</span>
+            <span class="sp-tag">Grand Strategy</span>
+            <span class="sp-tag">Historical</span>
+            <span class="sp-tag">Napoleonic</span>
+            <span class="sp-tag">Hex Grid</span>
+            <span class="sp-tag">City Builder</span>
+            <span class="sp-tag">Politics</span>
+            <span class="sp-tag">Singleplayer</span>
+            <span class="sp-tag">Free to Play</span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Play box -->
+      <section class="sp-buy">
+        <h2>Play Standards In Smoke</h2>
+        <div class="sp-buy-row">
+          <p class="sp-buy-note">Runs in the browser, off a single file. No account, no install.</p>
+          <div class="sp-buy-act">
+            <span class="sp-price">Free</span>
+            <a class="sp-btn-play" href="https://deadlydog3000.github.io/Standards-In-Smoke/" target="_blank" rel="noopener">Play Now</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <h2 class="sp-h2" id="about-game">About This Game</h2>
+      <div class="sp-about">
+        <p>Standards In Smoke is a <strong>hex-tile strategy game in the shape of Civilization, set in the age of muskets</strong>. You pick a nation off an illustrated roster &mdash; Great Britain, Austria, France, Russia, Prussia, the Ottoman Empire and sixteen more &mdash; and start with its historical capital already on the map.</p>
+        <p>From there it is the familiar loop done properly: settle, improve the land, run a production queue, push a tech tree, and take ground off the neighbours. Terrain matters. <strong>Formation matters</strong> &mdash; line for firepower, square against cavalry, column to move. Seasons matter most of all: a harsh winter cuts your food in half and starts killing anything caught outside a city.</p>
+        <p>What sets it apart is the politics at home. Every nation has two to four real noble houses &mdash; Habsburgs, Bonapartes, Romanovs, Hohenzollerns &mdash; each with an opinion of you that moves with your legitimacy, your treasury and the buildings you raise. Let a house get angry enough and it raises a <strong>rebellion outside your own capital</strong>. There are a hundred and twenty events waiting on the state of your empire, and four of them can kill a character outright.</p>
+        <p>It runs in a browser, off a single file, with no install and no account.</p>
+      </div>
+
+      <h2 class="sp-h2">Game Features</h2>
+      <ul class="sp-features">
+        <li><strong>21 Historical Nations</strong>Each with a real capital, a deep pool of period city names, and a banner colour. Up to twenty AI opponents.</li>
+        <li><strong>Procedural Hex Maps</strong>Plains, forest, hills, mountain, swamp, rivers, lakes and ocean, on maps from 60&times;40 up.</li>
+        <li><strong>Cities That Need Running</strong>Production queues, jobs, tile improvements, border expansion, and costs that scale with every city you add.</li>
+        <li><strong>Noble Houses</strong>Opinion scores that drift with your rule, an Appease button, and scaled rebellions when you ignore them too long.</li>
+        <li><strong>120 Events</strong>Conditional on coastline, terrain, war, peace, gold, legitimacy, season, tech, buildings and family politics.</li>
+        <li><strong>Laws of the Realm</strong>Governance, labour, culture and order &mdash; adopt them with your orders, and live with the trade.</li>
+        <li><strong>Muskets and Manoeuvre</strong>Swordsmen through crossbowmen to hussars, lancers and heavy cavalry, with morale, XP and formation.</li>
+        <li><strong>Four Seasons</strong>Fertile springs, harsh winters, attrition outside your walls, and a calendar that keeps moving.</li>
+      </ul>
+
+      <!-- Requirements -->
+      <h2 class="sp-h2" id="requirements">System Requirements</h2>
+      <div class="sp-sysreq">
+        <div>
+          <h3>Minimum</h3>
+          <ul>
+            <li><strong>OS:</strong> Any &mdash; it runs in the browser</li>
+            <li><strong>Browser:</strong> A current Chrome, Edge, Firefox or Safari</li>
+            <li><strong>Memory:</strong> 4 GB RAM</li>
+            <li><strong>Storage:</strong> None &mdash; saves live in your browser</li>
+            <li><strong>Input:</strong> Keyboard and mouse</li>
+            <li><strong>Display:</strong> 1280 &times; 720</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Recommended</h3>
+          <ul>
+            <li><strong>Browser:</strong> Desktop Chrome or Edge</li>
+            <li><strong>Memory:</strong> 8 GB RAM</li>
+            <li><strong>Display:</strong> 1600 &times; 900 or larger &mdash; a big map wants the room</li>
+            <li><strong>Note:</strong> Late-game turns on the largest maps with twenty opponents are the heaviest thing the game does. A desktop handles them comfortably.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <section id="reviews-section">
+        <h2 class="sp-h2">Customer Reviews</h2>
+        <div id="reviews"></div>
+      </section>
+
+      <div class="sp-back">
+        <a href="index.html#games" class="sp-btn-ghost">&larr; All DeadlyDog Games</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <a href="index.html"><img src="deadlydog.png" alt="DeadlyDog Productions" height="40"></a>
+      </div>
+      <p>&copy; 2026 DeadlyDog Productions &mdash; founded by Roan Fraese. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------------------------------------------------------------
+       Reviews for this page. Same shape as the Forester page:
+
+         { rating: 4,
+           title:  'Headline',
+           body:   'What they said.',
+           author: 'Their name',
+           source: 'by email',      // optional
+           date:   '2026-09-01' }   // optional, YYYY-MM-DD
+
+       Newest first. Leave it empty until real ones arrive.
+       --------------------------------------------------------------- */
+    window.GAME = {
+      key: 'standards-in-smoke',
+      name: 'Standards In Smoke',
+      pixel: false,
+      reviews: []
+    };
+  </script>
+  <script src="game-page.js"></script>
+
+</body>
+</html>

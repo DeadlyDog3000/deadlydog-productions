@@ -310,57 +310,6 @@ body {
   padding: 10px 24px;
 }
 
-.info-toggle {
-  cursor: pointer;
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-  padding: 0 6px;
-  border-radius: 4px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.info-toggle:hover {
-  color: var(--red-primary);
-  background: rgba(230, 48, 40, 0.1);
-}
-
-.install-instructions {
-  display: none;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-top: 10px;
-  text-align: left;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.install-instructions.show {
-  display: block;
-}
-
-.install-instructions ol {
-  margin: 8px 0 0 18px;
-}
-
-.install-instructions li {
-  margin-bottom: 4px;
-}
-
-.install-instructions code {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  color: var(--red-primary);
-}
-
-.install-instructions a {
-  color: var(--red-primary);
-}
-
 /* ===== Sections ===== */
 .section {
   padding: 120px 0;
@@ -551,6 +500,21 @@ body {
   line-height: 1.7;
 }
 
+/* Each card now carries two actions: play the thing, or read its page.
+   Full-width container so the mobile rule that stretches .btn-play has
+   something to stretch against; wrapping so the pair stacks when it must. */
+.game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.game-actions .btn-play {
+  margin-top: 0;
+}
+
 .game-status {
   display: inline-block;
   padding: 5px 14px;
@@ -586,36 +550,10 @@ body {
   border: 1px solid rgba(255, 190, 50, 0.4);
 }
 
-.status-alpha {
-  background: rgba(100, 140, 255, 0.12);
-  color: #648cff;
-  border: 1px solid rgba(100, 140, 255, 0.4);
-}
-
 .status-beta {
   background: rgba(255, 165, 0, 0.12);
   color: #ffa500;
   border: 1px solid rgba(255, 165, 0, 0.4);
-}
-
-/* ===== Alpha Games ===== */
-.alpha-card {
-  position: relative;
-}
-
-.alpha-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  background: rgba(100, 140, 255, 0.9);
-  color: #fff;
-  font-family: var(--font-heading);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  padding: 4px 12px;
-  border-radius: 3px;
-  text-transform: uppercase;
 }
 
 .beta-badge {
@@ -961,11 +899,6 @@ body {
     text-align: center;
   }
 
-  .install-instructions {
-    padding: 12px 14px;
-    font-size: 0.8rem;
-  }
-
   .footer {
     padding: 24px 0;
   }
@@ -1017,5 +950,967 @@ body {
 
   .nav-links {
     width: 85%;
+  }
+}
+
+/* ===================================================================
+   Game Pages — a storefront layout in the studio's own colours.
+
+   The shape is a store page: media player, a sidebar of facts, a play
+   box, About This Game, requirements, reviews. The palette is the one
+   the rest of the site runs on — black, with red doing the pointing.
+   Everything is namespaced .sp-* (store page) so nothing here can
+   reach index.html, which still owns .game-card and friends.
+   =================================================================== */
+
+body.sp {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+/* The art of the game, blurred out behind the top of the page, fading
+   into the flat background — the page is dressed by the game itself. */
+.sp-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 720px;
+  background-size: cover;
+  background-position: center top;
+  filter: blur(18px) saturate(0.7);
+  transform: scale(1.1);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+              rgba(5, 5, 5, 0.6) 0%,
+              rgba(5, 5, 5, 0.8) 45%,
+              var(--bg-primary) 100%);
+}
+
+.sp-page {
+  position: relative;
+  z-index: 1;
+  padding: 104px 0 80px;
+}
+
+.sp-wrap {
+  width: 100%;
+  max-width: 972px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* --- Breadcrumb + title ------------------------------------------ */
+.sp-crumbs {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.sp-crumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sp-crumbs a:hover {
+  color: var(--red-primary);
+}
+
+.sp-crumbs span {
+  margin: 0 6px;
+  color: #333;
+}
+
+.sp-crumbs .sp-here {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.sp-title {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+/* --- Top block: media on the left, the facts on the right --------- */
+.sp-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 324px;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+/* --- Media player ------------------------------------------------- */
+
+/* A grid item's automatic minimum is its content, and this column's
+   content includes a filmstrip as wide as every thumbnail in a row.
+   Without this the column — and the page with it — refuses to narrow. */
+.sp-media {
+  min-width: 0;
+}
+
+.sp-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid #1e1e1e;
+  overflow: hidden;
+}
+
+.sp-stage img,
+.sp-stage video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+
+.sp-stage.pixel img {
+  image-rendering: pixelated;
+}
+
+/* An image in the stage can be opened full size; a video cannot. */
+.sp-stage.is-image {
+  cursor: zoom-in;
+}
+
+.sp-stage-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 26px 14px 10px;
+  font-size: 0.82rem;
+  color: #e8e8e8;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.sp-strip-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.sp-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  flex: 1;
+  /* A flex item defaults to min-width:auto, which here means "as wide as
+     all the thumbnails laid out in a row" — that pushed the whole page
+     sideways on a phone. This lets it shrink and scroll instead. */
+  min-width: 0;
+}
+
+.sp-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.sp-thumb {
+  flex: 0 0 auto;
+  width: 116px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: #000;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+  outline-offset: 2px;
+}
+
+.sp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sp-thumb.pixel img {
+  image-rendering: pixelated;
+}
+
+.sp-thumb:hover,
+.sp-thumb:focus-visible {
+  opacity: 1;
+}
+
+.sp-thumb.is-active {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px var(--red-primary);
+}
+
+/* The trailer's thumbnail wears a play triangle so it reads as video. */
+.sp-thumb.is-video::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.9));
+}
+
+.sp-strip-arrow {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 65px;
+  border: 1px solid #1e1e1e;
+  background: var(--bg-card);
+  color: var(--red-primary);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sp-strip-arrow:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--red-primary);
+}
+
+.sp-strip-arrow[disabled] {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* --- Sidebar ------------------------------------------------------- */
+.sp-side {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 14px;
+}
+
+.sp-capsule {
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.sp-capsule.pixel {
+  image-rendering: pixelated;
+}
+
+.sp-blurb {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.sp-blurb strong {
+  color: var(--text-primary);
+}
+
+.sp-meta {
+  border-top: 1px solid #222;
+  padding-top: 12px;
+  margin-bottom: 16px;
+}
+
+.sp-meta > div {
+  display: flex;
+  gap: 8px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.sp-meta dt {
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+.sp-meta dd {
+  color: var(--text-secondary);
+}
+
+.sp-meta dd a {
+  color: var(--red-primary);
+  text-decoration: none;
+}
+
+.sp-meta dd a:hover {
+  text-decoration: underline;
+}
+
+.sp-tag-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.sp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sp-tag {
+  background: rgba(230, 48, 40, 0.12);
+  border: 1px solid rgba(230, 48, 40, 0.28);
+  color: #ff7b74;
+  font-size: 0.72rem;
+  padding: 3px 9px;
+  border-radius: 2px;
+}
+
+/* --- Play box (a storefront's purchase panel) ---------------------- */
+.sp-buy {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 16px;
+  margin-bottom: 30px;
+}
+
+.sp-buy h2 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.sp-buy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: #0a0a0a;
+  border: 1px solid #1e1e1e;
+  padding: 14px 16px;
+}
+
+.sp-buy-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.sp-buy-act {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sp-price {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.sp-btn-play {
+  display: inline-block;
+  padding: 11px 26px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  background: var(--red-primary);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.sp-btn-play:hover {
+  background: var(--red-dark);
+  box-shadow: 0 6px 24px var(--red-glow);
+  transform: translateY(-2px);
+}
+
+.sp-btn-ghost {
+  display: inline-block;
+  padding: 10px 24px;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid #333;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.sp-btn-ghost:hover {
+  border-color: var(--red-primary);
+  color: var(--text-primary);
+}
+
+/* --- Section headings and body copy -------------------------------- */
+.sp-h2 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  background: linear-gradient(to right, rgba(230, 48, 40, 0.16), rgba(230, 48, 40, 0));
+  padding: 10px 14px;
+  margin: 36px 0 18px;
+  border-left: 3px solid var(--red-primary);
+}
+
+.sp-about p {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+}
+
+.sp-about strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sp-features {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.sp-features li {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  border-left: 2px solid var(--red-primary);
+  padding: 14px 16px;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.sp-features strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--red-primary);
+  margin-bottom: 5px;
+}
+
+/* --- System requirements ------------------------------------------- */
+.sp-sysreq {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 18px;
+}
+
+.sp-sysreq h3 {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.sp-sysreq ul {
+  list-style: none;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.sp-sysreq strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* --- Reviews -------------------------------------------------------- */
+.sp-reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.sp-reviews-label {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* The verdict keeps the familiar traffic light: a red "Very Positive"
+   would read as a warning no matter what the rest of the page is. */
+.sp-reviews-verdict {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7ac36a;
+}
+
+.sp-reviews-verdict.mixed {
+  color: #d9a441;
+}
+
+.sp-reviews-verdict.negative {
+  color: var(--red-primary);
+}
+
+.sp-reviews-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.sp-review {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.sp-review-who {
+  border-right: 1px solid #222;
+  padding-right: 16px;
+}
+
+.sp-review-name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: var(--red-primary);
+  word-break: break-word;
+}
+
+.sp-review-source {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.sp-verdict {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #7ac36a;
+  margin-bottom: 6px;
+}
+
+.sp-verdict.down {
+  color: var(--red-primary);
+}
+
+.sp-thumbicon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.sp-verdict.down .sp-thumbicon {
+  transform: rotate(180deg);
+}
+
+.sp-review-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.sp-review-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.sp-review-body {
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.sp-reviews-empty {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.sp-reviews-empty p {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto 18px;
+}
+
+.sp-reviews-foot {
+  margin-top: 16px;
+}
+
+.sp-reviews-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* --- Write-a-review form --------------------------------------------- */
+.sp-write {
+  margin-top: 16px;
+}
+
+.sp-form {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  padding: 20px;
+  margin-top: 14px;
+  max-width: 620px;
+}
+
+.sp-field {
+  display: block;
+  border: 0;
+  margin-bottom: 16px;
+}
+
+.sp-field > span,
+.sp-field legend {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 7px;
+}
+
+.sp-field em {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.sp-field input[type="text"],
+.sp-field input[type="email"],
+.sp-field textarea {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding: 10px 12px;
+  transition: border-color 0.15s ease;
+}
+
+.sp-field input[type="text"]:focus,
+.sp-field input[type="email"]:focus,
+.sp-field textarea:focus {
+  outline: none;
+  border-color: var(--red-primary);
+}
+
+.sp-field textarea {
+  resize: vertical;
+}
+
+/* The radios sit in the DOM 5 → 1 and are flipped on screen, so that a
+   checked star can paint every star before it with a sibling selector. */
+.sp-stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.sp-stars input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.sp-stars label {
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #333;
+  cursor: pointer;
+  padding: 0 3px;
+  transition: color 0.15s ease;
+}
+
+.sp-stars input:checked ~ label {
+  color: var(--red-primary);
+}
+
+.sp-stars label:hover,
+.sp-stars label:hover ~ label {
+  color: #ff7b74;
+}
+
+.sp-stars input:focus-visible + label {
+  outline: 2px solid var(--red-primary);
+  outline-offset: 2px;
+}
+
+.sp-star-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.sp-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.sp-check input {
+  margin-top: 3px;
+  accent-color: var(--red-primary);
+  flex: 0 0 auto;
+}
+
+/* Bots fill every field they can see; this one is not for people. */
+.sp-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.sp-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.sp-form-msg {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.sp-form-msg.bad {
+  color: #ff7b74;
+}
+
+.sp-form-msg a {
+  color: var(--red-primary);
+}
+
+.sp-form-done {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.sp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Lightbox -------------------------------------------------------- */
+.sp-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 2, 2, 0.96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 56px;
+}
+
+.sp-lightbox.open {
+  display: flex;
+}
+
+.sp-lightbox figure {
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+}
+
+.sp-lightbox img {
+  max-width: 100%;
+  max-height: 82vh;
+  display: block;
+  margin: 0 auto;
+}
+
+.sp-lightbox.pixel img {
+  image-rendering: pixelated;
+}
+
+.sp-lightbox figcaption {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.sp-lb-count {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.sp-lb-btn {
+  position: absolute;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid #333;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sp-lb-btn:hover {
+  background: var(--red-primary);
+  border-color: var(--red-primary);
+  color: #fff;
+}
+
+.sp-lb-close {
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+}
+
+.sp-lb-prev,
+.sp-lb-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 64px;
+  font-size: 1.8rem;
+}
+
+.sp-lb-prev { left: 12px; }
+.sp-lb-next { right: 12px; }
+
+/* --- Back to the studio ---------------------------------------------- */
+.sp-back {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* --- Responsive ------------------------------------------------------- */
+@media (max-width: 900px) {
+  .sp-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* On one column the capsule is redundant — the stage is already the art. */
+  .sp-capsule {
+    display: none;
+  }
+
+  .sp-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-page {
+    padding: 88px 0 60px;
+  }
+
+  .sp-title {
+    font-size: 1.7rem;
+  }
+
+  .sp-review {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .sp-review-who {
+    border-right: 0;
+    border-bottom: 1px solid #222;
+    padding-right: 0;
+    padding-bottom: 10px;
+  }
+
+  .sp-buy-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sp-buy-act {
+    justify-content: space-between;
+  }
+
+  .sp-lightbox {
+    padding: 56px 12px;
+  }
+
+  .sp-lb-prev,
+  .sp-lb-next {
+    width: 34px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+
+  .sp-thumb {
+    width: 96px;
   }
 }
