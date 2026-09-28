@@ -557,12 +557,19 @@ body {
 }
 
 .status-alpha {
-  background: rgba(224, 178, 90, 0.12);
-  color: #e0b25a;
-  border: 1px solid rgba(224, 178, 90, 0.45);
+  background: rgba(120, 200, 245, 0.12);
+  color: #8fd3f7;
+  border: 1px solid rgba(120, 200, 245, 0.45);
 }
 
-.alpha-badge { background: rgba(200, 60, 40, 0.92); }
+.status-released {
+  background: rgba(70, 190, 100, 0.12);
+  color: #5fd27d;
+  border: 1px solid rgba(70, 190, 100, 0.45);
+}
+
+.beta-badge.alpha-badge { background: rgba(95, 185, 235, 0.92); color: #06243a; }
+.beta-badge.released-badge { background: rgba(46, 160, 80, 0.92); }
 
 /* the Alpha tag beside a game's name on its own page */
 .sp-alpha {
@@ -574,8 +581,8 @@ body {
   font-size: 0.9rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #fff;
-  background: rgba(200, 60, 40, 0.92);
+  color: #06243a;
+  background: rgba(95, 185, 235, 0.92);
   border-radius: 3px;
 }
 
@@ -1936,4 +1943,11 @@ body.sp {
   .sp-thumb {
     width: 96px;
   }
+}
+
+/* a game that is announced but not yet playable: the button stands where Play would, and does nothing */
+.btn-soon, .sp-btn-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
 }
