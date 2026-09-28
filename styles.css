@@ -556,6 +556,29 @@ body {
   border: 1px solid rgba(255, 165, 0, 0.4);
 }
 
+.status-alpha {
+  background: rgba(224, 178, 90, 0.12);
+  color: #e0b25a;
+  border: 1px solid rgba(224, 178, 90, 0.45);
+}
+
+.alpha-badge { background: rgba(200, 60, 40, 0.92); }
+
+/* the Alpha tag beside a game's name on its own page */
+.sp-alpha {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 12px;
+  padding: 3px 12px 4px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(200, 60, 40, 0.92);
+  border-radius: 3px;
+}
+
 .beta-badge {
   position: absolute;
   top: 16px;
