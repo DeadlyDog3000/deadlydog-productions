@@ -255,10 +255,11 @@
       key: 'reckoning',
       name: 'Forester: Reckoning',
       pixel: false,
-      /* The shop. Paste the Lemon Squeezy checkout link here (Products → the
-         product → Share) and the "Coming Soon" button becomes a Buy button that
-         opens the checkout over this page. Empty: nothing changes. */
-      checkout: '',
+      /* The shop: Stripe Checkout, opened by the game's server. Set shopOpen
+         to true (once the server's shop is set up and a test purchase has gone
+         through) and "Coming Soon" becomes a Buy button. */
+      shop: 'http://45.76.245.44:47810',
+      shopOpen: false,
       price: 'CA$19.99',
       reviews: []
     };

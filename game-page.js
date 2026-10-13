@@ -33,28 +33,32 @@
   var REVIEW_ENDPOINT = 'https://formspree.io/f/moeqkpye';
   var PIXEL = !!GAME.pixel;
 
-  /* The shop: with a checkout link set, the buy box sells the game. The
-     checkout opens as Lemon Squeezy's overlay on this page (its own script,
-     loaded only then); if that can't load, the link still opens the
-     checkout in a tab of its own. */
+  /* The shop: Stripe's checkout, opened by the game's own server (which
+     makes the licence key and hands it over once Stripe says it's paid).
+     The Buy button goes to the server, which sends the buyer straight on to
+     Stripe; Stripe sends them back here with ?paid=<the checkout's id>, and
+     this page offers the way to their key. */
   (function shop() {
-    if (!GAME.checkout) return;
     var box = document.querySelector('.sp-buy');
-    if (!box) return;
+    if (!box || !GAME.shop) return;
     var h = box.querySelector('h2'), note = box.querySelector('.sp-buy-note'), act = box.querySelector('.sp-buy-act');
-    if (h) h.textContent = 'Buy ' + (GAME.name || 'the game');
-    if (note) note.textContent = 'One payment, yours for good: the whole story, battles and duels against other players, the Worlds & colonies, and every update to come. Your licence key arrives by email — paste it into the game once.';
-    if (act) {
-      act.innerHTML = '';
+    var paid = (location.search.match(/[?&]paid=(cs_(?:test|live)_[A-Za-z0-9]+)/) || [])[1];
+    function button(text, href) {
       var a = document.createElement('a');
-      a.className = 'sp-btn-play lemonsqueezy-button';
-      a.href = GAME.checkout + (GAME.checkout.indexOf('?') < 0 ? '?embed=1' : '&embed=1');
-      a.textContent = 'Buy' + (GAME.price ? ' \u2014 ' + GAME.price : '');
-      act.appendChild(a);
+      a.className = 'sp-btn-play'; a.href = href; a.textContent = text;
+      act.innerHTML = ''; act.appendChild(a);
     }
-    var s = document.createElement('script');
-    s.src = 'https://app.lemonsqueezy.com/js/lemon.js'; s.defer = true;
-    document.head.appendChild(s);
+    if (paid) {
+      if (h) h.textContent = 'Thank you';
+      if (note) note.textContent = 'Your payment went through. Bought from inside the game? It has already unlocked by itself. Otherwise, your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt.';
+      if (act) button('Show my licence key', GAME.shop + '/shop/key?s=' + paid);
+      box.scrollIntoView && setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+      return;
+    }
+    if (!GAME.shopOpen) return;
+    if (h) h.textContent = 'Buy ' + (GAME.name || 'the game');
+    if (note) note.textContent = 'One payment, yours for good: the whole story, battles and duels against other players, the Worlds & colonies, and every update to come. Your licence key is shown as soon as you\u2019ve paid \u2014 paste it into the game once. It works on up to three computers.';
+    if (act) button('Buy' + (GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy');
   })();
 
   function escapeHtml(s) {
