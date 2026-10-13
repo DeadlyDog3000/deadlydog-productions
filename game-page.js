@@ -33,6 +33,30 @@
   var REVIEW_ENDPOINT = 'https://formspree.io/f/moeqkpye';
   var PIXEL = !!GAME.pixel;
 
+  /* The shop: with a checkout link set, the buy box sells the game. The
+     checkout opens as Lemon Squeezy's overlay on this page (its own script,
+     loaded only then); if that can't load, the link still opens the
+     checkout in a tab of its own. */
+  (function shop() {
+    if (!GAME.checkout) return;
+    var box = document.querySelector('.sp-buy');
+    if (!box) return;
+    var h = box.querySelector('h2'), note = box.querySelector('.sp-buy-note'), act = box.querySelector('.sp-buy-act');
+    if (h) h.textContent = 'Buy ' + (GAME.name || 'the game');
+    if (note) note.textContent = 'One payment, yours for good: the whole story, battles and duels against other players, the Worlds & colonies, and every update to come. Your licence key arrives by email — paste it into the game once.';
+    if (act) {
+      act.innerHTML = '';
+      var a = document.createElement('a');
+      a.className = 'sp-btn-play lemonsqueezy-button';
+      a.href = GAME.checkout + (GAME.checkout.indexOf('?') < 0 ? '?embed=1' : '&embed=1');
+      a.textContent = 'Buy' + (GAME.price ? ' \u2014 ' + GAME.price : '');
+      act.appendChild(a);
+    }
+    var s = document.createElement('script');
+    s.src = 'https://app.lemonsqueezy.com/js/lemon.js'; s.defer = true;
+    document.head.appendChild(s);
+  })();
+
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
