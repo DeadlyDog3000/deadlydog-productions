@@ -43,22 +43,28 @@
     if (!box || !GAME.shop) return;
     var h = box.querySelector('h2'), note = box.querySelector('.sp-buy-note'), act = box.querySelector('.sp-buy-act');
     var paid = (location.search.match(/[?&]paid=(cs_(?:test|live)_[A-Za-z0-9]+)/) || [])[1];
-    function button(text, href) {
+    function button(text, href, ghost) {
       var a = document.createElement('a');
-      a.className = 'sp-btn-play'; a.href = href; a.textContent = text;
-      act.innerHTML = ''; act.appendChild(a);
+      a.className = ghost ? 'sp-btn-ghost' : 'sp-btn-play'; a.href = href; a.textContent = text;
+      act.appendChild(a);
+    }
+    /* The app to download (GAME.downloads: { mac, windows }) \u2014 free, as the demo */
+    function downloads(prefix) {
+      var d = GAME.downloads || {};
+      if (d.mac) button(prefix + 'Mac', d.mac, true);
+      if (d.windows) button(prefix + 'Windows', d.windows, true);
     }
     if (paid) {
       if (h) h.textContent = 'Thank you';
-      if (note) note.textContent = 'Your payment went through. Bought from inside the game? It has already unlocked by itself. Otherwise, your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt.';
-      if (act) button('Show my licence key', GAME.shop + '/shop/key?s=' + paid);
+      if (note) note.textContent = 'Your payment went through. Bought from inside the game? It has already unlocked by itself. Otherwise, your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt. Haven\u2019t got the game yet? Download it, then paste the key in on the title screen (Unlock the full game).';
+      if (act) { act.innerHTML = ''; downloads(''); button('Show my licence key', GAME.shop + '/shop/key?s=' + paid); }
       box.scrollIntoView && setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
       return;
     }
     if (!GAME.shopOpen) return;
-    if (h) h.textContent = 'Buy ' + (GAME.name || 'the game');
-    if (note) note.textContent = 'One payment, yours for good: the whole story, battles and duels against other players, the Worlds & colonies, and every update to come. Your licence key is shown as soon as you\u2019ve paid \u2014 paste it into the game once. It works on up to three computers.';
-    if (act) button('Buy' + (GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy');
+    if (h) h.textContent = 'Play ' + (GAME.name || 'the game');
+    if (note) note.textContent = (GAME.demo ? 'Download it free: the demo is ' + GAME.demo + '. ' : '') + 'The full game is one payment, yours for good: the whole story, battles, duels and the campaign, the Worlds & colonies, and every update to come. Your licence key is shown as soon as you\u2019ve paid \u2014 paste it into the game once (or buy from inside the game, and it unlocks by itself). It works on up to three computers.' + (GAME.downloadNote ? ' ' + GAME.downloadNote : '');
+    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
   })();
 
   function escapeHtml(s) {
@@ -339,7 +345,7 @@
     if (!reviews.length) {
       html =
         '<div class="sp-reviews-empty">' +
-          '<p>No user reviews yet. ' + escapeHtml(name) + ' is in beta and free to play &mdash; ' +
+          '<p>No user reviews yet. ' + escapeHtml(name) + (GAME.shopOpen ? ' has a free demo &mdash; ' : ' is in beta and free to play &mdash; ') +
           'if you get a few hours out of it, tell us what you thought and it goes up here.</p>' +
           note +
         '</div>' +

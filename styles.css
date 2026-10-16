@@ -1352,6 +1352,7 @@ body.sp {
 .sp-buy-act {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 14px;
 }
 

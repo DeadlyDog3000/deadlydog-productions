@@ -165,7 +165,7 @@
           <p class="sp-blurb">Hamburg, 1683. Your father is condemned for &ldquo;malicious affairs&rdquo; and his name struck from the rolls. You and your sibling run through the marsh gate before the watch can take you too. <strong>This time you are there for all of it &mdash; in first person, in 3D.</strong></p>
           <dl class="sp-meta">
             <div><dt>All Reviews:</dt><dd id="spReviewSummary">No user reviews</dd></div>
-            <div><dt>Release Date:</dt><dd>In development &mdash; not yet playable</dd></div>
+            <div><dt>Release Date:</dt><dd>16 October 2026 (alpha)</dd></div>
             <div><dt>Developer:</dt><dd>Roan Fraese</dd></div>
             <div><dt>Publisher:</dt><dd><a href="index.html">DeadlyDog Productions</a></dd></div>
             <div><dt>Platform:</dt><dd>Any desktop web browser</dd></div>
@@ -186,11 +186,11 @@
       </div>
 
       <section class="sp-buy" id="buy">
-        <h2>Forester: Reckoning is in development</h2>
+        <h2>Play Forester: Reckoning</h2>
         <div class="sp-buy-row">
-          <p class="sp-buy-note">It is not playable yet &mdash; the alpha is still being built behind closed doors. Watch the trailer, and check back here for news.</p>
+          <p class="sp-buy-note">Download it free: the demo is Part One of the story. The full game is CA$14.99.</p>
           <div class="sp-buy-act">
-            <span class="sp-btn-play sp-btn-soon" aria-disabled="true">Coming Soon</span>
+            <a class="sp-btn-play" href="http://45.76.245.44:47810/shop/buy">Buy &mdash; CA$14.99</a>
           </div>
         </div>
       </section>
@@ -267,12 +267,18 @@
       key: 'reckoning',
       name: 'Forester: Reckoning',
       pixel: false,
-      /* The shop: Stripe Checkout, opened by the game's server. Set shopOpen
-         to true (once the server's shop is set up and a test purchase has gone
-         through) and "Coming Soon" becomes a Buy button. */
+      /* The shop: Stripe Checkout, opened by the game's server. With shopOpen,
+         "Coming Soon" becomes the free demo's downloads and a Buy button. */
       shop: 'http://45.76.245.44:47810',
-      shopOpen: false,
+      shopOpen: true,
       price: 'CA$14.99',
+      demo: 'Part One of the story, its first six chapters',
+      /* the app: a release of its own, the same names each time (it updates itself after that) */
+      downloads: {
+        mac: 'https://github.com/DeadlyDog3000/Forester/releases/download/reckoning-download/Forester-Reckoning-mac.dmg',
+        windows: 'https://github.com/DeadlyDog3000/Forester/releases/download/reckoning-download/Forester-Reckoning-windows.zip'
+      },
+      downloadNote: 'Mac: Apple silicon (M1 or newer). If macOS won\u2019t open it the first time, go to System Settings \u2192 Privacy & Security and choose Open Anyway. Windows: unzip it and run Forester Reckoning.exe.',
       reviews: []
     };
   </script>
