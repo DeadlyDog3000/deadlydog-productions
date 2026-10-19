@@ -1954,3 +1954,41 @@ body.sp {
   cursor: default;
   pointer-events: none;
 }
+
+/* --- Reviews: signing in, and your own reviews ----------------------- */
+.sp-acct {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 14px;
+}
+.sp-acct-who {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.sp-acct-who b { color: var(--text-primary); font-weight: 600; }
+.sp-btn-ghost { cursor: pointer; }
+.sp-btn-small {
+  padding: 5px 12px;
+  font-size: 0.72rem;
+}
+.sp-form-head {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+.sp-review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sp-review-stars {
+  margin-left: 10px;
+  color: #d9a93b;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
