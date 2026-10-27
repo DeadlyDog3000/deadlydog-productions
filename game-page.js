@@ -51,9 +51,19 @@
       return;
     }
     if (!GAME.shopOpen) return;
+    /* a sale on: its banner over the buy box (and a strip at the top of the page pointing to it), the sale price on the button */
+    var sale = GAME.sale && Date.now() < Date.parse(GAME.sale.until) ? GAME.sale : null;
+    if (sale) {
+      var b = document.createElement('div'); b.className = 'sp-sale';
+      b.innerHTML = '<span class="sp-sale-name">' + escapeHtml(sale.name) + '</span><span class="sp-sale-price"><s>' + escapeHtml(GAME.price || '') + '</s> ' + escapeHtml(sale.price) + '</span><span class="sp-sale-ends">Ends ' + escapeHtml(sale.ends) + '</span>';
+      box.insertBefore(b, box.querySelector('.sp-buy-row'));
+      var top = document.createElement('a'); top.className = 'sp-sale-strip'; top.href = '#buy';
+      top.innerHTML = '<b>' + escapeHtml(sale.name) + '</b> &mdash; ' + escapeHtml(GAME.name || 'the game') + ' for ' + escapeHtml(sale.price) + ' <s>' + escapeHtml(GAME.price || '') + '</s> until ' + escapeHtml(sale.ends);
+      var main = document.querySelector('main') || document.body; main.insertBefore(top, main.firstChild);
+    }
     if (h) h.textContent = 'Play ' + (GAME.name || 'the game');
     if (note) note.textContent = (GAME.demo ? 'Download it free: the demo is ' + GAME.demo + '. ' : '') + 'The full game is one payment, yours for good: the whole story, battles, duels and the campaign, the Worlds & colonies, and every update to come. Your licence key is shown as soon as you\u2019ve paid \u2014 paste it into the game once (or buy from inside the game, and it unlocks by itself). It works on up to three computers.' + (GAME.downloadNote ? ' ' + GAME.downloadNote : '');
-    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
+    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
   })();
 
   function escapeHtml(s) {

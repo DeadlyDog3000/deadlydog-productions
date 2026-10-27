@@ -135,6 +135,8 @@
       <div class="games-grid">
         <div class="game-card beta-card">
           <div class="beta-badge">BETA</div>
+          <!-- A sale: shown only until it ends (the script at the foot of the page) -->
+          <a class="sale-badge" href="reckoning.html#buy" data-until="2026-11-04T08:00:00Z">Halloween sale &middot; CA$7.99</a>
           <!-- The trailer stands in for the screenshot, as Forester's does. -->
           <div class="game-image-placeholder" style="padding: 0; overflow: hidden;">
             <video class="game-trailer" controls preload="none"
@@ -355,5 +357,8 @@
     });
   </script>
 
+  <script>
+    document.querySelectorAll('.sale-badge[data-until]').forEach(function (b) { if (Date.now() < Date.parse(b.getAttribute('data-until'))) b.classList.add('on'); });
+  </script>
 </body>
 </html>

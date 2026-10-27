@@ -1992,3 +1992,61 @@ body.sp {
   letter-spacing: 0.08em;
   font-size: 0.85rem;
 }
+
+/* ---------- A sale: its banner over the buy box, and a strip at the top of the game's page ---------- */
+.sp-sale {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(90deg, #2a1206, #1a0d06 70%, #0a0a0a);
+  border: 1px solid #7a3a10;
+  border-left: 4px solid #f07a1a;
+}
+.sp-sale-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f59a3c;
+}
+.sp-sale-price {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+.sp-sale-price s, .sp-sale-strip s { color: var(--text-muted); margin-right: 4px; }
+.sp-sale-ends { font-size: 0.85rem; color: #d8a070; }
+.sp-sale-strip {
+  display: block;
+  margin: 0 0 18px;
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: #1c0e05;
+  border: 1px solid #5a2a0c;
+}
+.sp-sale-strip b { color: #f59a3c; font-family: var(--font-heading); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+.sp-sale-strip:hover { border-color: #f07a1a; color: var(--text-primary); }
+.sale-badge {
+  display: none;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 5px 10px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a0d06;
+  background: #f07a1a;
+}
+.sale-badge.on { display: inline-block; }
