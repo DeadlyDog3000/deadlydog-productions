@@ -228,7 +228,7 @@ function render(D) {
     ["Standards in Smoke", "Plays in the browser", tv("Standards-In-Smoke") || "No numbers yet"],
     ["The website", "deadlydog3000.github.io", tv("deadlydog-productions") || "No numbers yet"],
   ].map(([n, k, v], i) => `<div class="game"><div class="ico">${["⚔️", "🌲", "🚩", "🌐"][i]}</div><div><b>${esc(n)}</b><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div></div>`).join("")
-    + (W ? "" : `<p class="note" style="margin:6px 0 0">Plays on the website can't be counted yet. The site is on GitHub Pages, which keeps no visitor numbers, and your game server only speaks plain http, which an https site isn't allowed to call. With https on the game server (a free certificate), every page and both browser games could count their visits here.</p>`);
+    + (P && !P.error && P.web ? "" : `<p class="note" style="margin:6px 0 0">Plays on the website can't be counted yet. The site is on GitHub Pages, which keeps no visitor numbers, and your game server only speaks plain http, which an https site isn't allowed to call. With https on the game server (a free certificate), every page and both browser games could count their visits here.</p>`);
 
   const W = P && !P.error && P.web;
   if (W) {
