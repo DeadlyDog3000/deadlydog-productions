@@ -100,7 +100,7 @@ body.locked .lock { display: grid; }
 <main>
   <header>
     <div class="brand"><a href="./" class="mark" style="text-decoration:none" title="Back to the website">DD</a><h1>DeadlyDog Admin<span>All your games · opens only on your computer</span></h1></div>
-    <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><button class="btn" id="theme" type="button">Theme</button></div>
+    <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><a class="btn" id="onSite" style="display:none;text-decoration:none" href="https://deadlydog3000.github.io/deadlydog-productions/admin.html#owner" title="Opens this panel on your website, and shows the Admin button in the site's menu in this browser">Open on website</a><button class="btn" id="theme" type="button">Theme</button></div>
   </header>
 
   <section class="tiles" aria-label="Headline numbers">
@@ -155,6 +155,7 @@ const ago = t => { const s = Math.max(0, (Date.now() - t) / 1000); return s < 60
 // (opened by the DeadlyDog Admin app: this is the owner's browser, so the site's menu shows the Admin button from now on)
 if (location.hash === "#owner") { try { localStorage.setItem("dd-admin", "1"); } catch (e) {} history.replaceState(null, "", location.pathname); }
 const API = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) ? "" : "http://127.0.0.1:8730";
+if (!API) document.getElementById("onSite").style.display = "";
 const KINDS = { mac: "Mac installer", windows: "Windows installer", update: "Game update", check: "Update check", other: "Other" };
 
 // one series, one hue: a line with an area wash, a crosshair and a tooltip on hover
