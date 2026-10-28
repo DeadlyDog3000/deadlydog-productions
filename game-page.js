@@ -62,7 +62,18 @@
       var main = document.querySelector('main') || document.body; main.insertBefore(top, main.firstChild);
     }
     if (h) h.textContent = 'Play ' + (GAME.name || 'the game');
-    if (note) note.textContent = (GAME.demo ? 'Download it free: the demo is ' + GAME.demo + '. ' : '') + 'The full game is one payment, yours for good: the whole story, battles, duels and the campaign, the Worlds & colonies, and every update to come. Your licence key is shown as soon as you\u2019ve paid \u2014 paste it into the game once (or buy from inside the game, and it unlocks by itself). It works on up to three computers.' + (GAME.downloadNote ? ' ' + GAME.downloadNote : '');
+    /* the details, in pieces you can take in at a glance: what's free, what you get, how the key works, and (folded away) how to install */
+    if (note) {
+      var info = document.createElement('div'); info.className = 'sp-buy-info';
+      info.innerHTML = (GAME.demo ? '<p class="sp-buy-lead"><b>Try it free.</b> The demo is ' + escapeHtml(GAME.demo) + '.</p>' : '')
+        + '<ul class="sp-buy-list">'
+        + '<li><b>One payment, yours for good:</b> the whole story, battles, duels and the campaign, the Worlds &amp; colonies, and every update to come.</li>'
+        + '<li><b>Your licence key appears as soon as you\u2019ve paid.</b> Paste it into the game once, or buy from inside the game and it unlocks by itself.</li>'
+        + '<li><b>Up to three computers</b> on one key.</li>'
+        + '</ul>'
+        + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p></details>' : '');
+      note.parentNode.replaceChild(info, note);
+    }
     if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
   })();
 

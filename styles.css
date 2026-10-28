@@ -2066,3 +2066,15 @@ body.sp {
 .service-card .game-info p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 8px 0 0; }
 .service-cta { text-align: center; margin-top: 36px; }
 @media (max-width: 768px) { .service-image { height: 180px; } }
+
+/* the buy box's details: a lead, three points, and the install help folded away */
+.sp-buy-info { flex: 1 1 340px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+.sp-buy-info b { color: var(--text-primary); font-weight: 600; }
+.sp-buy-lead { margin: 0 0 8px; font-size: 0.98rem; }
+.sp-buy-list { margin: 0 0 10px; padding: 0; list-style: none; }
+.sp-buy-list li { position: relative; padding-left: 20px; margin: 4px 0; }
+.sp-buy-list li::before { content: ''; position: absolute; left: 3px; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--red-primary); }
+.sp-buy-help { font-size: 0.85rem; color: var(--text-muted); }
+.sp-buy-help summary { cursor: pointer; color: var(--text-secondary); width: max-content; max-width: 100%; }
+.sp-buy-help summary:hover { color: var(--text-primary); }
+.sp-buy-help p { margin: 8px 0 0; }
