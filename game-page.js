@@ -77,6 +77,26 @@
     if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
   })();
 
+  /* ---------- What's new: the game's own update log, read when it scrolls near ---------- */
+  (function () {
+    var box = document.getElementById('spNews');
+    if (!box || !box.dataset.src) return;
+    var load = function () {
+      import(box.dataset.src).then(function (m) {
+        var list = (m.CHANGELOG || []).filter(function (u) { return !/server|secure address|website|https/i.test(u.title || ''); }).slice(0, 5); /* (players' news: not the server's housekeeping) */
+        if (!list.length) throw new Error('empty');
+        box.innerHTML = list.map(function (u, i) {
+          return '<details class="sp-news-item"' + (i === 0 ? ' open' : '') + '><summary><span class="sp-news-v">' + escapeHtml(u.v) + '</span><b>' + escapeHtml(u.title || '') + '</b><span class="sp-news-d">' + escapeHtml(u.date || '') + '</span></summary>'
+            + '<ul>' + (u.items || []).map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul></details>';
+        }).join('') + '<p class="sp-news-more">Updates arrive by themselves when you start the game.</p>';
+      }).catch(function () { box.innerHTML = '<p class="sp-news-wait">The update log couldn\u2019t be loaded just now.</p>'; });
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '600px' });
+      io.observe(box);
+    } else load();
+  })();
+
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
