@@ -2165,3 +2165,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 
 /* the "scroll" hint needs room under the buttons; on short windows it would sit on top of them */
 @media (max-height: 760px) { .scroll-indicator { display: none; } }
+
+/* questions, folded */
+.sp-faq { margin-bottom: 34px; }
+.sp-faq details { background: var(--bg-card); border: 1px solid #1e1e1e; margin-bottom: 6px; }
+.sp-faq summary { padding: 13px 16px; cursor: pointer; color: var(--text-primary); font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.sp-faq summary::-webkit-details-marker { display: none; }
+.sp-faq summary::after { content: '+'; color: var(--red-primary); font-weight: 400; font-size: 1.2rem; line-height: 1; }
+.sp-faq details[open] summary::after { content: '\2013'; }
+.sp-faq p { margin: 0; padding: 0 16px 14px; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; }
