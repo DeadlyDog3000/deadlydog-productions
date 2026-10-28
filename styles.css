@@ -31,7 +31,9 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-x: clip; /* (clip, where the browser knows it: the blurred backdrop can't widen the page on phones) */
 }
+html { overflow-x: clip; }
 
 .container {
   max-width: 1200px;
@@ -1011,7 +1013,7 @@ body.sp {
   background-size: cover;
   background-position: center top;
   filter: blur(18px) saturate(0.7);
-  transform: scale(1.1);
+  transform: scaleY(1.1); /* (not wider: a backdrop wider than the screen made phones scroll sideways) */
   opacity: 0.3;
   pointer-events: none;
   z-index: 0;
