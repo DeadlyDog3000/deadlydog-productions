@@ -146,6 +146,8 @@
       stage.classList.remove('is-image');
       stage.innerHTML =
         '<video controls preload="none" playsinline poster="' + escapeHtml(thumb.dataset.poster || '') + '">' +
+          /* (a lighter 720p copy for phones, where one is given) */
+          (thumb.dataset.srcSm ? '<source src="' + escapeHtml(thumb.dataset.srcSm) + '" type="video/mp4" media="(max-width: 900px)">' : '') +
           '<source src="' + escapeHtml(thumb.dataset.src) + '" type="video/mp4">' +
           '<p>Your browser will not play this video. ' +
           '<a href="' + escapeHtml(thumb.dataset.src) + '">Download it instead.</a></p>' +
