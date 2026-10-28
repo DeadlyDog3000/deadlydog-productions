@@ -2118,3 +2118,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 }
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--red-primary); color: #fff; text-decoration: none; font-family: var(--font-heading); letter-spacing: 0.06em; text-transform: uppercase; transition: top 0.15s; }
 .skip-link:focus { top: 12px; }
+
+/* behind the hero: a battle from Forester: Reckoning, faint and soft, drifting slowly */
+.hero-bg { position: absolute; inset: -4%; background: url("media/cards/01-harbour.jpg") center 55% / cover no-repeat; opacity: 0.16; filter: blur(5px) saturate(0.6); pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 30%, transparent 75%); mask-image: radial-gradient(ellipse at 50% 45%, #000 30%, transparent 75%);
+  animation: heroDrift 40s ease-in-out infinite alternate; }
+@keyframes heroDrift { from { transform: scale(1.04) translateX(-1.5%); } to { transform: scale(1.1) translateX(1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-bg { animation: none; } }
