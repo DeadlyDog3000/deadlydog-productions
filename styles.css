@@ -2102,3 +2102,10 @@ body.sp {
 .hero-news-sale { display: none; color: #ffb35c; }
 .hero-news-sale.on { display: inline; }
 @media (max-width: 560px) { .hero-news { font-size: 0.82rem; border-radius: 18px; } }
+
+/* footer: the games and the address, between the logo and the copyright */
+.footer-content { gap: 20px 28px; flex-wrap: wrap; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: center; }
+.footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text-primary); }
+@media (max-width: 768px) { .footer-content { flex-direction: column; text-align: center; } }
