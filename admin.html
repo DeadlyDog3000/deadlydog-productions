@@ -242,7 +242,7 @@ async function poll() {
     $("dot").className = "dot on"; $("upd").textContent = "Updated " + new Date().toLocaleTimeString() + " · refreshes every minute";
   } catch (e) {
     $("dot").className = "dot err"; $("upd").textContent = "Couldn't load: " + (e.message || e);
-    $("lockMsg").innerHTML = API ? "This page only opens on its owner's computer, with the DeadlyDog Admin app running." : "The panel didn't answer.";
+    $("lockMsg").innerHTML = API ? `This page only opens on its owner's computer.<br><br>On that computer: start <b>DeadlyDog Admin</b>, and if Chrome asks whether this site may reach apps on this device, allow it. Or <a href="http://127.0.0.1:8730/" style="color:var(--accent)">open the panel directly</a>.` : "The panel didn't answer.";
   }
 }
 // (the theme: the system's, until it's chosen here; the choice remembered on this computer)
