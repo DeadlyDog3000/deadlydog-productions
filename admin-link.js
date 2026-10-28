@@ -6,6 +6,6 @@
   if (!on) return;
   var ul = document.querySelector(".nav-links"); if (!ul) return;
   var li = document.createElement("li"), a = document.createElement("a");
-  a.href = "admin.html"; a.textContent = "Admin"; a.className = "nav-admin";
+  a.href = "admin.html?t=" + Date.now(); a.textContent = "Admin"; a.className = "nav-admin";
   li.appendChild(a); ul.appendChild(li);
 })();
