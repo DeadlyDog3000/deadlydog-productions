@@ -253,11 +253,14 @@ function render(D) {
 
 async function poll() {
   try {
-    const r = await fetch(API + "/api/data", { cache: "no-store" }); if (!r.ok) throw new Error("panel said " + r.status);
+    const r = await fetch(API + "/api/data", { cache: "no-store", signal: AbortSignal.timeout(15000) }); if (!r.ok) throw new Error("panel said " + r.status);
     const D = await r.json(); document.body.classList.remove("locked"); try { localStorage.setItem("dd-admin", "1"); } catch (e) {} render(D);
     $("dot").className = "dot on"; $("upd").textContent = "Updated " + new Date().toLocaleTimeString() + " · refreshes every minute";
   } catch (e) {
     $("dot").className = "dot err"; $("upd").textContent = "Couldn't load: " + (e.message || e);
+    // (Safari won't let a secure website read from this computer's panel; in the owner's browser, go to the panel itself)
+    let owner = false; try { owner = localStorage.getItem("dd-admin") === "1"; } catch (x) {}
+    if (API && owner && document.body.classList.contains("locked") && !/[?&]stay\b/.test(location.search)) { $("lockMsg").textContent = "Opening your panel…"; location.replace("http://127.0.0.1:8730/"); return; }
     $("lockMsg").innerHTML = API ? `This page only opens on its owner's computer.<br><br>On that computer: start <b>DeadlyDog Admin</b>, and if Chrome asks whether this site may reach apps on this device, allow it. Or <a href="http://127.0.0.1:8730/" style="color:var(--accent)">open the panel directly</a>.` : "The panel didn't answer.";
   }
 }
