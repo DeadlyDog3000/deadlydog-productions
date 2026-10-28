@@ -8,7 +8,7 @@
     var i = localStorage.getItem("dd-v");
     if (!i) { i = Array.from(crypto.getRandomValues(new Uint8Array(12)), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); localStorage.setItem("dd-v", i); }
     var s = document.currentScript && document.currentScript.getAttribute("data-s") || "site";
-    var p = location.pathname.replace(/^\/[^/]+\//, "/").slice(0, 40) || "/";
+    var p = location.pathname.replace(/^\/[^/]+\//, "/").replace(/\/index\.html$/, "/").slice(0, 40) || "/";
     var r = ""; try { r = document.referrer ? new URL(document.referrer).hostname : ""; } catch (e) {}
     if (r === location.hostname) r = "";
     fetch("https://45-76-245-44.sslip.io/visit?s=" + s + "&p=" + encodeURIComponent(p) + "&r=" + encodeURIComponent(r) + "&i=" + i, { mode: "no-cors", keepalive: true, credentials: "omit" }).catch(function () {});
