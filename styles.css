@@ -2050,3 +2050,8 @@ body.sp {
   background: #f07a1a;
 }
 .sale-badge.on { display: inline-block; }
+
+/* the owner's Admin button (only ever shown on the owner's computer) */
+.nav-links a.nav-admin { color: var(--text-primary); padding: 6px 14px; border: 1px solid var(--red-primary); border-radius: 99px; }
+.nav-links a.nav-admin::after { display: none; }
+.nav-links a.nav-admin:hover { background: var(--red-primary); }
