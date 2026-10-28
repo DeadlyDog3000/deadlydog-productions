@@ -2078,3 +2078,9 @@ body.sp {
 .sp-buy-help summary { cursor: pointer; color: var(--text-secondary); width: max-content; max-width: 100%; }
 .sp-buy-help summary:hover { color: var(--text-primary); }
 .sp-buy-help p { margin: 8px 0 0; }
+
+/* after Send: the address, for people whose email app didn't open */
+.form-after { margin: 14px 0 0; font-size: 0.9rem; color: var(--text-secondary); text-align: center; line-height: 1.7; }
+.form-after a { color: var(--text-primary); }
+.copy-mail { font: inherit; font-size: 0.8rem; margin-left: 6px; padding: 3px 10px; color: var(--text-secondary); background: transparent; border: 1px solid #333; border-radius: 99px; cursor: pointer; }
+.copy-mail:hover { color: var(--text-primary); border-color: var(--red-primary); }

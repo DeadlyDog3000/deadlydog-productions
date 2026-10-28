@@ -54,7 +54,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261028e">
+  <link rel="stylesheet" href="styles.css?v=20261028f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -265,6 +265,7 @@
             <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+          <p class="form-after" id="formAfter" hidden>Your email app should open with the message ready to send. Nothing opened? Write to <a href="mailto:deadlydogdev@gmail.com">deadlydogdev@gmail.com</a> <button type="button" class="copy-mail" id="copyMail">Copy message</button></p>
         </form>
       </div>
     </div>
@@ -341,6 +342,12 @@
       const message = document.getElementById('message').value;
       const body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
       window.location.href = 'mailto:deadlydogdev@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      // (for people whose email lives in a browser tab, where mailto opens nothing: the address, and the message to paste)
+      document.getElementById('formAfter').hidden = false;
+      document.getElementById('copyMail').onclick = function () {
+        const b = this, text = 'To: deadlydogdev@gmail.com\nSubject: ' + subject + '\n\n' + body;
+        (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied'; }, function () { b.textContent = 'Couldn\'t copy'; });
+      };
     });
 
     // Parallax on hero
