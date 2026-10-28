@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>DeadlyDog Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* dark first, as a control room is; a light theme for daylight, from the toggle or the system */
+:root {
+  color-scheme: dark;
+  --bg: #0b0d12; --bg2: #11141b; --surface: rgba(22, 26, 35, 0.72); --surface-solid: #161a23; --line: rgba(255, 255, 255, 0.07); --grid: rgba(255, 255, 255, 0.06);
+  --text-primary: #f3f5f9; --text-secondary: #b8c0cf; --text-muted: #7d8699;
+  --accent: #6d8cff; --accent2: #a06bff; --accent-soft: rgba(109, 140, 255, 0.16); --good: #3fcf8e; --bad: #ff6b6b;
+  --glow1: rgba(109, 140, 255, 0.20); --glow2: rgba(160, 107, 255, 0.14);
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f6fa; --bg2: #eef0f6; --surface: rgba(255, 255, 255, 0.85); --surface-solid: #ffffff; --line: rgba(16, 24, 40, 0.08); --grid: rgba(16, 24, 40, 0.06);
+  --text-primary: #0f1422; --text-secondary: #3d4559; --text-muted: #6b7489;
+  --accent: #4b63f0; --accent2: #8a4bf0; --accent-soft: rgba(75, 99, 240, 0.12); --good: #12a46a; --bad: #e0464b;
+  --glow1: rgba(75, 99, 240, 0.10); --glow2: rgba(138, 75, 240, 0.08);
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]):not([data-theme="light"]) {
+  color-scheme: light;
+  --bg: #f5f6fa; --bg2: #eef0f6; --surface: rgba(255, 255, 255, 0.85); --surface-solid: #ffffff; --line: rgba(16, 24, 40, 0.08); --grid: rgba(16, 24, 40, 0.06);
+  --text-primary: #0f1422; --text-secondary: #3d4559; --text-muted: #6b7489;
+  --accent: #4b63f0; --accent2: #8a4bf0; --accent-soft: rgba(75, 99, 240, 0.12); --good: #12a46a; --bad: #e0464b;
+  --glow1: rgba(75, 99, 240, 0.10); --glow2: rgba(138, 75, 240, 0.08);
+} }
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; min-height: 100vh; color: var(--text-primary); font: 14.5px/1.55 Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+  background: radial-gradient(900px 500px at 12% -8%, var(--glow1), transparent 60%), radial-gradient(800px 480px at 95% 0%, var(--glow2), transparent 60%), var(--bg); background-attachment: fixed; }
+main { max-width: 1160px; margin: 0 auto; padding: 26px 20px 64px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.mark { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-weight: 800; font-size: 16px; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 6px 20px var(--glow1); }
+h1 { font-size: 19px; font-weight: 700; margin: 0; letter-spacing: -0.02em; }
+h1 span { display: block; font-size: 12.5px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+.bar { display: flex; align-items: center; gap: 8px; }
+.upd { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 12.5px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); backdrop-filter: blur(12px); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); }
+.dot.on { background: var(--good); box-shadow: 0 0 0 0 rgba(63, 207, 142, 0.6); animation: pulse 2.4s infinite; } .dot.err { background: var(--bad); }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0.5); } 70% { box-shadow: 0 0 0 8px rgba(63, 207, 142, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0); } }
+.btn { font: inherit; font-size: 12.5px; color: var(--text-secondary); padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
+.btn:hover { color: var(--text-primary); border-color: var(--accent); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.tile, .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.18); }
+.tile { position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease; }
+.tile:hover { transform: translateY(-2px); border-color: var(--accent-soft); }
+.tile .label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 500; color: var(--text-secondary); }
+.tile .label i { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-style: normal; font-size: 14px; background: var(--accent-soft); }
+.tile .value { font-size: 40px; font-weight: 750; line-height: 1.1; margin-top: 12px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, var(--text-primary), color-mix(in srgb, var(--text-primary) 70%, var(--accent))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tile .sub { font-size: 12.5px; color: var(--text-muted); margin-top: 6px; }
+.tile .sub b { color: var(--text-secondary); font-weight: 600; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.card h2 { font-size: 15px; font-weight: 650; margin: 0 0 2px; letter-spacing: -0.01em; }
+.card .note { font-size: 12.5px; color: var(--text-muted); margin: 0 0 14px; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: 190px; overflow: visible; }
+.tip { position: absolute; pointer-events: none; background: var(--surface-solid); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 12px; color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3); white-space: nowrap; display: none; }
+.tip span { color: var(--text-muted); display: block; font-size: 11px; }
+.empty { height: 190px; display: grid; place-items: center; color: var(--text-muted); font-size: 12.5px; text-align: center; border: 1px dashed var(--line); border-radius: 14px; padding: 12px; background: repeating-linear-gradient(135deg, transparent 0 10px, var(--grid) 10px 11px); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--grid); }
+tbody tr:hover td { background: var(--accent-soft); }
+th { color: var(--text-muted); font-weight: 500; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 99px; background: var(--accent-soft); color: var(--text-secondary); }
+.muted { color: var(--text-muted); }
+.games { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.game { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: color-mix(in srgb, var(--surface-solid) 60%, transparent); }
+.game .ico { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-size: 18px; background: var(--accent-soft); }
+.game b { display: block; font-weight: 650; }
+.game .k { font-size: 12px; color: var(--text-muted); }
+.game .v { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.big { font-size: 26px; font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.big small { font-size: 12.5px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; margin-left: 4px; }
+.card .chart svg { height: 150px; }
+.card .chart .empty { height: 150px; }
+.refs { margin-top: 10px; font-size: 12.5px; }
+.refs td { padding: 6px 4px; }
+h3.sec { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 26px 2px 10px; }
+body.locked main { display: none; }
+.lock { display: none; min-height: 100vh; place-items: center; text-align: center; padding: 24px; }
+body.locked .lock { display: grid; }
+.lock .box { max-width: 420px; }
+.lock .mark { margin: 0 auto 16px; }
+.lock p { color: var(--text-muted); }
+@media (max-width: 520px) { .tile .value { font-size: 34px; } }
+</style>
+</head>
+<body class="locked">
+<div class="lock" id="lock"><div class="box"><div class="mark">DD</div><h1>Private page</h1><p id="lockMsg">Checking…</p></div></div>
+<main>
+  <header>
+    <div class="brand"><div class="mark">DD</div><h1>DeadlyDog Admin<span>All your games · opens only on your computer</span></h1></div>
+    <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><button class="btn" id="theme" type="button">Theme</button></div>
+  </header>
+
+  <section class="tiles" aria-label="Headline numbers">
+    <div class="tile"><div class="label"><i>⬇︎</i>Reckoning downloads</div><div class="value" id="tDl">–</div><div class="sub" id="sDl">&nbsp;</div></div>
+    <div class="tile"><div class="label"><i>🎮</i>Players</div><div class="value" id="tPl">–</div><div class="sub" id="sPl">&nbsp;</div></div>
+    <div class="tile"><div class="label"><i>🟢</i>Online right now</div><div class="value" id="tOn">–</div><div class="sub" id="sOn">&nbsp;</div></div>
+    <div class="tile"><div class="label"><i>💰</i>Copies sold</div><div class="value" id="tSold">–</div><div class="sub" id="sSold">&nbsp;</div></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Downloads over time</h2><p class="note">Mac and Windows installers together, as this panel has seen them.</p><div class="chart" id="cDl"></div></div>
+    <div class="card"><h2>Players online, last 7 days</h2><p class="note">Sampled every two minutes while this panel runs.</p><div class="chart" id="cOn"></div></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Players per day, last 90 days</h2><p class="note">Different installs that started the game each day (the game server's own count).</p><div class="chart" id="cPl"></div></div>
+    <div class="card"><h2>Who's playing</h2><p class="note">Each install as it was when it was last started.</p><div id="mix"></div></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Latest sales</h2><p class="note" id="nSales">&nbsp;</p><div id="sales"></div></div>
+    <div class="card">
+      <h2>All your games</h2>
+      <p class="note">What can be counted for each one today.</p>
+      <div class="games" id="games"></div>
+    </div>
+  </section>
+
+  <h3 class="sec">Traffic to each game's GitHub page</h3>
+  <p class="note muted" style="margin:-4px 2px 12px;font-size:12.5px">Views of each game's page on github.com, from GitHub's own counts. GitHub only keeps the last 14 days, so this panel saves every day it sees, and the charts grow longer from today. (Plays on the website itself can't be counted yet. See the note under All your games.)</p>
+  <section class="grid3" id="traffic"></section>
+
+  <section class="card">
+    <h2>Every release file</h2>
+    <p class="note">GitHub's own counts. They count every fetch of the file: your own tests, our checks that a new upload works, and link-checking bots, not only players. A file uploaded again starts at nought on GitHub; this panel carries the old count forward. For real people, see Players.</p>
+    <table id="files"><thead><tr><th>File</th><th>Release</th><th>What it is</th><th class="n">Downloads</th></tr></thead><tbody></tbody></table>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const num = n => n == null ? "–" : Intl.NumberFormat(undefined, { notation: n >= 10000 ? "compact" : "standard" }).format(n);
+const money = (c, cur) => { try { return new Intl.NumberFormat(undefined, { style: "currency", currency: (cur || "CAD").toUpperCase() }).format(c / 100); } catch (e) { return (c / 100).toFixed(2) + " " + cur; } };
+const flag = cc => cc && cc.length === 2 ? String.fromCodePoint(...[...cc.toUpperCase()].map(c => 127397 + c.charCodeAt(0))) : "·";
+const ago = t => { const s = Math.max(0, (Date.now() - t) / 1000); return s < 60 ? "just now" : s < 3600 ? Math.floor(s / 60) + " min ago" : s < 86400 ? Math.floor(s / 3600) + " h ago" : Math.floor(s / 86400) + " d ago"; };
+// (on the website, this page asks the panel running on this computer; anywhere else there is no panel, so it stays locked)
+const API = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) ? "" : "http://127.0.0.1:8730";
+const KINDS = { mac: "Mac installer", windows: "Windows installer", update: "Game update", check: "Update check", other: "Other" };
+
+// one series, one hue: a line with an area wash, a crosshair and a tooltip on hover
+function line(el, pts, fmtY, label) {
+  if (!pts || pts.length < 2) { el.innerHTML = `<div class="empty">Not enough history yet.<br>It fills in while this panel is running.</div>`; return; }
+  const W = 600, Hh = 180, L = 36, R = 8, T = 10, B = 22;
+  const x0 = pts[0][0], x1 = pts[pts.length - 1][0], ymax = Math.max(1, ...pts.map(p => p[1]));
+  const nice = Math.ceil(ymax / Math.pow(10, Math.floor(Math.log10(ymax)))) * Math.pow(10, Math.floor(Math.log10(ymax)));
+  const X = t => L + (W - L - R) * (x1 === x0 ? 0 : (t - x0) / (x1 - x0)), Y = v => T + (Hh - T - B) * (1 - v / nice);
+  // (a smooth curve through the points: each segment a cubic whose handles follow its neighbours, flattened at the ends)
+  const P2 = pts.map(p => [X(p[0]), Y(p[1])]);
+  const d = P2.map((p, i) => { if (!i) return `M${p[0].toFixed(1)},${p[1].toFixed(1)}`; const a = P2[i - 2] || P2[i - 1], b = P2[i - 1], c = p, e = P2[i + 1] || p, k = 0.18;
+    return `C${(b[0] + (c[0] - a[0]) * k).toFixed(1)},${(b[1] + (c[1] - a[1]) * k).toFixed(1)} ${(c[0] - (e[0] - b[0]) * k).toFixed(1)},${(c[1] - (e[1] - b[1]) * k).toFixed(1)} ${c[0].toFixed(1)},${c[1].toFixed(1)}`; }).join("");
+  const gid = "g" + Math.random().toString(36).slice(2, 8);
+  const grid = [0, 0.5, 1].map(f => `<line x1="${L}" x2="${W - R}" y1="${Y(nice * f)}" y2="${Y(nice * f)}" stroke="var(--grid)"/><text x="${L - 6}" y="${Y(nice * f) + 4}" text-anchor="end" font-size="11" fill="var(--text-muted)">${fmtY(nice * f)}</text>`).join("");
+  const dfmt = t => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${esc(label)}">${grid}
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity="0.35"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient>
+      <linearGradient id="${gid}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent2)"/></linearGradient></defs>
+    <path d="${d}L${X(x1)},${Y(0)}L${X(x0)},${Y(0)}Z" fill="url(#${gid})"/>
+    <path d="${d}" fill="none" stroke="url(#${gid}s)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="${L}" y="${Hh - 4}" font-size="11" fill="var(--text-muted)">${dfmt(x0)}</text><text x="${W - R}" y="${Hh - 4}" text-anchor="end" font-size="11" fill="var(--text-muted)">${dfmt(x1)}</text>
+    <line class="xh" y1="${T}" y2="${Hh - B}" stroke="var(--text-muted)" stroke-dasharray="3 3" visibility="hidden"/><circle class="pt" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2" visibility="hidden"/>
+    <rect x="${L}" y="0" width="${W - L - R}" height="${Hh}" fill="transparent"/></svg><div class="tip"></div>`;
+  const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), xh = svg.querySelector(".xh"), pt = svg.querySelector(".pt");
+  svg.addEventListener("mousemove", e => {
+    const r = svg.getBoundingClientRect(), sx = (e.clientX - r.left) / r.width * W, t = x0 + (sx - L) / (W - L - R) * (x1 - x0);
+    let best = pts[0]; for (const p of pts) if (Math.abs(p[0] - t) < Math.abs(best[0] - t)) best = p;
+    const px = X(best[0]), py = Y(best[1]);
+    xh.setAttribute("x1", px); xh.setAttribute("x2", px); xh.setAttribute("visibility", "visible");
+    pt.setAttribute("cx", px); pt.setAttribute("cy", py); pt.setAttribute("visibility", "visible");
+    tip.innerHTML = `<span>${new Date(best[0]).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>${esc(label)}: <b>${fmtY(best[1])}</b>`;
+    tip.style.display = "block"; const tx = px / W * r.width; tip.style.left = Math.min(r.width - tip.offsetWidth, Math.max(0, tx - tip.offsetWidth / 2)) + "px"; tip.style.top = (py / Hh * r.height - tip.offsetHeight - 10) + "px";
+  });
+  svg.addEventListener("mouseleave", () => { tip.style.display = "none"; xh.setAttribute("visibility", "hidden"); pt.setAttribute("visibility", "hidden"); });
+}
+
+function render(D) {
+  const R = (D.downloads && D.downloads.games && D.downloads.games["Forester: Reckoning"]) || null;
+  if (R) { $("tDl").textContent = num(R.mac + R.windows); $("sDl").innerHTML = `<b>${num(R.mac)}</b> Mac · <b>${num(R.windows)}</b> Windows · includes our own test fetches`; }
+  else $("sDl").textContent = D.downloads && D.downloads.error ? "Couldn't reach GitHub" : "";
+
+  const P = D.players;
+  if (P && !P.error) { $("tPl").textContent = num(P.installs); $("sPl").innerHTML = `<b>${num(P.today)}</b> today · <b>${num(P.week)}</b> this week · ${num(P.launches)} launches`; }
+  else { $("tPl").textContent = "–"; $("sPl").textContent = P && P.error === "not yet" ? "The game server doesn't count these yet" : (P && P.error) || ""; }
+
+  const O = D.online;
+  if (O && !O.error) { $("tOn").textContent = num(O.players); const peak = Math.max(0, ...(D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => x[1])); $("sOn").innerHTML = `${num(O.games)} games in progress · peak this week <b>${num(peak)}</b>`; }
+  else $("sOn").textContent = "Game server unreachable";
+
+  const S = D.sales;
+  if (S && !S.error) {
+    const cur = Object.keys(S.net || {})[0];
+    $("tSold").textContent = num(S.sold);
+    $("sSold").innerHTML = `${cur ? `<b>${money(S.net[cur], cur)}</b> taken in · ` : ""}${num(S.today)} today · ${num(S.week)} this week${S.refunded ? ` · ${num(S.refunded)} refunded` : ""}`;
+    $("nSales").textContent = S.opened ? `${num(S.opened)} checkouts opened, ${Math.round((S.sold + (S.refunded || 0)) / S.opened * 100)}% of them paid.` : "";
+    $("sales").innerHTML = (S.last || []).length ? `<table><tbody>${S.last.slice(0, 8).map(s => `<tr><td>${flag(s.cc)}</td><td>${esc([s.city, s.region].filter(Boolean).join(", ") || "Unknown place")}${s.user ? ` <span class="muted">· ${esc(s.user)}</span>` : ""}${s.refunded ? ' <span class="pill">refunded</span>' : ""}</td><td class="n muted">${s.at ? ago(s.at) : ""}</td></tr>`).join("")}</tbody></table>` : `<div class="muted">No sales yet.</div>`;
+  } else { $("sSold").textContent = (S && S.error) || ""; $("sales").innerHTML = `<div class="muted">${esc((S && S.error) || "")}</div>`; }
+
+  line($("cDl"), (D.history.samples || []).filter(s => s.mac != null).map(s => [s.t, s.mac + s.windows]), v => num(Math.round(v)), "Downloads");
+  if (P && !P.error && P.days) { const ds = P.days.map(x => [Date.parse(x.d + "T12:00:00"), x.players]); const first = ds.findIndex(x => x[1] > 0); line($("cPl"), first < 0 ? [] : ds.slice(Math.max(0, first - 1)), v => num(Math.round(v)), "Players"); }
+  else line($("cPl"), [], v => v, "Players");
+  const mixRow = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${num(v)}</td></tr>`).join("");
+  $("mix").innerHTML = P && !P.error ? `<table><tbody><tr><th>Full game / demo</th><th class="n"></th></tr><tr><td>Full game</td><td class="n">${num(P.full)}</td></tr><tr><td>Demo</td><td class="n">${num(P.demo)}</td></tr><tr><th>Platform</th><th></th></tr>${mixRow(P.byPlatform) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}<tr><th>Version</th><th></th></tr>${mixRow(P.byVersion) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}</tbody></table>` : `<div class="muted">${esc((P && P.error) || "")}</div>`;
+  line($("cOn"), (D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => [x[0], x[1]]), v => num(Math.round(v)), "Players online");
+
+  const TR = (D.traffic && D.traffic.repos) || {}, tv = r => TR[r] && !TR[r].error ? `${num(TR[r].views14)} GitHub page views (${num(TR[r].uniques14)} people) in 14 days` : "";
+  $("games").innerHTML = [
+    ["Forester: Reckoning", "Desktop app (Mac, Windows)", [R ? `${num(R.mac + R.windows)} downloads` : "", P && !P.error ? `${num(P.installs)} players` : "", O && !O.error ? num(O.players) + " online now" : "", S && !S.error ? `${num(S.sold)} sold` : ""].filter(Boolean).join(" · ")],
+    ["Forester", "Plays in the browser", tv("Forester") || "No numbers yet"],
+    ["Standards in Smoke", "Plays in the browser", tv("Standards-In-Smoke") || "No numbers yet"],
+    ["The website", "deadlydog3000.github.io", tv("deadlydog-productions") || "No numbers yet"],
+  ].map(([n, k, v], i) => `<div class="game"><div class="ico">${["⚔️", "🌲", "🚩", "🌐"][i]}</div><div><b>${esc(n)}</b><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div></div>`).join("")
+    + `<p class="note" style="margin:6px 0 0">Plays on the website can't be counted yet. The site is on GitHub Pages, which keeps no visitor numbers, and your game server only speaks plain http, which an https site isn't allowed to call. With https on the game server (a free certificate), every page and both browser games could count their visits here.</p>`;
+
+  const tEl = $("traffic");
+  if (D.traffic && D.traffic.error) tEl.innerHTML = `<div class="card"><div class="muted">${esc(D.traffic.error)}</div></div>`;
+  else {
+    tEl.innerHTML = Object.entries(TR).map(([repo, t], i) => `<div class="card"><h2>${esc(t.game)}</h2><p class="note">github.com/${esc("DeadlyDog3000/" + repo)}</p>${t.error ? `<div class="muted">${esc(t.error)}</div>` : `<div class="big">${num(t.views14)}<small>views · ${num(t.uniques14)} people · 14 days</small></div><div class="chart" id="tr${i}"></div>${t.referrers.length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Views</th></tr></thead><tbody>${t.referrers.map(r => `<tr><td>${esc(r.from)}</td><td class="n">${num(r.views)}</td></tr>`).join("")}</tbody></table>` : `<p class="note" style="margin:10px 0 0">No sites sent visitors in the last 14 days.</p>`}`}</div>`).join("");
+    Object.values(TR).forEach((t, i) => { if (!t.error) line($("tr" + i), (t.days || []).map(x => [Date.parse(x.d + "T12:00:00Z"), x.views]), v => num(Math.round(v)), "Views"); });
+  }
+
+  const files = Object.values(D.downloads && D.downloads.games || {}).flatMap(g => g.files).filter(f => f.kind !== "check").sort((a, b) => b.total - a.total);
+  $("files").querySelector("tbody").innerHTML = files.map(f => `<tr><td>${esc(f.name)}</td><td class="muted">${esc(f.tag)}</td><td>${esc(KINDS[f.kind])}</td><td class="n">${num(f.total)}</td></tr>`).join("") || `<tr><td colspan="4" class="muted">No release files found.</td></tr>`;
+}
+
+async function poll() {
+  try {
+    const r = await fetch(API + "/api/data", { cache: "no-store" }); if (!r.ok) throw new Error("panel said " + r.status);
+    const D = await r.json(); document.body.classList.remove("locked"); render(D);
+    $("dot").className = "dot on"; $("upd").textContent = "Updated " + new Date().toLocaleTimeString() + " · refreshes every minute";
+  } catch (e) {
+    $("dot").className = "dot err"; $("upd").textContent = "Couldn't load: " + (e.message || e);
+    $("lockMsg").innerHTML = API ? "This page only opens on its owner's computer, with the DeadlyDog Admin app running." : "The panel didn't answer.";
+  }
+}
+// (the theme: the system's, until it's chosen here; the choice remembered on this computer)
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+$("theme").onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"), nx = cur === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("theme", nx); } catch (e) {} };
+poll(); setInterval(poll, 60000);
+</script>
+</body>
+</html>
