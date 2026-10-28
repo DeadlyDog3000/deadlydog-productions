@@ -2055,3 +2055,12 @@ body.sp {
 .nav-links a.nav-admin { color: var(--text-primary); padding: 6px 14px; border: 1px solid var(--red-primary); border-radius: 99px; }
 .nav-links a.nav-admin::after { display: none; }
 .nav-links a.nav-admin:hover { background: var(--red-primary); }
+
+/* Commissions: what we can make, each shown with our own work */
+.service-image { height: 200px; overflow: hidden; background: #0a0a0a; }
+.service-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.service-card:hover .service-image img { transform: scale(1.05); }
+.service-card .game-info { flex-direction: column; align-items: flex-start; gap: 0; }
+.service-card .game-info p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 8px 0 0; }
+.service-cta { text-align: center; margin-top: 36px; }
+@media (max-width: 768px) { .service-image { height: 180px; } }
