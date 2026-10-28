@@ -238,7 +238,7 @@
           </div>
         </div>
       </div>
-      <p class="service-cta"><a href="#contact" class="btn btn-primary">Tell us about your project</a></p>
+      <p class="service-cta"><a href="#contact" class="btn btn-primary" data-subject="Commission Request">Tell us about your project</a></p>
     </div>
   </section>
 
@@ -264,6 +264,8 @@
             <select id="subject" name="subject">
               <option value="General Inquiry">General Inquiry</option>
               <option value="Commission Request">Commission Request</option>
+              <option value="Game Support">Game support (bugs, licence keys)</option>
+              <option value="Press">Press / review copy</option>
               <option value="Collaboration">Collaboration</option>
               <option value="Other">Other</option>
             </select>
@@ -347,6 +349,11 @@
     }, { threshold: 0.1 });
 
     revealElements.forEach(el => observer.observe(el));
+
+    // (a link can choose the form's subject on its way there: #contact?subject=... from other pages, data-subject here)
+    const pickSubject = v => { const sel = document.getElementById('subject'); if (v && [...sel.options].some(o => o.value === v)) sel.value = v; };
+    document.querySelectorAll('a[data-subject]').forEach(a => a.addEventListener('click', () => pickSubject(a.dataset.subject)));
+    pickSubject(new URLSearchParams(location.search).get('subject'));
 
     // Contact form mailto handler
     document.getElementById('contactForm').addEventListener('submit', function(e) {

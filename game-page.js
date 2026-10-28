@@ -71,7 +71,7 @@
         + '<li><b>Your licence key appears as soon as you\u2019ve paid.</b> Paste it into the game once, or buy from inside the game and it unlocks by itself.</li>'
         + '<li><b>Up to three computers</b> on one key.</li>'
         + '</ul>'
-        + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p></details>' : '');
+        + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p><p>Still stuck, or lost your key? <a href="index.html?subject=Game%20Support#contact">Write to us</a>.</p></details>' : '');
       note.parentNode.replaceChild(info, note);
     }
     if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
