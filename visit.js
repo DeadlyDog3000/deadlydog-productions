@@ -3,6 +3,7 @@
 // The owner's own browser is never counted.
 (function () {
   try {
+    if (!/\.github\.io$/.test(location.hostname)) return; // (only the real site counts, never a copy being tested on a computer)
     if (localStorage.getItem("dd-admin") === "1") return;
     var i = localStorage.getItem("dd-v");
     if (!i) { i = Array.from(crypto.getRandomValues(new Uint8Array(12)), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); localStorage.setItem("dd-v", i); }
