@@ -259,6 +259,15 @@
     box.querySelector('.sp-lb-prev').addEventListener('click', function () { showLightbox(lbIndex - 1); });
     box.querySelector('.sp-lb-next').addEventListener('click', function () { showLightbox(lbIndex + 1); });
     box.addEventListener('click', function (e) { if (e.target === box) closeLightbox(); });
+    /* on a touch screen: swipe sideways for the next or the last, down to close */
+    var sx = null, sy = 0;
+    box.addEventListener('touchstart', function (e) { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) showLightbox(lbIndex + (dx < 0 ? 1 : -1));
+      else if (dy > 90 && dy > Math.abs(dx) * 1.5) closeLightbox();
+    }, { passive: true });
   }
 
   function showLightbox(i) {
