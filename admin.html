@@ -133,7 +133,7 @@ body.locked .lock { display: grid; }
   </section>
 
   <section class="grid2">
-    <div class="card"><h2>Players per day, last 90 days</h2><p class="note">Different installs that started the game each day (the game server's own count). <span class="dayStart"></span></p><div class="chart" id="cPl"></div></div>
+    <div class="card"><h2 id="hPl">Players per day</h2><p class="note">Different installs that started the game each day (the game server's own count). <span class="dayStart"></span></p><div class="chart" id="cPl"></div></div>
     <div class="card"><h2>Who's playing</h2><p class="note">Each install as it was when it was last started.</p><div id="mix"></div></div>
   </section>
 
@@ -304,7 +304,7 @@ function render(D) {
     $("tSold").textContent = num(S.sold);
     $("sSold").innerHTML = `${cur ? `<b>${money(S.net[cur], cur)}</b> taken in · ` : ""}${num(S.today)} today · ${num(S.week)} this week${S.refunded ? ` · ${num(S.refunded)} refunded` : ""}`;
     $("nSales").textContent = S.opened ? `${nn(S.opened, "checkout")} opened, ${Math.round((S.sold + (S.refunded || 0)) / S.opened * 100)}% of them paid.` : "";
-    $("sales").innerHTML = (S.last || []).length ? `<table><tbody>${S.last.slice(0, 8).map(s => `<tr><td>${flag(s.cc)}</td><td>${esc([s.city, s.region].filter(Boolean).join(", ") || "Unknown place")}${s.user ? ` <span class="muted">· ${esc(s.user)}</span>` : ""}${s.refunded ? ' <span class="pill">refunded</span>' : ""}</td><td class="n muted">${s.at ? ago(s.at) : ""}</td></tr>`).join("")}</tbody></table>` : `<div class="muted">No sales yet.</div>`;
+    $("sales").innerHTML = (S.last || []).length ? `<table><tbody>${S.last.slice(0, 8).map(s => `<tr><td>${flag(s.cc)}</td><td>${esc([s.city, s.region].filter(Boolean).join(", ") || "Unknown place")}${s.user ? ` <span class="muted">· ${esc(s.user)}</span>` : ""}${s.refunded ? ' <span class="pill">refunded</span>' : ""}</td><td class="n muted">${s.at ? ago(s.at) : ""}</td></tr>`).join("")}</tbody></table>` : `<div class="muted">No sales yet. When someone buys, the place and time show here.</div>`;
   } else { $("sSold").textContent = (S && S.error) || ""; $("sales").innerHTML = `<div class="muted">${esc((S && S.error) || "")}</div>`; }
 
   // (new downloads each day: the day's highest total less the day before's; the panel saves the totals every half hour while it runs)
@@ -316,7 +316,7 @@ function render(D) {
       const v = tot[k] != null ? tot[k] : prev; pts.push([t, prev == null || v == null ? 0 : Math.max(0, v - prev), k]); if (v != null) prev = v; }
     if (pts.length > 1 && !pts.some(p => p[1] > 0)) $("cDl").innerHTML = `<div class="empty">No new downloads since ${new Date(pts[0][0]).toLocaleDateString(undefined, { month: "short", day: "numeric" })}.<br>Each day with one gets a bar here.</div>`;
     else bars($("cDl"), pts.length > 1 ? pts : [], v => num(Math.round(v)), "New downloads", lk(Date.now())); }
-  if (P && !P.error && P.days) bars($("cPl"), daily(P.days, "players"), v => num(Math.round(v)), "Players");
+  if (P && !P.error && P.days) { const pl = daily(P.days, "players"); $("hPl").textContent = "Players per day" + (pl.length ? ", since " + new Date(pl[0][0]).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : ""); bars($("cPl"), pl, v => num(Math.round(v)), "Players"); }
   else bars($("cPl"), [], v => v, "Players");
   const mixRow = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${num(v)}</td></tr>`).join("");
   $("mix").innerHTML = P && !P.error ? `<table><tbody><tr><th>Full game / demo</th><th class="n"></th></tr><tr><td>Full game</td><td class="n">${num(P.full)}</td></tr><tr><td>Demo</td><td class="n">${num(P.demo)}</td></tr><tr><th>Platform</th><th></th></tr>${mixRow(P.byPlatform) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}<tr><th>Version</th><th></th></tr>${mixRow(P.byVersion) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}</tbody></table>` : `<div class="muted">${esc((P && P.error) || "")}</div>`;
