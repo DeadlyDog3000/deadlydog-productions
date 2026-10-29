@@ -112,7 +112,12 @@
       var list = document.getElementById('upList'), more = document.getElementById('upMore'), q = document.getElementById('upQ'), count = document.getElementById('upCount');
       var all = [], shown = 0, PAGE = 40, found = [];
       var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
-      var mark = function (s, w) { s = esc(s); if (!w) return s; return s.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>'); };
+      /* (each word searched for is lit wherever it falls, not only the words side by side; marked before escaping, so a search for "amp" can't light up the inside of an &amp;) */
+      var mark = function (s, w) {
+        var words = w ? w.split(/\s+/).filter(Boolean).map(function (x) { return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }) : [];
+        if (!words.length) return esc(s);
+        return String(s == null ? '' : s).split(new RegExp('(' + words.join('|') + ')', 'ig')).map(function (part, i) { return i % 2 ? '<mark>' + esc(part) + '</mark>' : esc(part); }).join('');
+      };
       function draw(reset) {
         var w = q.value.trim();
         if (reset) { shown = 0; list.innerHTML = ''; found = !w ? all : all.filter(function (u) { var t = (u.title + ' ' + (u.items || []).join(' ')).toLowerCase(); return w.toLowerCase().split(/\s+/).every(function (x) { return t.indexOf(x) >= 0; }); }); }
@@ -132,7 +137,7 @@
       import(SRC).then(function (m) {
         all = (m.CHANGELOG || []).filter(function (u) { return !/server|secure address|website|https/i.test(u.title || ''); });
         draw(true);
-        var t; q.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { draw(true); }, 150); });
+        var t; q.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { draw(true); try { var v = q.value.trim(); history.replaceState(null, '', v ? '?q=' + encodeURIComponent(v) : location.pathname); } catch (e) {} }, 150); }); /* (the address follows the search, so a search can be passed on) */
         more.addEventListener('click', function () { draw(false); });
         var p = new URLSearchParams(location.search).get('q'); if (p) { q.value = p; draw(true); }
       }).catch(function () { list.innerHTML = '<p class="up-wait">The update log couldn\u2019t be loaded just now. Try again in a moment.</p>'; });
