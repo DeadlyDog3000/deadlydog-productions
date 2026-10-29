@@ -17,6 +17,7 @@
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest("a[href]"); if (!a) return;
       var h = a.href, ev = /\/shop\/buy/.test(h) ? "buy" : /\.dmg(\?|$)/i.test(h) ? "demo-mac" : /(setup\.exe|windows\.zip)(\?|$)/i.test(h) ? "demo-win" : /github\.io\/(Forester|Standards-In-Smoke)\/?(index\.html)?(\?|#|$)/.test(h) ? "play" : "";
+      if (/^demo/.test(ev) && /[?&]paid=/.test(location.search)) return; // (a buyer fetching the game after paying: not a demo)
       if (ev) send("&e=" + ev);
     }, true);
   } catch (e) {}
