@@ -105,7 +105,7 @@
         box.innerHTML = list.map(function (u, i) {
           return '<details class="sp-news-item"' + (i === open ? ' open' : '') + '><summary><span class="sp-news-v">' + escapeHtml(u.v) + '</span><b>' + escapeHtml(u.title || '') + '</b><span class="sp-news-d">' + escapeHtml(u.date || '') + '</span></summary>'
             + '<ul>' + (u.items || []).map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul></details>';
-        }).join('') + '<p class="sp-news-more">Updates arrive by themselves when you start the game.</p>';
+        }).join('') + '<p class="sp-news-more">Updates arrive by themselves when you start the game. <a href="updates.html">See every update &rsaquo;</a></p>';
       }).catch(function () { box.innerHTML = '<p class="sp-news-wait">The update log couldn\u2019t be loaded just now.</p>'; });
     };
     if ('IntersectionObserver' in window) {

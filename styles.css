@@ -2212,3 +2212,26 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 /* the menu never breaks a link over two lines; on middling widths it closes up instead */
 .nav-links a { white-space: nowrap; }
 @media (min-width: 769px) and (max-width: 1100px) { .nav-links { gap: clamp(14px, 2.2vw, 28px); } .nav-links a { font-size: 0.88rem; letter-spacing: 1px; } }
+
+/* ===== Every update (Reckoning) ===== */
+.up { max-width: 860px; }
+.up-lead { font-size: 1.02rem; line-height: 1.7; color: var(--text-secondary); margin: 6px 0 22px; }
+.up-bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; position: sticky; top: 90px; z-index: 5; padding: 10px 0; background: var(--bg-primary); box-shadow: 0 10px 14px -10px var(--bg-primary); }
+.up-search { flex: 1 1 280px; }
+.up-search input { width: 100%; padding: 12px 14px; background: var(--bg-card); border: 1px solid #2a2a2a; color: var(--text-primary); font: inherit; font-size: 0.95rem; border-radius: 0; }
+.up-search input:focus { outline: none; border-color: var(--red-primary); }
+.up-count { color: var(--text-muted); font-size: 0.88rem; }
+.up-day { font-family: var(--font-heading); font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-text); margin: 26px 0 10px; }
+.up-dayl { display: grid; gap: 10px; }
+.up-item { background: var(--bg-card); border: 1px solid #222; padding: 14px 18px; }
+.up-item header { display: flex; gap: 12px; align-items: baseline; }
+.up-item h3 { font-size: 1rem; color: var(--text-primary); margin: 0; font-weight: 600; }
+.up-v { font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--text-muted); min-width: 58px; }
+.up-item ul { margin: 8px 0 0 70px; padding: 0; color: var(--text-secondary); line-height: 1.65; font-size: 0.93rem; }
+.up-item li { margin: 4px 0; }
+.up-item mark { background: rgba(239, 74, 64, 0.3); color: inherit; padding: 0 2px; }
+.up-wait { color: var(--text-muted); padding: 20px 0; }
+.up-more-wrap { text-align: center; margin: 24px 0 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 600px) { .up-item ul { margin-left: 18px; } .up-item header { flex-direction: column; gap: 2px; } .up-bar { position: static; background: none; box-shadow: none; } }
+.sp-news-more a { color: var(--red-text); white-space: nowrap; }
