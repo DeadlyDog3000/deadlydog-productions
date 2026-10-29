@@ -1672,6 +1672,7 @@ body.sp {
 
 .sp-field input[type="text"],
 .sp-field input[type="email"],
+.sp-field input[type="password"],
 .sp-field textarea {
   width: 100%;
   background: #0a0a0a;
@@ -1686,6 +1687,7 @@ body.sp {
 
 .sp-field input[type="text"]:focus,
 .sp-field input[type="email"]:focus,
+.sp-field input[type="password"]:focus,
 .sp-field textarea:focus {
   outline: none;
   border-color: var(--red-primary);
