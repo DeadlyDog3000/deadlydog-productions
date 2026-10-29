@@ -35,6 +35,7 @@
     function button(text, href, ghost) {
       var a = document.createElement('a');
       a.className = ghost ? 'sp-btn-ghost' : 'sp-btn-play'; a.href = href; a.textContent = text;
+      a.rel = 'nofollow'; /* (not for search engines to fetch: an installer counts as a download, and Buy opens a checkout) */
       act.appendChild(a);
     }
     /* The app to download (GAME.downloads: { mac, windows }) \u2014 free, as the demo */
