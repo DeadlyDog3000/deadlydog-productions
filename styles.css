@@ -573,7 +573,7 @@ html { overflow-x: clip; }
 }
 
 .beta-badge.alpha-badge { background: rgba(95, 185, 235, 0.92); color: #06243a; }
-.beta-badge.released-badge { background: rgba(46, 160, 80, 0.92); }
+.beta-badge.released-badge { background: #1f7a3c; color: #fff; }
 
 /* the Alpha (or Beta) tag beside a game's name on its own page */
 .sp-alpha {
@@ -590,15 +590,15 @@ html { overflow-x: clip; }
   border-radius: 3px;
 }
 
-.sp-beta { color: #fff; background: rgba(255, 165, 0, 0.9); }
+.sp-beta { color: #1a1000; background: #ffa500; } /* dark words: white on orange is too faint */
 
 .beta-badge {
   position: absolute;
   top: 16px;
   right: 16px;
   z-index: 2;
-  background: rgba(255, 165, 0, 0.9);
-  color: #fff;
+  background: #ffa500;
+  color: #1a1000;
   font-family: var(--font-heading);
   font-size: 0.7rem;
   letter-spacing: 2px;
@@ -2085,6 +2085,7 @@ body.sp {
 .sp-buy-help summary { cursor: pointer; color: var(--text-secondary); width: max-content; max-width: 100%; }
 .sp-buy-help summary:hover { color: var(--text-primary); }
 .sp-buy-help p { margin: 8px 0 0; }
+.sp-buy-help a { color: var(--red-text); }
 
 /* after Send: the address, for people whose email app didn't open */
 .form-after { margin: 14px 0 0; font-size: 0.9rem; color: var(--text-secondary); text-align: center; line-height: 1.7; }
@@ -2123,7 +2124,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
   outline-offset: 3px;
   border-radius: 2px;
 }
-.skip-link { position: absolute; left: 12px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--red-primary); color: #fff; text-decoration: none; font-family: var(--font-heading); letter-spacing: 0.06em; text-transform: uppercase; transition: top 0.15s; }
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 2000; padding: 10px 16px; background: var(--red-button); color: #fff; text-decoration: none; font-family: var(--font-heading); letter-spacing: 0.06em; text-transform: uppercase; transition: top 0.15s; }
 .skip-link:focus { top: 12px; }
 
 /* behind the hero: a battle from Forester: Reckoning, faint and soft, drifting slowly */
