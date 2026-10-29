@@ -301,20 +301,18 @@
     // Mobile nav toggle
     const toggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      toggle.classList.toggle('active');
-      document.body.classList.toggle('nav-open');
-    });
+    const setNav = open => {
+      navLinks.classList.toggle('active', open);
+      toggle.classList.toggle('active', open);
+      document.body.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    setNav(false);
+    toggle.addEventListener('click', () => setNav(!navLinks.classList.contains('active')));
 
-    // Close mobile nav on link click
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        toggle.classList.remove('active');
-        document.body.classList.remove('nav-open');
-      });
-    });
+    // Close mobile nav on link click, or on Escape
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => setNav(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && navLinks.classList.contains('active')) { setNav(false); toggle.focus(); } });
 
     // Navbar background on scroll
     const navbar = document.querySelector('.navbar');

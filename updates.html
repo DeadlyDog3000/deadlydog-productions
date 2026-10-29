@@ -95,8 +95,11 @@
     (function () {
       var t = document.querySelector('.nav-toggle'), l = document.querySelector('.nav-links');
       if (!t || !l) return;
-      t.addEventListener('click', function () { l.classList.toggle('active'); t.classList.toggle('active'); document.body.classList.toggle('nav-open'); });
-      l.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { l.classList.remove('active'); t.classList.remove('active'); document.body.classList.remove('nav-open'); }); });
+      var set = function (o) { l.classList.toggle('active', o); t.classList.toggle('active', o); document.body.classList.toggle('nav-open', o); t.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+      set(false);
+      t.addEventListener('click', function () { set(!l.classList.contains('active')); });
+      l.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && l.classList.contains('active')) { set(false); t.focus(); } });
       var n = document.querySelector('.navbar'); var s = function () { n.classList.toggle('scrolled', scrollY > 50); }; addEventListener('scroll', s); s();
     })();
   </script>

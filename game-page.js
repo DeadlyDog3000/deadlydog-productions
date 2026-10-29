@@ -147,16 +147,18 @@
   var toggle = document.querySelector('.nav-toggle');
   var navLinks = document.querySelector('.nav-links');
   if (toggle && navLinks) {
-    toggle.addEventListener('click', function () {
-      navLinks.classList.toggle('active');
-      toggle.classList.toggle('active');
-      document.body.classList.toggle('nav-open');
-    });
+    var setNav = function (open) {
+      navLinks.classList.toggle('active', open);
+      toggle.classList.toggle('active', open);
+      document.body.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    setNav(false);
+    toggle.addEventListener('click', function () { setNav(!navLinks.classList.contains('active')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && navLinks.classList.contains('active')) { setNav(false); toggle.focus(); } });
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        navLinks.classList.remove('active');
-        toggle.classList.remove('active');
-        document.body.classList.remove('nav-open');
+        setNav(false);
       });
     });
   }
