@@ -17,6 +17,14 @@ Plain HTML, CSS and a little JavaScript, served by GitHub Pages from `main`. No 
   `sed 's/<meta name="robots" content="noindex">/<meta name="robots" content="noindex, nofollow">/' ~/deadlydog-admin/index.html > admin.html`
 - `404.html`: uses absolute `/deadlydog-productions/…` paths, because GitHub serves it at any depth.
 
+## Notes for the buy box
+
+- Every link in it is `rel="nofollow"`: a search engine fetching an installer counts as a GitHub download, and one
+  following Buy opens a checkout. Keep new buy-box links that way.
+- On a Mac whose graphics chip is Intel, AMD or NVIDIA (Chrome and Firefox say; Safari doesn't), it says the game needs
+  Apple silicon. On Linux it says there's no Linux version. Read on the visitor's computer only.
+- `_config.yml` keeps this file and the README off the published site.
+
 ## Caching
 
 GitHub Pages tells browsers to keep files for 10 minutes. After changing `styles.css`, `game-page.js` or `visit.js`,
