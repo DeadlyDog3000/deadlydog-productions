@@ -48,7 +48,10 @@ h1 span { display: block; font-size: 12.5px; font-weight: 500; color: var(--text
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0.5); } 70% { box-shadow: 0 0 0 8px rgba(63, 207, 142, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0); } }
 .btn { font: inherit; font-size: 12.5px; color: var(--text-secondary); padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
 .btn:hover { color: var(--text-primary); border-color: var(--accent); }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 14px; }
+/* (five across when there's room; otherwise three and two, or two by two, never four and one left on its own) */
+@media (max-width: 1040px) { .tiles { grid-template-columns: repeat(6, 1fr); } .tiles > * { grid-column: span 2; } .tiles > :nth-child(n+4) { grid-column: span 3; } }
+@media (max-width: 560px) { .tiles { grid-template-columns: 1fr 1fr; } .tiles > *, .tiles > :nth-child(n+4) { grid-column: auto; } .tiles > :last-child:nth-child(odd) { grid-column: span 2; } }
 .tile, .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.18); }
 .tile { position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease; }
 .tile:hover { transform: translateY(-2px); border-color: var(--accent-soft); }
