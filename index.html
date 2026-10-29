@@ -372,15 +372,16 @@
       };
     });
 
-    // Parallax on hero
-    window.addEventListener('scroll', () => {
-      const hero = document.querySelector('.hero-content');
-      if (hero) {
-        const scroll = window.scrollY;
-        hero.style.transform = 'translateY(' + scroll * 0.3 + 'px)';
-        hero.style.opacity = 1 - scroll / 600;
-      }
-    });
+    // Parallax on hero (it only sinks as far as the room left under the buttons, so the hero's edge never cuts them off)
+    (function () {
+      const hero = document.querySelector('.hero-content'), box = document.querySelector('.hero');
+      if (!hero || !box) return;
+      let room = 0;
+      const measure = () => { const t = hero.style.transform; hero.style.transform = ''; room = Math.max(0, box.getBoundingClientRect().bottom - hero.getBoundingClientRect().bottom - 16); hero.style.transform = t; };
+      const move = () => { const scroll = window.scrollY; hero.style.transform = 'translateY(' + Math.min(scroll * 0.3, room) + 'px)'; hero.style.opacity = 1 - scroll / 600; };
+      measure(); window.addEventListener('resize', () => { measure(); move(); }); window.addEventListener('load', () => { measure(); move(); });
+      window.addEventListener('scroll', move, { passive: true });
+    })();
   </script>
 
   <script>
