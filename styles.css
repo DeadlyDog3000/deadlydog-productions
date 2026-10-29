@@ -2118,7 +2118,7 @@ body.sp {
 @media (max-width: 768px) { .footer-content { flex-direction: column; text-align: center; } }
 
 /* keyboard users can see where they are (mouse clicks don't draw the ring) */
-a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visible {
+a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visible, [role="button"]:focus-visible {
   outline: 2px solid var(--red-primary);
   outline-offset: 3px;
   border-radius: 2px;
