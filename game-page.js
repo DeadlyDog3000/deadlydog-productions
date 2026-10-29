@@ -100,8 +100,10 @@
       import(box.dataset.src).then(function (m) {
         var list = (m.CHANGELOG || []).filter(function (u) { return !/server|secure address|website|https/i.test(u.title || ''); }).slice(0, 5); /* (players' news: not the server's housekeeping) */
         if (!list.length) throw new Error('empty');
+        /* (the one shown open: the newest about the game itself, rather than housekeeping like counting players) */
+        var open = Math.max(0, list.findIndex(function (u) { return !/count|privacy|anonymous/i.test(u.title || ''); }));
         box.innerHTML = list.map(function (u, i) {
-          return '<details class="sp-news-item"' + (i === 0 ? ' open' : '') + '><summary><span class="sp-news-v">' + escapeHtml(u.v) + '</span><b>' + escapeHtml(u.title || '') + '</b><span class="sp-news-d">' + escapeHtml(u.date || '') + '</span></summary>'
+          return '<details class="sp-news-item"' + (i === open ? ' open' : '') + '><summary><span class="sp-news-v">' + escapeHtml(u.v) + '</span><b>' + escapeHtml(u.title || '') + '</b><span class="sp-news-d">' + escapeHtml(u.date || '') + '</span></summary>'
             + '<ul>' + (u.items || []).map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul></details>';
         }).join('') + '<p class="sp-news-more">Updates arrive by themselves when you start the game.</p>';
       }).catch(function () { box.innerHTML = '<p class="sp-news-wait">The update log couldn\u2019t be loaded just now.</p>'; });
