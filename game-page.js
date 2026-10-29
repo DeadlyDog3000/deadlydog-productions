@@ -346,7 +346,7 @@
       return { rating: r.rating, title: r.title, body: r.body, user: r.author, source: r.source,
                at: r.date ? new Date(r.date + 'T00:00:00').getTime() : 0, mine: false };
     });
-    var state = { user: null, live: [], left: null, reached: false, panel: null, editing: null, msg: '', bad: false };
+    var state = { user: null, live: [], left: null, reached: null, /* (null: still asking) */ panel: null, editing: null, msg: '', bad: false };
 
     function token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
     function setToken(t) { try { if (t) localStorage.setItem(TOKEN_KEY, t); else localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
@@ -362,9 +362,9 @@
         state.user = r[0].user; if (!state.user && token()) setToken('');
         state.live = r[1].reviews || []; state.left = r[1].left; state.reached = true;
       }).catch(function () {
-        state.reached = false;
         /* (one more try a few seconds on, before saying so for good: a dropped connection or a server restarting) */
-        if (!state.retried) { state.retried = true; setTimeout(function () { load(); }, 4000); }
+        if (!state.retried && state.reached === null) { state.retried = true; setTimeout(function () { load(); }, 4000); return; }
+        state.reached = false;
       }).then(render);
     }
 
@@ -394,6 +394,7 @@
 
     function accountHtml() {
       var m = state.msg ? '<span class="sp-form-msg' + (state.bad ? ' bad' : '') + '" role="status">' + escapeHtml(state.msg) + '</span>' : '';
+      if (state.reached === null) return '<div class="sp-write"><p class="sp-reviews-note">Looking for reviews&hellip;</p></div>';
       if (!state.reached) return '<div class="sp-write"><p class="sp-reviews-note">Reviews can\'t be reached right now, so writing one will have to wait. Try again in a little while.</p></div>';
       if (!state.user) {
         if (state.panel !== 'login' && state.panel !== 'signup')
