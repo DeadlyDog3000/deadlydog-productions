@@ -1,0 +1,5 @@
+# GitHub Pages builds this site with Jekyll. These are notes for the repository, not pages for visitors.
+exclude:
+  - MAINTAINING.md
+  - README.md
+  - "DeadlyDog Productions Website.code-workspace"
