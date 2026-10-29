@@ -32,6 +32,9 @@ owner's browser (`localStorage dd-admin = 1`, set by opening the admin page). Th
 ## Images
 
 - Card-sized copies live in `media/cards/` (800 px) and gallery thumbnails in `media/*/thumbs/` (360 × 202).
+- Reckoning's 1920-wide screenshots each have a 1280-wide copy in `media/reckoning/sm/` (`data-src-sm` on the thumb), which
+  phones and small windows load instead. Make one for a new screenshot:
+  `sips -s format jpeg -s formatOptions 78 --resampleWidth 1280 NN-name.jpg --out sm/NN-name.jpg`.
 - Share pictures for link previews are 1200 × 630 (`media/cards/*_share.jpg`, `deadlydog_share.jpg`).
 - No stumps anywhere in Forester: Reckoning's pictures.
 - Only CC0 or our own art.
