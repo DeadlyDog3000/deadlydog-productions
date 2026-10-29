@@ -74,7 +74,22 @@
         + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p><p>Still stuck, or lost your key? <a href="index.html?subject=Game%20Support#contact">Write to us</a>.</p></details>' : '');
       note.parentNode.replaceChild(info, note);
     }
-    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); }
+    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(); }
+    /* on a phone or tablet: the game is for a computer, so say so, and offer to send the page on to yourself */
+    function phoneNote() {
+      if (!act || !GAME.downloads || !window.matchMedia || !matchMedia('(pointer: coarse) and (hover: none)').matches) return;
+      var p = document.createElement('p'); p.className = 'sp-buy-phone';
+      p.innerHTML = '<b>On a phone?</b> ' + escapeHtml(GAME.name || 'The game') + ' is played on a Mac or Windows computer. Open this page there to download it.';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'sp-buy-send';
+      b.textContent = navigator.share ? 'Send this page to myself' : 'Copy the link';
+      b.onclick = function () {
+        var url = location.origin + location.pathname;
+        if (navigator.share) navigator.share({ title: document.title, url: url }).catch(function () {});
+        else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { b.textContent = 'Link copied'; }, function () {});
+      };
+      p.appendChild(b);
+      act.parentNode.insertBefore(p, act.nextSibling);
+    }
   })();
 
   /* ---------- What's new: the game's own update log, read when it scrolls near ---------- */
