@@ -40,8 +40,12 @@
     /* The app to download (GAME.downloads: { mac, windows }) \u2014 free, as the demo */
     function downloads(prefix) {
       var d = GAME.downloads || {};
+      /* (the visitor's own kind of computer first) */
+      var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+      var win = /win/i.test(p);
+      if (win && d.windows) button(prefix + 'Windows', d.windows, true);
       if (d.mac) button(prefix + 'Mac', d.mac, true);
-      if (d.windows) button(prefix + 'Windows', d.windows, true);
+      if (!win && d.windows) button(prefix + 'Windows', d.windows, true);
     }
     if (paid) {
       if (h) h.textContent = 'Thank you';
