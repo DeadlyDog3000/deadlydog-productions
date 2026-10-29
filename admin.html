@@ -118,7 +118,7 @@ body.locked .lock { display: grid; }
   </section>
 
   <section class="grid2">
-    <div class="card"><h2>Players per day, last 90 days</h2><p class="note">Different installs that started the game each day (the game server's own count).</p><div class="chart" id="cPl"></div></div>
+    <div class="card"><h2>Players per day, last 90 days</h2><p class="note">Different installs that started the game each day (the game server's own count). <span class="dayStart"></span></p><div class="chart" id="cPl"></div></div>
     <div class="card"><h2>Who's playing</h2><p class="note">Each install as it was when it was last started.</p><div id="mix"></div></div>
   </section>
 
@@ -132,7 +132,7 @@ body.locked .lock { display: grid; }
   </section>
 
   <div id="webWrap" style="display:none"><h3 class="sec">Visits to the website and the browser games</h3>
-  <p class="note muted" style="margin:-4px 2px 12px;font-size:12.5px">Counted by your game server when a page opens. A person who comes back on the same day is counted once in "people". Your own visits aren't counted.</p>
+  <p class="note muted" style="margin:-4px 2px 12px;font-size:12.5px">Counted by your game server when a page opens. A person who comes back on the same day is counted once in "people". Your own visits aren't counted. <span class="dayStart"></span></p>
   <section class="grid3" id="web"></section></div>
 
   <h3 class="sec">Traffic to each game's GitHub page</h3>
@@ -167,10 +167,8 @@ function line(el, pts, fmtY, label) {
   const x0 = pts[0][0], x1 = pts[pts.length - 1][0], ymax = Math.max(1, ...pts.map(p => p[1]));
   const nice = Math.ceil(ymax / Math.pow(10, Math.floor(Math.log10(ymax)))) * Math.pow(10, Math.floor(Math.log10(ymax)));
   const X = t => L + (W - L - R) * (x1 === x0 ? 0 : (t - x0) / (x1 - x0)), Y = v => T + (Hh - T - B) * (1 - v / nice);
-  // (a smooth curve through the points: each segment a cubic whose handles follow its neighbours, flattened at the ends)
-  const P2 = pts.map(p => [X(p[0]), Y(p[1])]);
-  const d = P2.map((p, i) => { if (!i) return `M${p[0].toFixed(1)},${p[1].toFixed(1)}`; const a = P2[i - 2] || P2[i - 1], b = P2[i - 1], c = p, e = P2[i + 1] || p, k = 0.18;
-    return `C${(b[0] + (c[0] - a[0]) * k).toFixed(1)},${(b[1] + (c[1] - a[1]) * k).toFixed(1)} ${(c[0] - (e[0] - b[0]) * k).toFixed(1)},${(c[1] - (e[1] - b[1]) * k).toFixed(1)} ${c[0].toFixed(1)},${c[1].toFixed(1)}`; }).join("");
+  // (straight lines between the points: a smoothed curve would draw rises and dips that never happened)
+  const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join("");
   const gid = "g" + Math.random().toString(36).slice(2, 8);
   const grid = [0, 0.5, 1].map(f => `<line x1="${L}" x2="${W - R}" y1="${Y(nice * f)}" y2="${Y(nice * f)}" stroke="var(--grid)"/><text x="${L - 6}" y="${Y(nice * f) + 4}" text-anchor="end" font-size="11" fill="var(--text-muted)">${fmtY(nice * f)}</text>`).join("");
   const dfmt = t => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -193,6 +191,40 @@ function line(el, pts, fmtY, label) {
     tip.style.display = "block"; const tx = px / W * r.width; tip.style.left = Math.min(r.width - tip.offsetWidth, Math.max(0, tx - tip.offsetWidth / 2)) + "px"; tip.style.top = (py / Hh * r.height - tip.offsetHeight - 10) + "px";
   });
   svg.addEventListener("mouseleave", () => { tip.style.display = "none"; xh.setAttribute("visibility", "hidden"); pt.setAttribute("visibility", "hidden"); });
+}
+
+// (the server's days run midnight to midnight UTC: say when that is here, so a low "today" in the evening makes sense)
+(() => { const t = new Date(); t.setUTCHours(0, 0, 0, 0); const h = t.toLocaleTimeString(undefined, { hour: "numeric", minute: t.getMinutes() ? "2-digit" : undefined }); document.querySelectorAll(".dayStart").forEach(e => e.textContent = h === "12 AM" || h === "00" ? "" : `A day here starts at ${h} your time.`); })();
+
+// a run of days for a bar chart: from the day before the first one with anything in it, and at least the last 14
+const daily = (days, key) => { days = days || []; if (!days.length) return []; const f = days.findIndex(x => (x[key] || 0) > 0); const from = f < 0 ? days.length : Math.max(0, Math.min(f - 1, days.length - 14)); return days.slice(from).map(x => [Date.parse(x.d + "T12:00:00"), x[key] || 0, x.d]); };
+
+// one bar a day, for things counted by the day (people, views): bars don't suggest values between the days
+function bars(el, pts, fmtY, label) {
+  if (!pts || !pts.length || !pts.some(p => p[1] > 0)) { el.innerHTML = `<div class="empty">Not enough history yet.<br>It fills in while this panel is running.</div>`; return; }
+  const W = 600, Hh = 180, L = 36, R = 8, T = 10, B = 22, n = pts.length;
+  const ymax = Math.max(1, ...pts.map(p => p[1]));
+  const mag = Math.pow(10, Math.floor(Math.log10(ymax))), nice = Math.max(2, Math.ceil(ymax / mag) * mag);
+  const slot = (W - L - R) / n, bw = Math.max(2, Math.min(36, slot - 2)), Y = v => T + (Hh - T - B) * (1 - v / nice), base = Y(0);
+  const grid = [0, 0.5, 1].map(f => `<line x1="${L}" x2="${W - R}" y1="${Y(nice * f)}" y2="${Y(nice * f)}" stroke="var(--grid)"/><text x="${L - 6}" y="${Y(nice * f) + 4}" text-anchor="end" font-size="11" fill="var(--text-muted)">${fmtY(nice * f)}</text>`).join("");
+  const dfmt = t => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  const today = new Date().toISOString().slice(0, 10);
+  // (each bar: square at the baseline, its top corners rounded 4px)
+  const bar = (x, y) => { const h = base - y; if (h <= 0) return ""; const r = Math.min(4, bw / 2, h); return `M${x},${base}V${y + r}Q${x},${y} ${x + r},${y}H${x + bw - r}Q${x + bw},${y} ${x + bw},${y + r}V${base}Z`; };
+  const marks = pts.map((p, i) => { const x = L + slot * i + (slot - bw) / 2; return `<path d="${bar(x, Y(p[1]))}" fill="var(--accent)" data-i="${i}"/>`; }).join("");
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${esc(label)} per day">${grid}${marks}
+    <text x="${L}" y="${Hh - 4}" font-size="11" fill="var(--text-muted)">${dfmt(pts[0][0])}</text><text x="${W - R}" y="${Hh - 4}" text-anchor="end" font-size="11" fill="var(--text-muted)">${dfmt(pts[n - 1][0])}</text>
+    <rect class="hl" y="${T}" height="${Hh - T - B}" width="${slot}" fill="var(--text-muted)" opacity="0.12" visibility="hidden"/>
+    <rect x="${L}" y="0" width="${W - L - R}" height="${Hh}" fill="transparent"/></svg><div class="tip"></div>`;
+  const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), hl = svg.querySelector(".hl");
+  svg.addEventListener("mousemove", e => {
+    const r = svg.getBoundingClientRect(), sx = (e.clientX - r.left) / r.width * W, i = Math.max(0, Math.min(n - 1, Math.floor((sx - L) / slot))), p = pts[i];
+    hl.setAttribute("x", L + slot * i); hl.setAttribute("visibility", "visible");
+    const isToday = p[2] === today;
+    tip.innerHTML = `<span>${new Date(p[0]).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}${isToday ? " · so far" : ""}</span>${esc(label)}: <b>${fmtY(p[1])}</b>`;
+    tip.style.display = "block"; const tx = (L + slot * (i + 0.5)) / W * r.width; tip.style.left = Math.min(r.width - tip.offsetWidth, Math.max(0, tx - tip.offsetWidth / 2)) + "px"; tip.style.top = (Y(p[1]) / Hh * r.height - tip.offsetHeight - 10) + "px";
+  });
+  svg.addEventListener("mouseleave", () => { tip.style.display = "none"; hl.setAttribute("visibility", "hidden"); });
 }
 
 function render(D) {
@@ -218,8 +250,8 @@ function render(D) {
   } else { $("sSold").textContent = (S && S.error) || ""; $("sales").innerHTML = `<div class="muted">${esc((S && S.error) || "")}</div>`; }
 
   line($("cDl"), (D.history.samples || []).filter(s => s.mac != null).map(s => [s.t, s.mac + s.windows]), v => num(Math.round(v)), "Downloads");
-  if (P && !P.error && P.days) { const ds = P.days.map(x => [Date.parse(x.d + "T12:00:00"), x.players]); const first = ds.findIndex(x => x[1] > 0); line($("cPl"), first < 0 ? [] : ds.slice(Math.max(0, first - 1)), v => num(Math.round(v)), "Players"); }
-  else line($("cPl"), [], v => v, "Players");
+  if (P && !P.error && P.days) bars($("cPl"), daily(P.days, "players"), v => num(Math.round(v)), "Players");
+  else bars($("cPl"), [], v => v, "Players");
   const mixRow = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${num(v)}</td></tr>`).join("");
   $("mix").innerHTML = P && !P.error ? `<table><tbody><tr><th>Full game / demo</th><th class="n"></th></tr><tr><td>Full game</td><td class="n">${num(P.full)}</td></tr><tr><td>Demo</td><td class="n">${num(P.demo)}</td></tr><tr><th>Platform</th><th></th></tr>${mixRow(P.byPlatform) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}<tr><th>Version</th><th></th></tr>${mixRow(P.byVersion) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}</tbody></table>` : `<div class="muted">${esc((P && P.error) || "")}</div>`;
   line($("cOn"), (D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => [x[0], x[1]]), v => num(Math.round(v)), "Players online");
@@ -243,14 +275,14 @@ function render(D) {
     // (the home page arrives as "/" and as "/index.html": one page, counted together)
     const top = o => { const m = {}; for (const [k, v] of Object.entries(o || {})) { const kk = k === "/index.html" ? "/" : k; m[kk] = (m[kk] || 0) + v; } return Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, 6); };
     $("web").innerHTML = Object.entries(NAMES).map(([k, n]) => { const w = W[k] || {}; return `<div class="card"><h2>${esc(n)}</h2><p class="note">${num(w.today || 0)} people today · ${num(w.week || 0)} this week</p><div class="big">${num(w.views7 || 0)}<small>page views · 7 days</small></div><div class="chart" id="web_${k}"></div>${top(w.refs).length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Visits</th></tr></thead><tbody>${top(w.refs).map(([r, c]) => `<tr><td>${esc(!r || r === "direct" ? "Typed in / bookmark" : r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}${top(w.paths).length > 1 ? `<table class="refs"><thead><tr><th>Page</th><th class="n">Views</th></tr></thead><tbody>${top(w.paths).map(([r, c]) => `<tr><td>${esc(r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}</div>`; }).join("");
-    for (const k of Object.keys(NAMES)) { const ds = ((W[k] || {}).days || []).map(x => [Date.parse(x.d + "T12:00:00Z"), x.people]); const f = ds.findIndex(x => x[1] > 0); line($("web_" + k), f < 0 ? [] : ds.slice(Math.max(0, f - 1)), v => num(Math.round(v)), "People"); }
+    for (const k of Object.keys(NAMES)) bars($("web_" + k), daily((W[k] || {}).days, "people"), v => num(Math.round(v)), "People");
   }
 
   const tEl = $("traffic");
   if (D.traffic && D.traffic.error) tEl.innerHTML = `<div class="card"><div class="muted">${esc(D.traffic.error)}</div></div>`;
   else {
     tEl.innerHTML = Object.entries(TR).map(([repo, t], i) => `<div class="card"><h2>${esc(t.game)}</h2><p class="note">github.com/${esc("DeadlyDog3000/" + repo)}</p>${t.error ? `<div class="muted">${esc(t.error)}</div>` : `<div class="big">${num(t.views14)}<small>views · ${num(t.uniques14)} people · 14 days</small></div><div class="chart" id="tr${i}"></div>${t.referrers.length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Views</th></tr></thead><tbody>${t.referrers.map(r => `<tr><td>${esc(r.from)}</td><td class="n">${num(r.views)}</td></tr>`).join("")}</tbody></table>` : `<p class="note" style="margin:10px 0 0">No sites sent visitors in the last 14 days.</p>`}`}</div>`).join("");
-    Object.values(TR).forEach((t, i) => { if (!t.error) line($("tr" + i), (t.days || []).map(x => [Date.parse(x.d + "T12:00:00Z"), x.views]), v => num(Math.round(v)), "Views"); });
+    Object.values(TR).forEach((t, i) => { if (!t.error) bars($("tr" + i), daily(t.days, "views"), v => num(Math.round(v)), "Views"); });
   }
 
   const files = Object.values(D.downloads && D.downloads.games || {}).flatMap(g => g.files).filter(f => f.kind !== "check").sort((a, b) => b.total - a.total);
