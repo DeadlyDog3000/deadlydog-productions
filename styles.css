@@ -30,6 +30,7 @@
 }
 
 html {
+  color-scheme: dark; /* (the browser's own parts, too: scrollbars, and the list a dropdown opens, which on Windows was white text on white) */
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
