@@ -166,7 +166,7 @@ body.locked .lock { display: grid; }
 
   <section class="card">
     <h2>Every release file</h2>
-    <p class="note">GitHub's own counts. They count every fetch of the file: your own tests, our checks that a new upload works, and link-checking bots, not only players. A file uploaded again starts at nought on GitHub; this panel carries the old count forward. For real people, see Players.</p>
+    <p class="note">GitHub's own counts. They count every fetch of the file: your own tests, our checks that a new upload works, and link-checking bots, not only players. A file uploaded again starts at nought on GitHub; this panel carries the old count forward. Fetches we know were our own (listed in data/own-downloads.json) are taken off. For real people, see Players.</p>
     <table id="files"><thead><tr><th>File</th><th>Release</th><th>What it is</th><th class="n">Downloads</th></tr></thead><tbody></tbody></table>
   </section>
 </main>
@@ -287,7 +287,7 @@ function render(D) {
       $("rvList").innerHTML = (RV.latest || []).length ? RV.latest.map(r => `<div class="rv"><div class="rv-h"><span class="rv-stars" aria-label="${r.rating} of 5">${stars(r.rating)}</span><b>${esc(r.title || "")}</b><span class="rv-meta">${esc(r.user)} · ${esc(r.game)} · ${r.at ? new Date(r.at).toLocaleDateString(undefined, { day: "numeric", month: "short" }) : ""}</span></div><p>${esc(r.body)}</p></div>`).join("") : `<p class="note" style="margin:8px 0 0">No reviews written yet. When someone writes one, it appears here.</p>`;
     } }
   const R = (D.downloads && D.downloads.games && D.downloads.games["Forester: Reckoning"]) || null;
-  if (R) { $("tDl").textContent = num(R.mac + R.windows); $("sDl").innerHTML = `<b>${num(R.mac)}</b> Mac · <b>${num(R.windows)}</b> Windows · includes our own test fetches`; }
+  if (R) { $("tDl").textContent = num(R.mac + R.windows); $("sDl").innerHTML = `<b>${num(R.mac)}</b> Mac · <b>${num(R.windows)}</b> Windows · our own fetches taken off`; }
   else $("sDl").textContent = D.downloads && D.downloads.error ? "Couldn't reach GitHub" : "";
 
   const P = D.players;
