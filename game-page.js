@@ -196,8 +196,11 @@
         '<img src="' + escapeHtml(thumb.dataset.src) + '" alt="' + escapeHtml(img ? img.alt : '') + '">' +
         (thumb.dataset.caption ? '<div class="sp-stage-caption">' + thumb.dataset.caption + '</div>' : '');
       stage.onclick = function () { openLightbox(images.indexOf(thumb)); };
+      /* (and from the keyboard: the picture is a button that opens it full size) */
+      stage.tabIndex = 0; stage.setAttribute('role', 'button'); stage.setAttribute('aria-label', 'View full size: ' + (img ? img.alt : 'screenshot'));
+      stage.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(images.indexOf(thumb)); } };
     }
-    if (thumb.dataset.type === 'video') stage.onclick = null;
+    if (thumb.dataset.type === 'video') { stage.onclick = null; stage.onkeydown = null; stage.removeAttribute('tabindex'); stage.removeAttribute('role'); stage.removeAttribute('aria-label'); }
   }
 
   thumbs.forEach(function (thumb, i) {
@@ -208,6 +211,9 @@
   /* The stage as authored is already the first item; wire its click. */
   if (stage && thumbs.length && thumbs[0].dataset.type === 'image') {
     stage.onclick = function () { openLightbox(0); };
+    var im0 = thumbs[0].querySelector('img');
+    stage.tabIndex = 0; stage.setAttribute('role', 'button'); stage.setAttribute('aria-label', 'View full size: ' + (im0 ? im0.alt : 'screenshot'));
+    stage.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(0); } };
   }
 
   /* Strip arrows. They scroll the filmstrip and grey out at the ends. */
