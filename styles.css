@@ -2208,3 +2208,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .pv-p { line-height: 1.7; color: var(--text-secondary); margin: 0 0 14px; }
 .pv-p a, .pv-list a { color: var(--red-text); }
 .pv-date { color: var(--text-muted); font-size: 0.88rem; margin-top: 18px; }
+
+/* the menu never breaks a link over two lines; on middling widths it closes up instead */
+.nav-links a { white-space: nowrap; }
+@media (min-width: 769px) and (max-width: 1100px) { .nav-links { gap: clamp(14px, 2.2vw, 28px); } .nav-links a { font-size: 0.88rem; letter-spacing: 1px; } }
