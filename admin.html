@@ -159,6 +159,8 @@ body.locked .lock { display: grid; }
 const $ = id => document.getElementById(id);
 const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const num = n => n == null ? "–" : Intl.NumberFormat(undefined, { notation: n >= 10000 ? "compact" : "standard" }).format(n);
+// a count and its noun, one or many ("1 player", "7 downloads")
+const nn = (n, one, many) => `${num(n)} ${n === 1 ? one : (many || one + "s")}`;
 const money = (c, cur) => { try { return new Intl.NumberFormat(undefined, { style: "currency", currency: (cur || "CAD").toUpperCase() }).format(c / 100); } catch (e) { return (c / 100).toFixed(2) + " " + cur; } };
 const flag = cc => cc && cc.length === 2 ? String.fromCodePoint(...[...cc.toUpperCase()].map(c => 127397 + c.charCodeAt(0))) : "·";
 const ago = t => { const s = Math.max(0, (Date.now() - t) / 1000); return s < 60 ? "just now" : s < 3600 ? Math.floor(s / 60) + " min ago" : s < 86400 ? Math.floor(s / 3600) + " h ago" : Math.floor(s / 86400) + " d ago"; };
@@ -242,11 +244,11 @@ function render(D) {
   else $("sDl").textContent = D.downloads && D.downloads.error ? "Couldn't reach GitHub" : "";
 
   const P = D.players;
-  if (P && !P.error) { $("tPl").textContent = num(P.installs); $("sPl").innerHTML = `<b>${num(P.today)}</b> today · <b>${num(P.week)}</b> this week · ${num(P.launches)} launches`; }
+  if (P && !P.error) { $("tPl").textContent = num(P.installs); $("sPl").innerHTML = `<b>${num(P.today)}</b> today · <b>${num(P.week)}</b> this week · ${nn(P.launches, "launch", "launches")}`; }
   else { $("tPl").textContent = "–"; $("sPl").textContent = P && P.error === "not yet" ? "The game server doesn't count these yet" : (P && P.error) || ""; }
 
   const O = D.online;
-  if (O && !O.error) { $("tOn").textContent = num(O.players); const peak = Math.max(0, ...(D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => x[1])); $("sOn").innerHTML = `${num(O.games)} games in progress · peak this week <b>${num(peak)}</b>`; }
+  if (O && !O.error) { $("tOn").textContent = num(O.players); const peak = Math.max(0, ...(D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => x[1])); $("sOn").innerHTML = `${nn(O.games, "game")} in progress · peak this week <b>${num(peak)}</b>`; }
   else $("sOn").textContent = "Game server unreachable";
 
   const S = D.sales;
@@ -254,7 +256,7 @@ function render(D) {
     const cur = Object.keys(S.net || {})[0];
     $("tSold").textContent = num(S.sold);
     $("sSold").innerHTML = `${cur ? `<b>${money(S.net[cur], cur)}</b> taken in · ` : ""}${num(S.today)} today · ${num(S.week)} this week${S.refunded ? ` · ${num(S.refunded)} refunded` : ""}`;
-    $("nSales").textContent = S.opened ? `${num(S.opened)} checkouts opened, ${Math.round((S.sold + (S.refunded || 0)) / S.opened * 100)}% of them paid.` : "";
+    $("nSales").textContent = S.opened ? `${nn(S.opened, "checkout")} opened, ${Math.round((S.sold + (S.refunded || 0)) / S.opened * 100)}% of them paid.` : "";
     $("sales").innerHTML = (S.last || []).length ? `<table><tbody>${S.last.slice(0, 8).map(s => `<tr><td>${flag(s.cc)}</td><td>${esc([s.city, s.region].filter(Boolean).join(", ") || "Unknown place")}${s.user ? ` <span class="muted">· ${esc(s.user)}</span>` : ""}${s.refunded ? ' <span class="pill">refunded</span>' : ""}</td><td class="n muted">${s.at ? ago(s.at) : ""}</td></tr>`).join("")}</tbody></table>` : `<div class="muted">No sales yet.</div>`;
   } else { $("sSold").textContent = (S && S.error) || ""; $("sales").innerHTML = `<div class="muted">${esc((S && S.error) || "")}</div>`; }
 
@@ -267,7 +269,7 @@ function render(D) {
 
   const TR = (D.traffic && D.traffic.repos) || {}, tv = r => TR[r] && !TR[r].error ? `${num(TR[r].views14)} GitHub page views (${num(TR[r].uniques14)} people) in 14 days` : "";
   $("games").innerHTML = [
-    ["Forester: Reckoning", "Desktop app (Mac, Windows)", [R ? `${num(R.mac + R.windows)} downloads` : "", P && !P.error ? `${num(P.installs)} players` : "", O && !O.error ? num(O.players) + " online now" : "", S && !S.error ? `${num(S.sold)} sold` : ""].filter(Boolean).join(" · ")],
+    ["Forester: Reckoning", "Desktop app (Mac, Windows)", [R ? nn(R.mac + R.windows, "download") : "", P && !P.error ? nn(P.installs, "player") : "", O && !O.error ? num(O.players) + " online now" : "", S && !S.error ? `${num(S.sold)} sold` : ""].filter(Boolean).join(" · ")],
     ["Forester", "Plays in the browser", tv("Forester") || "No numbers yet"],
     ["Standards in Smoke", "Plays in the browser", tv("Standards-In-Smoke") || "No numbers yet"],
     ["The website", "deadlydog3000.github.io", tv("deadlydog-productions") || "No numbers yet"],
