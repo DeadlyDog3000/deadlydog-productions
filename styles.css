@@ -12,6 +12,8 @@
   --bg-card-hover: #1a1a1a;
   --red-primary: #e63028;
   --red-dark: #c41e18;
+  --red-text: #ef4a40;   /* red words on the dark: 5:1 on the cards */
+  --red-button: #d92c24; /* behind white button text: 4.8:1 */
   --red-glow: rgba(230, 48, 40, 0.35);
   --text-primary: #ffffff;
   --text-secondary: #cccccc;
@@ -195,7 +197,7 @@ html { overflow-x: clip; }
 }
 
 .hero-title span {
-  color: var(--red-primary);
+  color: var(--red-text);
   font-size: 3.2rem;
   letter-spacing: 14px;
   display: block;
@@ -278,7 +280,7 @@ html { overflow-x: clip; }
 }
 
 .btn-primary {
-  background: var(--red-primary);
+  background: var(--red-button);
   color: #fff;
 }
 
@@ -388,7 +390,7 @@ html { overflow-x: clip; }
 }
 
 .founder-credit strong {
-  color: var(--red-primary);
+  color: var(--red-text);
   font-weight: 600;
 }
 
@@ -412,7 +414,7 @@ html { overflow-x: clip; }
   font-family: var(--font-heading);
   font-size: 2.8rem;
   font-weight: 700;
-  color: var(--red-primary);
+  color: var(--red-text);
   letter-spacing: 2px;
 }
 
@@ -530,7 +532,7 @@ html { overflow-x: clip; }
 
 .status-development {
   background: rgba(230, 48, 40, 0.12);
-  color: var(--red-primary);
+  color: var(--red-text);
   border: 1px solid rgba(230, 48, 40, 0.4);
 }
 
@@ -1059,7 +1061,7 @@ body.sp {
 }
 
 .sp-crumbs a:hover {
-  color: var(--red-primary);
+  color: var(--red-text);
 }
 
 .sp-crumbs span {
@@ -1217,7 +1219,7 @@ body.sp {
   height: 65px;
   border: 1px solid #1e1e1e;
   background: var(--bg-card);
-  color: var(--red-primary);
+  color: var(--red-text);
   font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
@@ -1286,7 +1288,7 @@ body.sp {
 }
 
 .sp-meta dd a {
-  color: var(--red-primary);
+  color: var(--red-text);
   text-decoration: none;
 }
 
@@ -1378,7 +1380,7 @@ body.sp {
   text-transform: uppercase;
   color: #fff;
   text-decoration: none;
-  background: var(--red-primary);
+  background: var(--red-button);
   transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -1456,7 +1458,7 @@ body.sp {
   font-size: 0.9rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--red-primary);
+  color: var(--red-text);
   margin-bottom: 5px;
 }
 
@@ -1526,7 +1528,7 @@ body.sp {
 }
 
 .sp-reviews-verdict.negative {
-  color: var(--red-primary);
+  color: var(--red-text);
 }
 
 .sp-reviews-count {
@@ -1553,7 +1555,7 @@ body.sp {
   font-family: var(--font-heading);
   font-size: 0.9rem;
   letter-spacing: 0.03em;
-  color: var(--red-primary);
+  color: var(--red-text);
   word-break: break-word;
 }
 
@@ -1573,7 +1575,7 @@ body.sp {
 }
 
 .sp-verdict.down {
-  color: var(--red-primary);
+  color: var(--red-text);
 }
 
 .sp-thumbicon {
@@ -1717,7 +1719,7 @@ body.sp {
 }
 
 .sp-stars input:checked ~ label {
-  color: var(--red-primary);
+  color: var(--red-text);
 }
 
 .sp-stars label:hover,
@@ -1779,7 +1781,7 @@ body.sp {
 }
 
 .sp-form-msg a {
-  color: var(--red-primary);
+  color: var(--red-text);
 }
 
 .sp-form-done {
@@ -2090,7 +2092,7 @@ body.sp {
 .sp-xpromo:hover { border-color: var(--red-primary); }
 .sp-xpromo img { width: 150px; height: 84px; object-fit: cover; flex: none; }
 .sp-xpromo-text { display: flex; flex-direction: column; gap: 2px; font-size: 0.88rem; line-height: 1.5; }
-.sp-xpromo-kicker { font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-primary); }
+.sp-xpromo-kicker { font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-text); }
 .sp-xpromo b { color: var(--text-primary); font-family: var(--font-heading); font-size: 1.05rem; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 600; }
 .sp-xpromo-go { margin-left: auto; font-size: 2rem; color: var(--text-muted); padding: 0 8px; }
 @media (max-width: 560px) { .sp-xpromo img { width: 96px; height: 96px; } .sp-xpromo-go { display: none; } }
@@ -2098,7 +2100,7 @@ body.sp {
 /* the newest game, above the hero's buttons */
 .hero-news { animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s both; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 0 auto 26px; padding: 7px 16px 7px 7px; border: 1px solid rgba(220, 60, 40, 0.45); border-radius: 99px; background: rgba(220, 60, 40, 0.08); color: var(--text-primary); text-decoration: none; font-size: 0.9rem; transition: background 0.2s, border-color 0.2s; }
 .hero-news:hover { background: rgba(220, 60, 40, 0.18); border-color: var(--red-primary); }
-.hero-news-tag { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--red-primary); color: #fff; padding: 3px 9px; border-radius: 99px; }
+.hero-news-tag { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--red-button); color: #fff; padding: 3px 9px; border-radius: 99px; }
 .hero-news-sale { display: none; color: #ffb35c; }
 .hero-news-sale.on { display: inline; }
 @media (max-width: 560px) { .hero-news { font-size: 0.82rem; border-radius: 18px; } .hero-news-dot { display: none; } }
@@ -2135,7 +2137,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .pk-facts div { display: grid; grid-template-columns: 110px 1fr; gap: 10px; }
 .pk-facts dt { color: var(--text-muted); }
 .pk-facts dd { margin: 0; color: var(--text-primary); }
-.pk-facts a, .pk-links a, .sp-about a { color: var(--red-primary); }
+.pk-facts a, .pk-links a, .sp-about a { color: var(--red-text); }
 .pk-grid .pk-facts { padding: 16px; background: var(--bg-card); border: 1px solid #1e1e1e; }
 .pk-game { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; margin-bottom: 16px; }
 .pk-art { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border: 1px solid #222; }
@@ -2156,7 +2158,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .sp-news-item summary { display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; cursor: pointer; list-style: none; }
 .sp-news-item summary::-webkit-details-marker { display: none; }
 .sp-news-item summary b { color: var(--text-primary); font-weight: 600; flex: 1; }
-.sp-news-v { font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--red-primary); min-width: 58px; }
+.sp-news-v { font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--red-text); min-width: 58px; }
 .sp-news-d { color: var(--text-muted); font-size: 0.82rem; white-space: nowrap; }
 .sp-news-item[open] summary { border-bottom: 1px solid #1e1e1e; }
 .sp-news-item ul { margin: 0; padding: 10px 14px 12px 32px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
@@ -2171,7 +2173,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .sp-faq details { background: var(--bg-card); border: 1px solid #1e1e1e; margin-bottom: 6px; }
 .sp-faq summary { padding: 13px 16px; cursor: pointer; color: var(--text-primary); font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
 .sp-faq summary::-webkit-details-marker { display: none; }
-.sp-faq summary::after { content: '+'; color: var(--red-primary); font-weight: 400; font-size: 1.2rem; line-height: 1; }
+.sp-faq summary::after { content: '+'; color: var(--red-text); font-weight: 400; font-size: 1.2rem; line-height: 1; }
 .sp-faq details[open] summary::after { content: '\2013'; }
 .sp-faq p { margin: 0; padding: 0 16px 14px; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; }
 
@@ -2203,5 +2205,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .pv-list b { color: var(--text-primary); }
 .pv-list code { font-size: 0.88em; background: rgba(255, 255, 255, 0.06); padding: 1px 6px; }
 .pv-p { line-height: 1.7; color: var(--text-secondary); margin: 0 0 14px; }
-.pv-p a, .pv-list a { color: var(--red-primary); }
+.pv-p a, .pv-list a { color: var(--red-text); }
 .pv-date { color: var(--text-muted); font-size: 0.88rem; margin-top: 18px; }
