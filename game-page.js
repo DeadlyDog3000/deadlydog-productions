@@ -46,6 +46,13 @@
       if (win && d.windows) button(prefix + 'Windows', d.windows, true);
       if (d.mac) button(prefix + 'Mac', d.mac, true);
       if (!win && d.windows) button(prefix + 'Windows', d.windows, true);
+      /* (once a download starts, the install help opens beside it: the first launch on a Mac needs a step people miss) */
+      Array.prototype.forEach.call(act.querySelectorAll('a.sp-btn-ghost'), function (a) {
+        a.addEventListener('click', function () {
+          var help = box.querySelector('.sp-buy-help');
+          if (help && !help.open) { help.open = true; setTimeout(function () { help.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 150); }
+        });
+      });
     }
     if (paid) {
       if (h) h.textContent = 'Thank you';
