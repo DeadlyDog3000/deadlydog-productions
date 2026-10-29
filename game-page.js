@@ -368,7 +368,7 @@
       }).then(render);
     }
 
-    function when(t) { return t ? new Date(t).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : ''; }
+    function when(t) { return t ? new Date(t).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) : ''; } /* (28 October 2026, as the rest of the site writes dates) */
     function reviewHtml(r) {
       var up = (Number(r.rating) || 0) >= 3;
       return '<article class="sp-review">' +
@@ -380,7 +380,7 @@
         '<div class="sp-review-main">' +
           '<div class="sp-verdict' + (up ? '' : ' down') + '">' + THUMB_SVG +
             '<span>' + (up ? 'Recommended' : 'Not Recommended') + '</span>' +
-            '<span class="sp-review-stars" aria-label="' + r.rating + ' out of 5">' + new Array((Number(r.rating) || 0) + 1).join('&#9733;') + '</span>' +
+            '<span class="sp-review-stars" aria-label="' + r.rating + ' out of 5">' + new Array((Number(r.rating) || 0) + 1).join('&#9733;') + '<span class="sp-review-stars-off">' + new Array(6 - (Number(r.rating) || 0)).join('&#9733;') + '</span></span>' +
           '</div>' +
           (r.at ? '<div class="sp-review-date">Posted ' + when(r.at) + (r.edited ? ' &middot; edited ' + when(r.edited) : '') + '</div>' : '') +
           (r.title ? '<div class="sp-review-title">' + escapeHtml(r.title) + '</div>' : '') +
@@ -490,7 +490,7 @@
       if (f.id === 'spAuth') {
         var su = state.panel === 'signup';
         api(su ? 'signup' : 'login', { user: (fd.get('user') || '').trim(), password: fd.get('password') || '', website: fd.get('website') || '' })
-          .then(function (d) { if (!d.token) throw new Error('Something went wrong.'); setToken(d.token); state.panel = null; state.msg = 'Signed in as ' + d.user + '.'; state.bad = false; return load(); })
+          .then(function (d) { if (!d.token) throw new Error('Something went wrong.'); setToken(d.token); state.panel = null; state.msg = ''; state.bad = false; /* (the line above the button already says who's signed in) */ return load(); })
           .catch(function (err) { done(); say(err.message, true); });
         return;
       }

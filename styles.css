@@ -1779,6 +1779,8 @@ body.sp {
   color: var(--text-muted);
 }
 
+.sp-write > .sp-form-msg { display: block; margin-top: 10px; }
+
 .sp-form-msg.bad {
   color: #ff7b74;
 }
@@ -2237,3 +2239,4 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 600px) { .up-item ul { margin-left: 18px; } .up-item header { flex-direction: column; gap: 2px; } .up-bar { position: static; background: none; box-shadow: none; } }
 .sp-news-more a { color: var(--red-text); white-space: nowrap; }
+.sp-review-stars-off { opacity: 0.22; }
