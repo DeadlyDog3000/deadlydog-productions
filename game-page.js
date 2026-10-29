@@ -328,6 +328,13 @@
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') showLightbox(lbIndex - 1);
     if (e.key === 'ArrowRight') showLightbox(lbIndex + 1);
+    /* (Tab goes round its three buttons, never out to the page behind) */
+    if (e.key === 'Tab') {
+      var bs = box.querySelectorAll('.sp-lb-btn'), first = bs[0], last = bs[bs.length - 1];
+      if (!box.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 
   /* ---------- Reviews ----------------------------------------------
