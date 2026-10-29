@@ -290,7 +290,7 @@ function render(D) {
   $("mix").innerHTML = P && !P.error ? `<table><tbody><tr><th>Full game / demo</th><th class="n"></th></tr><tr><td>Full game</td><td class="n">${num(P.full)}</td></tr><tr><td>Demo</td><td class="n">${num(P.demo)}</td></tr><tr><th>Platform</th><th></th></tr>${mixRow(P.byPlatform) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}<tr><th>Version</th><th></th></tr>${mixRow(P.byVersion) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}</tbody></table>` : `<div class="muted">${esc((P && P.error) || "")}</div>`;
   line($("cOn"), (D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => [x[0], x[1]]), v => num(Math.round(v)), "Players online");
 
-  const TR = (D.traffic && D.traffic.repos) || {}, tv = r => TR[r] && !TR[r].error ? `${num(TR[r].views14)} GitHub page views (${num(TR[r].uniques14)} people) in 14 days` : "";
+  const TR = (D.traffic && D.traffic.repos) || {}, tv = r => TR[r] && !TR[r].error ? `${nn(TR[r].views14, "GitHub page view")} (${nn(TR[r].uniques14, "person", "people")}) in 14 days` : "";
   $("games").innerHTML = [
     ["Forester: Reckoning", "Desktop app (Mac, Windows)", [R ? nn(R.mac + R.windows, "download") : "", P && !P.error ? nn(P.installs, "player") : "", O && !O.error ? num(O.players) + " online now" : "", S && !S.error ? `${num(S.sold)} sold` : ""].filter(Boolean).join(" · ")],
     ["Forester", "Plays in the browser", tv("Forester") || "No numbers yet"],
@@ -303,7 +303,7 @@ function render(D) {
   if (W) {
     const sum = k => ["site", "forester", "smoke"].reduce((n, g) => n + ((W[g] || {})[k] || 0), 0);
     $("tWeb").textContent = num(sum("week"));
-    $("sWeb").innerHTML = `people this week · <b>${num(sum("today"))}</b> today · ${num(sum("views7"))} page views`;
+    $("sWeb").innerHTML = `${sum("week") === 1 ? "person" : "people"} this week · <b>${num(sum("today"))}</b> today · ${nn(sum("views7"), "page view")}`;
     $("webWrap").style.display = "";
     // Reckoning, from looking to buying, this week: page views, demo downloads, Buy clicks, copies sold
     { const st = W.site || {}, ev = st.events7 || {}, S = D.sales && !D.sales.error ? D.sales : null;
@@ -313,14 +313,14 @@ function render(D) {
     const NAMES = { site: "The website", forester: "Forester (browser)", smoke: "Standards in Smoke (browser)" };
     // (the home page arrives as "/" and as "/index.html": one page, counted together)
     const top = o => { const m = {}; for (const [k, v] of Object.entries(o || {})) { const kk = k === "/index.html" ? "/" : k; m[kk] = (m[kk] || 0) + v; } return Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, 6); };
-    $("web").innerHTML = Object.entries(NAMES).map(([k, n]) => { const w = W[k] || {}; return `<div class="card"><h2>${esc(n)}</h2><p class="note">${num(w.today || 0)} people today · ${num(w.week || 0)} this week</p><div class="big">${num(w.views7 || 0)}<small>page views · 7 days</small></div><div class="chart" id="web_${k}"></div>${top(w.refs).length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Visits</th></tr></thead><tbody>${top(w.refs).map(([r, c]) => `<tr><td>${esc(!r || r === "direct" ? "Typed in / bookmark" : r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}${top(w.paths).length > 1 ? `<table class="refs"><thead><tr><th>Page</th><th class="n">Views</th></tr></thead><tbody>${top(w.paths).map(([r, c]) => `<tr><td>${esc(r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}</div>`; }).join("");
+    $("web").innerHTML = Object.entries(NAMES).map(([k, n]) => { const w = W[k] || {}; return `<div class="card"><h2>${esc(n)}</h2><p class="note">${nn(w.today || 0, "person", "people")} today · ${num(w.week || 0)} this week</p><div class="big">${num(w.views7 || 0)}<small>page views · 7 days</small></div><div class="chart" id="web_${k}"></div>${top(w.refs).length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Visits</th></tr></thead><tbody>${top(w.refs).map(([r, c]) => `<tr><td>${esc(!r || r === "direct" ? "Typed in / bookmark" : r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}${top(w.paths).length > 1 ? `<table class="refs"><thead><tr><th>Page</th><th class="n">Views</th></tr></thead><tbody>${top(w.paths).map(([r, c]) => `<tr><td>${esc(r)}</td><td class="n">${num(c)}</td></tr>`).join("")}</tbody></table>` : ""}</div>`; }).join("");
     for (const k of Object.keys(NAMES)) bars($("web_" + k), daily((W[k] || {}).days, "people"), v => num(Math.round(v)), "People");
   }
 
   const tEl = $("traffic");
   if (D.traffic && D.traffic.error) tEl.innerHTML = `<div class="card"><div class="muted">${esc(D.traffic.error)}</div></div>`;
   else {
-    tEl.innerHTML = Object.entries(TR).map(([repo, t], i) => `<div class="card"><h2>${esc(t.game)}</h2><p class="note">github.com/${esc("DeadlyDog3000/" + repo)}</p>${t.error ? `<div class="muted">${esc(t.error)}</div>` : `<div class="big">${num(t.views14)}<small>views · ${num(t.uniques14)} people · 14 days</small></div><div class="chart" id="tr${i}"></div>${t.referrers.length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Views</th></tr></thead><tbody>${t.referrers.map(r => `<tr><td>${esc(r.from)}</td><td class="n">${num(r.views)}</td></tr>`).join("")}</tbody></table>` : `<p class="note" style="margin:10px 0 0">No sites sent visitors in the last 14 days.</p>`}`}</div>`).join("");
+    tEl.innerHTML = Object.entries(TR).map(([repo, t], i) => `<div class="card"><h2>${esc(t.game)}</h2><p class="note">github.com/${esc("DeadlyDog3000/" + repo)}</p>${t.error ? `<div class="muted">${esc(t.error)}</div>` : `<div class="big">${num(t.views14)}<small>${t.views14 === 1 ? "view" : "views"} · ${nn(t.uniques14, "person", "people")} · 14 days</small></div><div class="chart" id="tr${i}"></div>${t.referrers.length ? `<table class="refs"><thead><tr><th>Came from</th><th class="n">Views</th></tr></thead><tbody>${t.referrers.map(r => `<tr><td>${esc(r.from)}</td><td class="n">${num(r.views)}</td></tr>`).join("")}</tbody></table>` : `<p class="note" style="margin:10px 0 0">No sites sent visitors in the last 14 days.</p>`}`}</div>`).join("");
     Object.values(TR).forEach((t, i) => { if (!t.error) bars($("tr" + i), daily(t.days, "views"), v => num(Math.round(v)), "Views"); });
   }
 
