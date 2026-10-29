@@ -2171,7 +2171,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 @media (max-width: 560px) { .sp-news-item summary { flex-wrap: wrap; gap: 4px 10px; } .sp-news-d { width: 100%; padding-left: 68px; } }
 
 /* the "scroll" hint needs room under the buttons; on short windows it would sit on top of them */
-@media (max-height: 760px) { .scroll-indicator { display: none; } }
+@media (max-height: 900px) { .scroll-indicator { display: none; } }
 
 /* questions, folded */
 .sp-faq { margin-bottom: 34px; }
