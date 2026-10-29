@@ -365,13 +365,14 @@ html { overflow-x: clip; }
 }
 
 /* ===== Scroll Reveal ===== */
-.reveal {
+/* (hidden only where a script is running to bring them in: with scripts off, the sections are simply there) */
+.js .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-.reveal.visible {
+.js .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
