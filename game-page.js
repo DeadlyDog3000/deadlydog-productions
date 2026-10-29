@@ -57,7 +57,7 @@
     if (paid) {
       if (h) h.textContent = 'Thank you';
       if (note) note.textContent = 'Your payment went through. Your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt. Bought from inside the game? It has already unlocked by itself. Haven\u2019t got the game yet? Download it, then paste the key in on the title screen (Unlock the full game).';
-      if (act) { act.innerHTML = ''; button('Show my licence key', GAME.shop + '/shop/key?s=' + paid); downloads('Download \u00b7 '); intelMacNote(act); }
+      if (act) { act.innerHTML = ''; button('Show my licence key', GAME.shop + '/shop/key?s=' + paid); downloads('Download \u00b7 '); platformNote(act); }
       box.scrollIntoView && setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
       return;
     }
@@ -88,7 +88,7 @@
         + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p><p>Still stuck, or lost your key? <a href="index.html?subject=Game%20Support#contact">Write to us</a>.</p></details>' : '');
       note.parentNode.replaceChild(info, note);
     }
-    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(act, true); intelMacNote(act); }
+    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(act, true); platformNote(act); }
   })();
 
 
@@ -112,12 +112,19 @@
     p.appendChild(b);
     act.parentNode.insertBefore(p, act.nextSibling);
   }
-  /* ---------- An Intel Mac: the Mac download is for Apple silicon ----------
-     Chrome and Firefox name the graphics chip, and on a Mac an Intel, AMD or
-     NVIDIA one means an Intel Mac. Safari doesn't say, so nothing shows there. */
-  function intelMacNote(act) {
+  /* ---------- A computer the game won't run on: an Intel Mac, or Linux ----------
+     The Mac download is for Apple silicon. Chrome and Firefox name the graphics
+     chip, and on a Mac an Intel, AMD or NVIDIA one means an Intel Mac. (Safari
+     doesn't say, so nothing shows there.) Read here only; nothing is sent. */
+  function platformNote(act) {
     if (!act || !GAME.downloads || !GAME.downloads.mac) return;
     var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    var say = function (html) { var n = document.createElement('p'); n.className = 'sp-buy-phone'; n.innerHTML = html; act.parentNode.insertBefore(n, act.nextSibling); };
+    /* (and a Linux computer: there is no build for it) */
+    if (/linux/i.test(p) && !/android|cros/i.test(navigator.userAgent) && !(navigator.maxTouchPoints > 0)) {
+      say('<b>On Linux?</b> ' + escapeHtml(GAME.name || 'The game') + ' is made for Mac and Windows; there isn\u2019t a Linux version.');
+      return;
+    }
     if (!/mac/i.test(p) || navigator.maxTouchPoints > 1) return; /* (an iPad calls itself a Mac too) */
     var gpu = '';
     try {
@@ -127,9 +134,7 @@
       var lose = gl && gl.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
     } catch (e) {}
     if (!/\b(intel|amd|radeon|nvidia|geforce)\b/i.test(gpu)) return;
-    var n = document.createElement('p'); n.className = 'sp-buy-phone';
-    n.innerHTML = '<b>This looks like an Intel Mac.</b> ' + escapeHtml(GAME.name || 'The game') + ' runs on Macs with Apple silicon (M1 or newer), so it won\u2019t start on this one. It does run on Windows.';
-    act.parentNode.insertBefore(n, act.nextSibling);
+    say('<b>This looks like an Intel Mac.</b> ' + escapeHtml(GAME.name || 'The game') + ' runs on Macs with Apple silicon (M1 or newer), so it won\u2019t start on this one. It does run on Windows.');
   }
   /* (the browser games: their play box is in the page as it stands) */
   if (!GAME.shop && !GAME.downloads) phoneNote(document.querySelector('.sp-buy .sp-buy-act'), false);
