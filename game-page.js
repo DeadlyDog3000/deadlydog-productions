@@ -470,7 +470,7 @@
         html = '<div class="sp-reviews-empty"><p>No user reviews yet. ' + escapeHtml(name) +
           (GAME.shopOpen ? ' has a free demo &mdash; ' : ' is in beta and free to play &mdash; ') +
           'if you get a few hours out of it, tell everyone what you thought.</p></div>';
-        if (side) side.textContent = 'No user reviews';
+        if (side) side.innerHTML = 'None yet &middot; <a href="#reviews-section">write the first</a>';
       } else {
         var positive = all.filter(function (r) { return (Number(r.rating) || 0) >= 3; }).length;
         var pct = Math.round((positive / all.length) * 100), v = verdict(pct, all.length);
@@ -478,7 +478,7 @@
           '<span class="sp-reviews-verdict ' + v.tone + '">' + v.word + '</span>' +
           '<span class="sp-reviews-count">' + pct + '% of the ' + all.length + (all.length === 1 ? ' review is' : ' reviews are') + ' positive</span></div>' +
           all.map(reviewHtml).join('');
-        if (side) { side.textContent = v.word + ' (' + all.length + ')'; side.className = v.tone ? '' : 'sp-positive'; }
+        if (side) { side.innerHTML = '<a href="#reviews-section" class="sp-rv-jump">' + escapeHtml(v.word) + ' (' + all.length + ')</a>'; side.className = 'sp-tone-' + (v.tone || 'positive'); }
       }
       mount.innerHTML = html + '<div class="sp-reviews-foot"><p class="sp-reviews-note">Reviews are written by players, signed in with their own accounts. We do not write our own.</p></div>' + accountHtml();
       var f = document.getElementById('spAuth') || document.getElementById('spForm'), first = f && f.querySelector('input:not([type=hidden]):not([tabindex="-1"])');

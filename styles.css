@@ -2240,3 +2240,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 @media (max-width: 600px) { .up-item ul { margin-left: 18px; } .up-item header { flex-direction: column; gap: 2px; } .up-bar { position: static; background: none; box-shadow: none; } }
 .sp-news-more a { color: var(--red-text); white-space: nowrap; }
 .sp-review-stars-off { opacity: 0.22; }
+
+/* the sidebar's review summary: a jump down to the reviews, in the verdict's own colour */
+#spReviewSummary a { text-decoration: none; border-bottom: 1px dotted currentColor; }
+#spReviewSummary.sp-tone-positive a { color: #7ac36a; }
+#spReviewSummary.sp-tone-mixed a { color: #d9a441; }
+#spReviewSummary.sp-tone-negative a { color: var(--red-text); }
