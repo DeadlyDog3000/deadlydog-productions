@@ -2187,3 +2187,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* the game cards: each a column, so the status and buttons sit along one line at the foot of the row whatever the blurb's length */
+.games-grid .game-card { display: flex; flex-direction: column; }
+.games-grid .game-info-stacked { flex: 1; }
+.games-grid .game-info-stacked .game-status { margin-top: auto; }
+.games-grid .game-actions .btn-play { flex: 1 1 100%; text-align: center; }
