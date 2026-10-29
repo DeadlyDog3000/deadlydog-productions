@@ -29,6 +29,12 @@ bump its `?v=` in every page that loads it (the same value everywhere), e.g.
 clicks on Buy, the free demos and Play. It only counts on `*.github.io`, never on a local copy, and never in the
 owner's browser (`localStorage dd-admin = 1`, set by opening the admin page). The numbers show on the admin page.
 
+## Fonts
+
+Oswald (headings) and Open Sans (text) are kept in `fonts/` and declared at the top of `styles.css`, so visitors'
+browsers never ask Google for them (the privacy page says so). Both are variable fonts under the SIL Open Font License
+(`fonts/OFL-*.txt`). The admin page uses the computer's own font.
+
 ## Images
 
 - Card-sized copies live in `media/cards/` (800 px) and gallery thumbnails in `media/*/thumbs/` (360 × 202).
