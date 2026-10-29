@@ -78,23 +78,32 @@
         + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p><p>Still stuck, or lost your key? <a href="index.html?subject=Game%20Support#contact">Write to us</a>.</p></details>' : '');
       note.parentNode.replaceChild(info, note);
     }
-    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(); }
-    /* on a phone or tablet: the game is for a computer, so say so, and offer to send the page on to yourself */
-    function phoneNote() {
-      if (!act || !GAME.downloads || !window.matchMedia || !matchMedia('(pointer: coarse) and (hover: none)').matches) return;
-      var p = document.createElement('p'); p.className = 'sp-buy-phone';
-      p.innerHTML = '<b>On a phone?</b> ' + escapeHtml(GAME.name || 'The game') + ' is played on a Mac or Windows computer. Open this page there to download it.';
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'sp-buy-send';
-      b.textContent = navigator.share ? 'Send this page to myself' : 'Copy the link';
-      b.onclick = function () {
-        var url = location.origin + location.pathname;
-        if (navigator.share) navigator.share({ title: document.title, url: url }).catch(function () {});
-        else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { b.textContent = 'Link copied'; }, function () {});
-      };
-      p.appendChild(b);
-      act.parentNode.insertBefore(p, act.nextSibling);
-    }
+    if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(act, true); }
   })();
+
+
+  /* ---------- On a phone or tablet: these games are for a computer --------
+     Say so under the buy or play buttons, and offer to send the page on to
+     yourself. (The desktop game can't be installed on a phone at all; the
+     browser games open there but are made for a keyboard and mouse.) */
+  function phoneNote(act, desktopApp) {
+    if (!act || !window.matchMedia || !matchMedia('(pointer: coarse) and (hover: none)').matches) return;
+    var p = document.createElement('p'); p.className = 'sp-buy-phone';
+    p.innerHTML = desktopApp
+      ? '<b>On a phone?</b> ' + escapeHtml(GAME.name || 'The game') + ' is played on a Mac or Windows computer. Open this page there to download it.'
+      : '<b>On a phone?</b> ' + escapeHtml(GAME.name || 'The game') + ' opens here, but it\u2019s made for a keyboard and mouse and plays best on a computer.';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'sp-buy-send';
+    b.textContent = navigator.share ? 'Send this page to myself' : 'Copy the link';
+    b.onclick = function () {
+      var url = location.origin + location.pathname;
+      if (navigator.share) navigator.share({ title: document.title, url: url }).catch(function () {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { b.textContent = 'Link copied'; }, function () {});
+    };
+    p.appendChild(b);
+    act.parentNode.insertBefore(p, act.nextSibling);
+  }
+  /* (the browser games: their play box is in the page as it stands) */
+  if (!GAME.shop && !GAME.downloads) phoneNote(document.querySelector('.sp-buy .sp-buy-act'), false);
 
   /* ---------- What's new: the game's own update log, read when it scrolls near ---------- */
   (function () {
