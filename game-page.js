@@ -172,8 +172,8 @@
     var thumb = thumbs[i];
     if (!thumb || !stage) return;
 
-    thumbs.forEach(function (t) { t.classList.remove('is-active'); });
-    thumb.classList.add('is-active');
+    thumbs.forEach(function (t) { t.classList.remove('is-active'); t.setAttribute('aria-pressed', 'false'); });
+    thumb.classList.add('is-active'); thumb.setAttribute('aria-pressed', 'true');
 
     stage.classList.toggle('pixel', PIXEL && thumb.dataset.type === 'image' && thumb.classList.contains('pixel'));
 
@@ -199,6 +199,7 @@
   }
 
   thumbs.forEach(function (thumb, i) {
+    thumb.setAttribute('aria-pressed', thumb.classList.contains('is-active') ? 'true' : 'false');
     thumb.addEventListener('click', function () { showMedia(i); });
   });
 
