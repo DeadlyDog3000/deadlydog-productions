@@ -361,7 +361,11 @@
       return Promise.all([api('me'), api('list?game=' + encodeURIComponent(GAME.key || ''))]).then(function (r) {
         state.user = r[0].user; if (!state.user && token()) setToken('');
         state.live = r[1].reviews || []; state.left = r[1].left; state.reached = true;
-      }).catch(function () { state.reached = false; }).then(render);
+      }).catch(function () {
+        state.reached = false;
+        /* (one more try a few seconds on, before saying so for good: a dropped connection or a server restarting) */
+        if (!state.retried) { state.retried = true; setTimeout(function () { load(); }, 4000); }
+      }).then(render);
     }
 
     function when(t) { return t ? new Date(t).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : ''; }
