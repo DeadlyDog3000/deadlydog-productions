@@ -1245,6 +1245,7 @@ body.sp {
 
 .sp-capsule {
   width: 100%;
+  height: auto;
   display: block;
   margin-bottom: 12px;
 }
