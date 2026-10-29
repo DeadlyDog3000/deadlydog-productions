@@ -216,7 +216,10 @@
       var img = thumb.querySelector('img');
       stage.classList.add('is-image');
       stage.innerHTML =
-        '<img src="' + escapeHtml(thumb.dataset.src) + '" alt="' + escapeHtml(img ? img.alt : '') + '">' +
+        /* (a 1280-wide copy, where one is given, for phones and small windows) */
+        '<img src="' + escapeHtml(thumb.dataset.src) + '"' +
+          (thumb.dataset.srcSm ? ' srcset="' + escapeHtml(thumb.dataset.srcSm) + ' 1280w, ' + escapeHtml(thumb.dataset.src) + ' 1920w" sizes="(min-width: 901px) 840px, 100vw"' : '') +
+          ' alt="' + escapeHtml(img ? img.alt : '') + '">' +
         (thumb.dataset.caption ? '<div class="sp-stage-caption">' + thumb.dataset.caption + '</div>' : '');
       stage.onclick = function () { openLightbox(images.indexOf(thumb)); };
       /* (and from the keyboard: the picture is a button that opens it full size) */
