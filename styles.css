@@ -2180,3 +2180,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .sp-buy-phone b { color: var(--text-primary); }
 .sp-buy-send { display: block; margin-top: 10px; padding: 9px 14px; background: transparent; border: 1px solid #444; color: var(--text-primary); font: inherit; font-size: 0.85rem; cursor: pointer; }
 .sp-buy-send:hover, .sp-buy-send:focus-visible { border-color: var(--red-primary); }
+
+/* for anyone who has asked their computer for less motion: no pop-ins, no drifting, no smooth-scroll glide */
+@media (prefers-reduced-motion: reduce) {
+  html, .sp-strip { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}

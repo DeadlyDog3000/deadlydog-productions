@@ -58,7 +58,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261028q">
+  <link rel="stylesheet" href="styles.css?v=20261028r">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -378,6 +378,7 @@
       if (!hero || !box) return;
       let room = 0;
       const measure = () => { const t = hero.style.transform; hero.style.transform = ''; room = Math.max(0, box.getBoundingClientRect().bottom - hero.getBoundingClientRect().bottom - 16); hero.style.transform = t; };
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const move = () => { const scroll = window.scrollY; hero.style.transform = 'translateY(' + Math.min(scroll * 0.3, room) + 'px)'; hero.style.opacity = 1 - scroll / 600; };
       measure(); window.addEventListener('resize', () => { measure(); move(); }); window.addEventListener('load', () => { measure(); move(); });
       window.addEventListener('scroll', move, { passive: true });
