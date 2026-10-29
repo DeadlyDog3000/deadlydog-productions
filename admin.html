@@ -80,6 +80,11 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .game .k { font-size: 12px; color: var(--text-muted); }
 .game .v { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
 .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.fun { display: grid; gap: 10px; margin-top: 12px; }
+.fun-row { display: grid; grid-template-columns: minmax(150px, 220px) 1fr auto; gap: 12px; align-items: center; font-size: 13.5px; }
+.fun-bar { height: 22px; border-radius: 0 4px 4px 0; background: var(--accent); min-width: 2px; }
+.fun-n { font-variant-numeric: tabular-nums; font-weight: 650; min-width: 90px; text-align: right; }
+.fun-n small { font-weight: 400; color: var(--text-muted); margin-left: 6px; }
 .big { font-size: 26px; font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .big small { font-size: 12.5px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; margin-left: 4px; }
 .card .chart svg { height: 150px; }
@@ -133,6 +138,7 @@ body.locked .lock { display: grid; }
 
   <div id="webWrap" style="display:none"><h3 class="sec">Visits to the website and the browser games</h3>
   <p class="note muted" style="margin:-4px 2px 12px;font-size:12.5px">Counted by your game server when a page opens. A person who comes back on the same day is counted once in "people". Your own visits aren't counted. <span class="dayStart"></span></p>
+  <div class="card" id="funnel" style="margin-bottom:16px"></div>
   <section class="grid3" id="web"></section></div>
 
   <h3 class="sec">Traffic to each game's GitHub page</h3>
@@ -271,6 +277,11 @@ function render(D) {
     $("tWeb").textContent = num(sum("week"));
     $("sWeb").innerHTML = `people this week · <b>${num(sum("today"))}</b> today · ${num(sum("views7"))} page views`;
     $("webWrap").style.display = "";
+    // Reckoning, from looking to buying, this week: page views, demo downloads, Buy clicks, copies sold
+    { const st = W.site || {}, ev = st.events7 || {}, S = D.sales && !D.sales.error ? D.sales : null;
+      const rows = [["Views of the Reckoning page", (st.paths || {})["/reckoning.html"] || 0], ["Free demo downloads", (ev["demo-mac"] || 0) + (ev["demo-win"] || 0), `${num(ev["demo-mac"] || 0)} Mac · ${num(ev["demo-win"] || 0)} Windows`], ["Clicks on Buy", ev.buy || 0], ["Copies sold", S ? S.week || 0 : null]];
+      const mx = Math.max(1, ...rows.map(r => r[1] || 0));
+      $("funnel").innerHTML = `<h2>Forester: Reckoning, from looking to buying</h2><p class="note">The last 7 days. Clicks are counted on the website only: a copy bought from inside the game shows as a sale, with no click before it.</p><div class="fun">${rows.map((r, i) => { const prev = i ? rows[i - 1][1] : null, pct = r[1] != null && prev ? Math.round(100 * r[1] / prev) + "% of the step above" : ""; return `<div class="fun-row" title="${esc(r[2] || "")}"><span>${esc(r[0])}</span><div class="fun-bar" style="width:${r[1] == null ? 0 : Math.max(0.4, 100 * r[1] / mx)}%"></div><span class="fun-n">${r[1] == null ? "–" : num(r[1])}<small>${esc(pct)}</small></span></div>`; }).join("")}</div>`; }
     const NAMES = { site: "The website", forester: "Forester (browser)", smoke: "Standards in Smoke (browser)" };
     // (the home page arrives as "/" and as "/index.html": one page, counted together)
     const top = o => { const m = {}; for (const [k, v] of Object.entries(o || {})) { const kk = k === "/index.html" ? "/" : k; m[kk] = (m[kk] || 0) + v; } return Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, 6); };
