@@ -2163,7 +2163,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .pk-shots a { display: block; overflow: hidden; border: 1px solid #1e1e1e; }
 .pk-shots img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; transition: transform 0.4s; }
 .pk-shots a:hover img { transform: scale(1.06); }
-@media (max-width: 760px) { .pk-grid, .pk-game { grid-template-columns: 1fr; } .pk-facts div { grid-template-columns: 96px 1fr; } }
+@media (max-width: 760px) { .pk-grid, .pk-game { grid-template-columns: minmax(0, 1fr); } .pk-facts div { grid-template-columns: 96px minmax(0, 1fr); } }
+.pk-facts dd { overflow-wrap: anywhere; } /* (a long address in a fact breaks rather than pushing the box off a small phone) */
 
 /* What's new: the latest updates, the newest open */
 .sp-news { margin-bottom: 34px; }
