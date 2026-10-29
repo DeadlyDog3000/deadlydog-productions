@@ -45,8 +45,8 @@
     }
     if (paid) {
       if (h) h.textContent = 'Thank you';
-      if (note) note.textContent = 'Your payment went through. Bought from inside the game? It has already unlocked by itself. Otherwise, your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt. Haven\u2019t got the game yet? Download it, then paste the key in on the title screen (Unlock the full game).';
-      if (act) { act.innerHTML = ''; downloads(''); button('Show my licence key', GAME.shop + '/shop/key?s=' + paid); }
+      if (note) note.textContent = 'Your payment went through. Your licence key is one click away \u2014 it\u2019s also in the description on your emailed receipt. Bought from inside the game? It has already unlocked by itself. Haven\u2019t got the game yet? Download it, then paste the key in on the title screen (Unlock the full game).';
+      if (act) { act.innerHTML = ''; button('Show my licence key', GAME.shop + '/shop/key?s=' + paid); downloads('Download \u00b7 '); }
       box.scrollIntoView && setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
       return;
     }
