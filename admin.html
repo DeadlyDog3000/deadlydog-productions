@@ -190,7 +190,8 @@ function line(el, pts, fmtY, label) {
   if (!pts || pts.length < 2) { el.innerHTML = `<div class="empty">Not enough history yet.<br>It fills in while this panel is running.</div>`; return; }
   const W = 600, Hh = 180, L = 36, R = 8, T = 10, B = 22;
   const x0 = pts[0][0], x1 = pts[pts.length - 1][0], ymax = Math.max(1, ...pts.map(p => p[1]));
-  const nice = Math.ceil(ymax / Math.pow(10, Math.floor(Math.log10(ymax)))) * Math.pow(10, Math.floor(Math.log10(ymax)));
+  let nice = Math.ceil(ymax / Math.pow(10, Math.floor(Math.log10(ymax)))) * Math.pow(10, Math.floor(Math.log10(ymax)));
+  if (nice < 10) nice = Math.max(2, nice + nice % 2); // (counts of things: an even top, so the middle line is a whole number)
   const X = t => L + (W - L - R) * (x1 === x0 ? 0 : (t - x0) / (x1 - x0)), Y = v => T + (Hh - T - B) * (1 - v / nice);
   // (straight lines between the points: a smoothed curve would draw rises and dips that never happened)
   const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join("");
@@ -222,11 +223,12 @@ function line(el, pts, fmtY, label) {
 (() => { const t = new Date(); t.setUTCHours(0, 0, 0, 0); const h = t.toLocaleTimeString(undefined, { hour: "numeric", minute: t.getMinutes() ? "2-digit" : undefined }); document.querySelectorAll(".dayStart").forEach(e => e.textContent = h === "12 AM" || h === "00" ? "" : `A day here starts at ${h} your time.`); })();
 
 // a run of days for a bar chart: from the day before the first one with anything in it, and at least the last 14
-const daily = (days, key) => { days = days || []; if (!days.length) return []; const f = days.findIndex(x => (x[key] || 0) > 0); const from = f < 0 ? days.length : Math.max(0, Math.min(f - 1, days.length - 14)); return days.slice(from).map(x => [Date.parse(x.d + "T12:00:00"), x[key] || 0, x.d]); };
+const daily = (days, key) => { days = days || []; if (!days.length) return []; const f = days.findIndex(x => (x[key] || 0) > 0); const from = f < 0 ? Math.max(0, days.length - 14) : Math.max(0, Math.min(f - 1, days.length - 14)); return days.slice(from).map(x => [Date.parse(x.d + "T12:00:00"), x[key] || 0, x.d]); };
 
 // one bar a day, for things counted by the day (people, views): bars don't suggest values between the days
 function bars(el, pts, fmtY, label, todayKey) {
-  if (!pts || !pts.length || !pts.some(p => p[1] > 0)) { el.innerHTML = `<div class="empty">Not enough history yet.<br>It fills in while this panel is running.</div>`; return; }
+  if (!pts || !pts.length) { el.innerHTML = `<div class="empty">Not enough history yet.<br>It fills in while this panel is running.</div>`; return; }
+  if (!pts.some(p => p[1] > 0)) { el.innerHTML = `<div class="empty">None yet${pts.length > 1 ? ` since ${new Date(pts[0][0]).toLocaleDateString(undefined, { month: "short", day: "numeric" })}` : ""}.<br>Each day with some gets a bar here.</div>`; return; }
   const W = 600, Hh = 180, L = 36, R = 8, T = 10, B = 22, n = pts.length;
   const ymax = Math.max(1, ...pts.map(p => p[1]));
   const mag = Math.pow(10, Math.floor(Math.log10(ymax))); let nice = Math.max(2, Math.ceil(ymax / mag) * mag); if (nice < 10 && nice % 2) nice++; // (even, so the middle line is a whole number)
@@ -318,7 +320,9 @@ function render(D) {
   else bars($("cPl"), [], v => v, "Players");
   const mixRow = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${num(v)}</td></tr>`).join("");
   $("mix").innerHTML = P && !P.error ? `<table><tbody><tr><th>Full game / demo</th><th class="n"></th></tr><tr><td>Full game</td><td class="n">${num(P.full)}</td></tr><tr><td>Demo</td><td class="n">${num(P.demo)}</td></tr><tr><th>Platform</th><th></th></tr>${mixRow(P.byPlatform) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}<tr><th>Version</th><th></th></tr>${mixRow(P.byVersion) || '<tr><td class="muted" colspan="2">None yet</td></tr>'}</tbody></table>` : `<div class="muted">${esc((P && P.error) || "")}</div>`;
-  line($("cOn"), (D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => [x[0], x[1]]), v => num(Math.round(v)), "Players online");
+  { const on = (D.history.online || []).filter(x => x[0] > Date.now() - 7 * 86400000).map(x => [x[0], x[1]]);
+    if (on.length > 1 && !on.some(p => p[1] > 0)) $("cOn").innerHTML = `<div class="empty">No one was online any time this panel checked${on[0][0] < Date.now() - 6 * 86400000 ? " this week" : ` since ${new Date(on[0][0]).toLocaleDateString(undefined, { month: "short", day: "numeric" })}`}.<br>Anyone who plays online shows up here.</div>`;
+    else line($("cOn"), on, v => num(Math.round(v)), "Players online"); }
 
   const TR = (D.traffic && D.traffic.repos) || {}, tv = r => TR[r] && !TR[r].error ? `${nn(TR[r].views14, "GitHub page view")} (${nn(TR[r].uniques14, "person", "people")}) in 14 days` : "";
   $("games").innerHTML = [
