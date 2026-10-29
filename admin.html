@@ -47,6 +47,7 @@ h1 span { display: block; font-size: 12.5px; font-weight: 500; color: var(--text
 .dot.on { background: var(--good); box-shadow: 0 0 0 0 rgba(63, 207, 142, 0.6); animation: pulse 2.4s infinite; } .dot.err { background: var(--bad); }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0.5); } 70% { box-shadow: 0 0 0 8px rgba(63, 207, 142, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 207, 142, 0); } }
 .btn { font: inherit; font-size: 12.5px; color: var(--text-secondary); padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
+.btn.on { color: var(--accent); border-color: var(--accent); }
 .btn:hover { color: var(--text-primary); border-color: var(--accent); }
 .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 14px; }
 /* (five across when there's room; otherwise three and two, or two by two, never four and one left on its own) */
@@ -117,7 +118,7 @@ body.locked .lock { display: grid; }
 <main>
   <header>
     <div class="brand"><a href="./" class="mark" style="text-decoration:none" title="Back to the website">DD</a><h1>DeadlyDog Admin<span>All your games · opens only on your computer</span></h1></div>
-    <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><a class="btn" id="onSite" style="display:none;text-decoration:none" href="https://deadlydog3000.github.io/deadlydog-productions/admin.html#owner" title="Opens this panel on your website, and shows the Admin button in the site's menu in this browser">Open on website</a><button class="btn" id="theme" type="button">Theme</button></div>
+    <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><a class="btn" id="onSite" style="display:none;text-decoration:none" href="https://deadlydog3000.github.io/deadlydog-productions/admin.html#owner" title="Opens this panel on your website, and shows the Admin button in the site's menu in this browser">Open on website</a><button class="btn" id="notify" type="button" title="While this panel is open, your computer tells you when a copy sells or a review is written">Notify me of sales</button><button class="btn" id="theme" type="button">Theme</button></div>
   </header>
 
   <section class="tiles" aria-label="Headline numbers">
@@ -253,6 +254,29 @@ function bars(el, pts, fmtY, label) {
   svg.addEventListener("mouseleave", () => { tip.style.display = "none"; hl.setAttribute("visibility", "hidden"); });
 }
 
+// ---- a word from the computer when a copy sells or a review is written (only while this panel is open, and only if asked) ----
+const NB = $("notify");
+const canNote = () => "Notification" in window && Notification.permission === "granted";
+const noteOn = () => { try { return localStorage.getItem("dd-notify") === "1" && canNote(); } catch (e) { return false; } };
+const showNote = () => { if (!("Notification" in window)) { NB.style.display = "none"; return; } NB.textContent = noteOn() ? "Notifications on" : "Notify me of sales"; NB.classList.toggle("on", noteOn()); };
+NB.onclick = async () => {
+  if (noteOn()) { try { localStorage.removeItem("dd-notify"); } catch (e) {} return showNote(); }
+  const p = await Notification.requestPermission().catch(() => "denied");
+  if (p === "granted") { try { localStorage.setItem("dd-notify", "1"); } catch (e) {} new Notification("DeadlyDog Admin", { body: "You'll hear about sales and new reviews while this panel is open." }); }
+  showNote();
+};
+showNote();
+function news(D) {
+  const sold = D.sales && !D.sales.error ? D.sales.sold : null;
+  const RV = D.reviews && D.reviews.games ? D.reviews : null, nrev = RV ? Object.values(RV.games).reduce((n, g) => n + (g.count || 0), 0) : null;
+  let last = {}; try { last = JSON.parse(localStorage.getItem("dd-last") || "{}"); } catch (e) {}
+  if (noteOn()) {
+    if (sold != null && last.sold != null && sold > last.sold) { const n = sold - last.sold; new Notification(n === 1 ? "A copy of Forester: Reckoning sold" : `${n} copies of Forester: Reckoning sold`, { body: `${num(sold)} sold in all.`, tag: "dd-sale" }); }
+    if (nrev != null && last.reviews != null && nrev > last.reviews && RV.latest && RV.latest[0]) { const r = RV.latest[0]; new Notification(`New review of ${r.game}: ${"★".repeat(r.rating)}`, { body: `${r.title || ""} (${r.user})`, tag: "dd-review" }); }
+  }
+  try { localStorage.setItem("dd-last", JSON.stringify({ sold: sold ?? last.sold, reviews: nrev ?? last.reviews })); } catch (e) {}
+}
+
 function render(D) {
   // reviews written on the website
   { const RV = D.reviews || {};
@@ -331,7 +355,7 @@ function render(D) {
 async function poll() {
   try {
     const r = await fetch(API + "/api/data", { cache: "no-store", signal: AbortSignal.timeout(15000) }); if (!r.ok) throw new Error("panel said " + r.status);
-    const D = await r.json(); document.body.classList.remove("locked"); try { localStorage.setItem("dd-admin", "1"); } catch (e) {} render(D);
+    const D = await r.json(); document.body.classList.remove("locked"); try { localStorage.setItem("dd-admin", "1"); } catch (e) {} render(D); news(D);
     $("dot").className = "dot on"; $("upd").textContent = "Updated " + new Date().toLocaleTimeString() + " · refreshes every minute";
   } catch (e) {
     $("dot").className = "dot err"; $("upd").textContent = "Couldn't load: " + (e.message || e);
