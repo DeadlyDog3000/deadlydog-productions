@@ -58,8 +58,11 @@
     /* a sale on: its banner over the buy box (and a strip at the top of the page pointing to it), the sale price on the button */
     var sale = GAME.sale && Date.now() < Date.parse(GAME.sale.until) ? GAME.sale : null;
     if (sale) {
+      /* (days left, counted by the calendar to the day it ends here: it ends in the small hours, so that's the day before) */
+      var endDay = new Date(Date.parse(sale.until) - 3 * 3600000), today = new Date();
+      var left = Math.round((new Date(endDay.getFullYear(), endDay.getMonth(), endDay.getDate()) - new Date(today.getFullYear(), today.getMonth(), today.getDate())) / 86400000);
       var b = document.createElement('div'); b.className = 'sp-sale';
-      b.innerHTML = '<span class="sp-sale-name">' + escapeHtml(sale.name) + '</span><span class="sp-sale-price"><s>' + escapeHtml(GAME.price || '') + '</s> ' + escapeHtml(sale.price) + '</span><span class="sp-sale-ends">Ends ' + escapeHtml(sale.ends) + '</span>';
+      b.innerHTML = '<span class="sp-sale-name">' + escapeHtml(sale.name) + '</span><span class="sp-sale-price"><s>' + escapeHtml(GAME.price || '') + '</s> ' + escapeHtml(sale.price) + '</span><span class="sp-sale-ends">Ends ' + escapeHtml(sale.ends) + (left <= 0 ? ' &middot; last day' : left === 1 ? ' &middot; ends tomorrow' : left <= 14 ? ' &middot; ' + left + ' days left' : '') + '</span>';
       box.insertBefore(b, box.querySelector('.sp-buy-row'));
       var top = document.createElement('a'); top.className = 'sp-sale-strip'; top.href = '#buy';
       top.innerHTML = '<b>' + escapeHtml(sale.name) + '</b> &mdash; ' + escapeHtml(GAME.name || 'the game') + ' for ' + escapeHtml(sale.price) + ' <s>' + escapeHtml(GAME.price || '') + '</s> until ' + escapeHtml(sale.ends);
