@@ -303,6 +303,9 @@ function render(D) {
     const cur = Object.keys(S.net || {})[0];
     $("tSold").textContent = num(S.sold);
     $("sSold").innerHTML = `${cur ? `<b>${money(S.net[cur], cur)}</b> taken in · ` : ""}${num(S.today)} today · ${num(S.week)} this week${S.refunded ? ` · ${num(S.refunded)} refunded` : ""}`;
+    // (a sale on: its price and how long it has left, so the owner sees what buyers see)
+    const SL = D.shop && !D.shop.error && D.shop.sale, left = SL ? Date.parse(SL.until) - Date.now() : 0;
+    if (SL && left > 0) { const days = Math.floor(left / 86400000); $("sSold").innerHTML += `<br><span class="pill">${esc(SL.name)}</span> ${esc(SL.price)} · ends ${new Date(Date.parse(SL.until) - 1).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", timeZone: "America/Los_Angeles" })} (${days < 1 ? "last day" : days === 1 ? "1 day left" : days + " days left"})`; }
     $("nSales").textContent = S.opened ? `${nn(S.opened, "checkout")} opened, ${Math.round((S.sold + (S.refunded || 0)) / S.opened * 100)}% of them paid.` : "";
     $("sales").innerHTML = (S.last || []).length ? `<table><tbody>${S.last.slice(0, 8).map(s => `<tr><td>${flag(s.cc)}</td><td>${esc([s.city, s.region].filter(Boolean).join(", ") || "Unknown place")}${s.user ? ` <span class="muted">· ${esc(s.user)}</span>` : ""}${s.refunded ? ' <span class="pill">refunded</span>' : ""}</td><td class="n muted">${s.at ? ago(s.at) : ""}</td></tr>`).join("")}</tbody></table>` : `<div class="muted">No sales yet. When someone buys, the place and time show here.</div>`;
   } else { $("sSold").textContent = (S && S.error) || ""; $("sales").innerHTML = `<div class="muted">${esc((S && S.error) || "")}</div>`; }
