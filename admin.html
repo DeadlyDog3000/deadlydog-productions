@@ -101,6 +101,10 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .card .chart .empty { height: 150px; }
 .refs { margin-top: 10px; font-size: 12.5px; }
 .refs td { padding: 6px 4px; }
+.pk-form { display: flex; gap: 8px; margin-top: 10px; }
+.pk-form input { flex: 1; min-width: 0; padding: 8px 10px; font: inherit; color: inherit; background: transparent; border: 1px solid color-mix(in srgb, currentColor 28%, transparent); border-radius: 6px; }
+.pk-form button, .pk-off { padding: 7px 12px; font: inherit; font-size: 12.5px; color: inherit; background: transparent; border: 1px solid color-mix(in srgb, currentColor 28%, transparent); border-radius: 6px; cursor: pointer; }
+.pk-key { font-size: 12px; user-select: all; }
 h3.sec { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 26px 2px 10px; }
 body.locked main { display: none; }
 .lock { display: none; min-height: 100vh; place-items: center; text-align: center; padding: 24px; }
@@ -151,6 +155,13 @@ body.locked .lock { display: grid; }
     <p class="note">What players have written on the game pages, newest first.</p>
     <div class="rv-sum" id="rvSum"></div>
     <div id="rvList"></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Mailing list</h2><p class="note">People who signed up on the website and confirmed by email.</p><div id="mlist"></div></div>
+    <div class="card"><h2>Keys given away</h2><p class="note">Free copies of Forester: Reckoning for creators and the press. Never counted as sales. Each works on 3 computers, like a bought key.</p>
+      <form id="pkForm" class="pk-form"><input id="pkWho" maxlength="80" placeholder="Who it's for (channel or outlet)" required><button type="submit">Make a key</button></form>
+      <p class="note" id="pkMsg" style="margin:6px 0 0"></p><div id="pkList"></div></div>
   </section>
 
   <div id="webWrap" style="display:none"><h3 class="sec">Visits to the website and the browser games</h3>
@@ -278,6 +289,17 @@ function news(D) {
 }
 
 function render(D) {
+  // the mailing list, and the keys given away
+  { const L = D.list || {};
+    $("mlist").innerHTML = L.error ? `<span class="muted">${esc(L.error === "not on the server yet" ? "Not on the game server yet: it needs updating (see the notes)." : L.error)}</span>`
+      : `<div class="big">${num(L.count)}<small>${L.count === 1 ? "person" : "people"} · ${num(L.week)} this week${L.pending ? ` · ${num(L.pending)} still to confirm` : ""}</small></div>` +
+        (Object.keys(L.by || {}).length ? `<table class="refs"><thead><tr><th>Signed up on</th><th class="n">People</th></tr></thead><tbody>${Object.entries(L.by).sort((a, b) => b[1] - a[1]).map(([g, n]) => `<tr><td>${esc({ reckoning: "Forester: Reckoning", forester: "Forester", "standards-in-smoke": "Standards In Smoke", site: "The home page" }[g] || g)}</td><td class="n">${num(n)}</td></tr>`).join("")}</tbody></table>` : "");
+    const P = D.press || {};
+    $("pkList").innerHTML = P.error ? `<span class="muted">${esc(P.error === "not on the server yet" ? "Not on the game server yet: it needs updating (see the notes)." : P.error)}</span>`
+      : (P.keys || []).length ? `<table class="refs"><thead><tr><th>For</th><th>Key</th><th class="n">Computers</th><th></th></tr></thead><tbody>${P.keys.slice().sort((a, b) => b.at - a.at).map(k => `<tr${k.revoked ? ' class="muted"' : ""}><td>${esc(k.who)}</td><td><code class="pk-key">${esc(k.key)}</code></td><td class="n">${k.used}</td><td class="n">${k.revoked ? "taken back" : `<button class="pk-off" data-key="${esc(k.key)}">Take back</button>`}</td></tr>`).join("")}</tbody></table>`
+      : `<p class="note" style="margin:8px 0 0">None given yet.</p>`;
+    for (const b of document.querySelectorAll(".pk-off")) b.onclick = async () => { if (!confirm(`Take back ${b.dataset.key}? The game it unlocked locks again.`)) return; b.disabled = true; await fetch(API + "/api/press?revoke=" + encodeURIComponent(b.dataset.key)).catch(() => {}); poll(); };
+  }
   // reviews written on the website
   { const RV = D.reviews || {};
     if (RV.error || !RV.games) { $("rvSum").innerHTML = `<span class="muted">${esc(RV.error || "Couldn't reach the reviews.")}</span>`; $("rvList").innerHTML = ""; }
@@ -371,6 +393,15 @@ function render(D) {
   $("files").querySelector("tbody").innerHTML = files.map(f => `<tr><td>${esc(f.name)}</td><td class="muted">${esc(f.tag)}</td><td>${esc(KINDS[f.kind])}</td><td class="n">${num(f.total)}</td></tr>`).join("") || `<tr><td colspan="4" class="muted">No release files found.</td></tr>`;
 }
 
+// (a key for a creator: made by the panel, shown here once to copy)
+$("pkForm").onsubmit = async e => {
+  e.preventDefault(); const who = $("pkWho").value.trim(); if (!who) return;
+  $("pkMsg").textContent = "Making it…";
+  try { const r = await (await fetch(API + "/api/press?who=" + encodeURIComponent(who), { cache: "no-store" })).json();
+    if (r.key) { $("pkMsg").innerHTML = `For ${esc(r.who)}: <code class="pk-key">${esc(r.key)}</code> (copy it into your email)`; $("pkWho").value = ""; poll(); }
+    else $("pkMsg").textContent = r.error || "That didn't work."; }
+  catch (x) { $("pkMsg").textContent = "Couldn't reach the panel."; }
+};
 async function poll() {
   try {
     const r = await fetch(API + "/api/data", { cache: "no-store", signal: AbortSignal.timeout(15000) }); if (!r.ok) throw new Error("panel said " + r.status);
