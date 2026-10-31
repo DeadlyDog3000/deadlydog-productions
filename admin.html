@@ -157,6 +157,12 @@ body.locked .lock { display: grid; }
     <div id="rvList"></div>
   </section>
 
+  <section class="card" style="margin-bottom:16px">
+    <h2>Time played</h2>
+    <p class="note">Minutes of real play in each game, from a beat a minute while a game is open and its window in front (never the menu, a pause or a hidden tab). Your own browser isn't counted. Counting began when each game started sending it.</p>
+    <div class="grid3" id="playTime"></div>
+  </section>
+
   <section class="grid2">
     <div class="card"><h2>Mailing list</h2><p class="note">People who signed up on the website and confirmed by email.</p><div id="mlist"></div></div>
     <div class="card"><h2>Keys given away</h2><p class="note">Free copies of Forester: Reckoning for creators and the press. Never counted as sales. Each works on 3 computers, like a bought key.</p>
@@ -289,6 +295,16 @@ function news(D) {
 }
 
 function render(D) {
+  // time played, each game
+  { const PL = D.players && !D.players.error && D.players.play, el = $("playTime");
+    const hm = m => { m = m || 0; const h = Math.floor(m / 60); return h ? `${num(h)} h ${m % 60} min` : `${m} min`; };
+    const NAMES = { reckoning: "Forester: Reckoning", forester: "Forester", smoke: "Standards In Smoke" };
+    if (!PL) el.innerHTML = `<div class="muted">${esc(D.players && D.players.error === "not yet" ? "Not on the game server yet: it needs updating (see the notes)." : "Not counted on the game server yet: it needs updating (see the notes).")}</div>`;
+    else {
+      el.innerHTML = Object.entries(NAMES).map(([g, n]) => { const P = PL[g] || {}; return `<div class="card"><h2>${esc(n)}</h2><div class="big">${hm(P.total)}<small>played in all${P.since ? ` · since ${new Date(P.since + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" })}` : ""}</small></div><p class="note">${hm(P.week)} this week · ${hm(P.today)} today · ${nn(P.players7 || 0, "player", "players")} this week${P.players7 ? ` · ${hm(Math.round((P.week || 0) / P.players7))} each` : ""}</p><div class="chart" id="play_${g}"></div></div>`; }).join("");
+      for (const g of Object.keys(NAMES)) if (PL[g]) bars($("play_" + g), daily(PL[g].days, "minutes"), v => hm(Math.round(v)), "Played");
+    }
+  }
   // the mailing list, and the keys given away
   { const L = D.list || {};
     $("mlist").innerHTML = L.error ? `<span class="muted">${esc(L.error === "not on the server yet" ? "Not on the game server yet: it needs updating (see the notes)." : L.error)}</span>`
