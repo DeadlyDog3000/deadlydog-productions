@@ -170,8 +170,15 @@
         </div>
         <div class="game-card beta-card">
           <div class="beta-badge">BETA</div>
+          <!-- The trailer stands in for the screenshot, as the others' do. -->
           <div class="game-image-placeholder" style="padding: 0; overflow: hidden;">
-            <img src="standards_in_smoke_card.jpg?v=2" alt="Standards In Smoke title screen" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; background: #0a0a0a;">
+            <video class="game-trailer" aria-label="Standards In Smoke trailer" controls preload="none"
+                   poster="media/cards/smoke_trailer_card.jpg?v=20261031"
+                   style="width: 100%; height: 100%; object-fit: cover; background: #0a0a0a; display: block;">
+              <source src="smoke_trailer_720.mp4?v=20261031" type="video/mp4" media="(max-width: 900px)">
+              <source src="smoke_trailer.mp4?v=20261031" type="video/mp4">
+              <a href="standards-in-smoke.html">Watch the Standards In Smoke trailer</a>
+            </video>
           </div>
           <div class="game-info game-info-stacked">
             <h3>Standards In Smoke</h3>
@@ -179,7 +186,7 @@
             <span class="game-status status-beta">Beta Build</span>
             <div class="game-actions">
               <a href="https://deadlydog3000.github.io/Standards-In-Smoke/" class="btn btn-primary btn-play" target="_blank" rel="noopener" aria-label="Play Standards In Smoke now (opens in a new tab)">Play Now</a>
-              <a href="standards-in-smoke.html" class="btn btn-outline btn-play" aria-label="Standards In Smoke: screenshots and more">Screenshots &amp; More</a>
+              <a href="standards-in-smoke.html" class="btn btn-outline btn-play" aria-label="Standards In Smoke: trailer, screenshots and more">Trailer &amp; More</a>
             </div>
           </div>
         </div>
