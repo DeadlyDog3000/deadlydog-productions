@@ -2257,3 +2257,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 #spReviewSummary.sp-tone-positive a { color: #7ac36a; }
 #spReviewSummary.sp-tone-mixed a { color: #d9a441; }
 #spReviewSummary.sp-tone-negative a { color: var(--red-text); }
+
+/* ===== The mailing list band (news.js) ===== */
+.news-band { padding: 56px 0; background: var(--bg-secondary); border-top: 1px solid #1f1f1f; }
+.news-inner { display: grid; grid-template-columns: 1fr minmax(280px, 440px); gap: 32px; align-items: start; }
+.news-copy h2 { font-family: var(--font-heading); font-weight: 600; font-size: 1.9rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
+.news-copy p { color: var(--text-secondary); max-width: 52ch; }
+.news-form { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.news-label { grid-column: 1 / -1; font-size: .85rem; color: var(--text-muted); }
+.news-form input[type=email] { min-width: 0; padding: 12px 14px; font: inherit; color: var(--text-primary); background: var(--bg-card); border: 1px solid #333; border-radius: 4px; }
+.news-form input[type=email]:focus { outline: 2px solid var(--red-primary); outline-offset: 1px; border-color: transparent; }
+.news-form .btn { margin: 0; }
+.news-form .btn:disabled { opacity: .6; cursor: wait; }
+.news-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.news-msg { grid-column: 1 / -1; min-height: 1.4em; font-size: .95rem; color: var(--text-secondary); }
+.news-msg.good { color: #8fd18f; }
+.news-msg.bad { color: var(--red-text); }
+.news-small { grid-column: 1 / -1; font-size: .8rem; color: var(--text-muted); }
+.news-small a { color: var(--text-secondary); }
+@media (max-width: 760px) { .news-inner { grid-template-columns: 1fr; gap: 18px; } .news-band { padding: 40px 0; } }
