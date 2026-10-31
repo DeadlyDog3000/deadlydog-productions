@@ -49,11 +49,20 @@
       "name": "DeadlyDog Productions",
       "url": "https://deadlydog3000.github.io/deadlydog-productions/"
     },
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+    "trailer": {
+      "@type": "VideoObject",
+      "name": "Standards In Smoke — Trailer",
+      "description": "Chart a blank world, found towns, raise their walls, and march your regiments of foot, horse and guns until the whole map is yours. All footage captured in game.",
+      "thumbnailUrl": "https://deadlydog3000.github.io/deadlydog-productions/smoke_trailer_poster.jpg",
+      "contentUrl": "https://deadlydog3000.github.io/deadlydog-productions/smoke_trailer.mp4",
+      "uploadDate": "2026-10-31",
+      "duration": "PT1M12S"
+    }
   }
   </script>
 
-  <link rel="preload" as="image" href="media/standards-in-smoke/01-title.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="media/standards-in-smoke/01-title.jpg?v=20261031" fetchpriority="high">
   <link rel="stylesheet" href="styles.css?v=20261029l">
   <link rel="preload" href="fonts/Oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
@@ -85,7 +94,7 @@
   </nav>
 
   <!-- The game's own art, blurred out behind the head of the page -->
-  <div class="sp-backdrop" style="background-image: url('media/standards-in-smoke/01-title.jpg')"></div>
+  <div class="sp-backdrop" style="background-image: url('media/standards-in-smoke/01-title.jpg?v=20261031')"></div>
 
   <main class="sp-page" id="main">
     <div class="sp-wrap">
@@ -102,47 +111,61 @@
 
       <div class="sp-top">
 
-        <!-- Media player. This game has no trailer, so the stage opens on
-             the first screenshot and the strip is screenshots throughout. -->
-        <section class="sp-media" aria-label="Screenshots">
-          <div class="sp-stage is-image" id="spStage">
-            <img src="media/standards-in-smoke/01-title.jpg" alt="Standards In Smoke title screen">
-            <div class="sp-stage-caption">The title screen, and twenty-one nations waiting behind it.</div>
+        <section class="sp-media" aria-label="Trailer and screenshots">
+          <div class="sp-stage" id="spStage">
+            <video controls preload="none" poster="smoke_trailer_poster.jpg?v=20261031" playsinline aria-label="Standards In Smoke trailer">
+              <source src="smoke_trailer_720.mp4?v=20261031" type="video/mp4" media="(max-width: 900px)">
+              <source src="smoke_trailer.mp4?v=20261031" type="video/mp4">
+              <p>Your browser will not play this video. <a href="smoke_trailer.mp4?v=20261031">Download it instead.</a></p>
+            </video>
           </div>
           <div class="sp-strip-wrap">
             <button class="sp-strip-arrow" data-dir="-1" aria-label="Scroll thumbnails left">&#8249;</button>
             <div class="sp-strip" id="spStrip">
-              <button class="sp-thumb is-active" data-type="image" data-src="media/standards-in-smoke/01-title.jpg"
-                      data-caption="The title screen, and twenty-one nations waiting behind it.">
-                <img src="media/standards-in-smoke/thumbs/01-title.jpg" alt="Standards In Smoke title screen" loading="lazy">
+              <button class="sp-thumb is-video is-active" data-type="video"
+                      data-src="smoke_trailer.mp4?v=20261031" data-src-sm="smoke_trailer_720.mp4?v=20261031" data-poster="smoke_trailer_poster.jpg?v=20261031"
+                      data-caption="The trailer &mdash; chart a blank world, found towns, raise their walls, and march your regiments until the whole map is yours.">
+                <img src="media/standards-in-smoke/thumbs/trailer.jpg?v=20261031" alt="Play the Standards In Smoke trailer" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/02-map.png"
-                      data-caption="The hex map: terrain that decides where a city can live and how fast an army crosses it.">
-                <img src="media/standards-in-smoke/thumbs/02-map.jpg" alt="A hex map with plains, forest, hills and rivers" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/01-title.jpg?v=20261031"
+                      data-caption="The title screen: a strategy game of powder and kings, drawn as an old atlas.">
+                <img src="media/standards-in-smoke/thumbs/01-title.jpg?v=20261031" alt="The Standards In Smoke title screen" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/03-world.png"
-                      data-caption="The wider world &mdash; borders, neighbours, and everything you have not taken yet.">
-                <img src="media/standards-in-smoke/thumbs/03-world.jpg" alt="A zoomed-out view of the world map with national borders" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/02-close.jpg?v=20261031"
+                      data-caption="Close in: a walled town, regiments on their wargame bases, and the hexes a musketeer can reach.">
+                <img src="media/standards-in-smoke/thumbs/02-close.jpg?v=20261031" alt="A walled town and regiments on painted bases on the hex chart" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/04-city.png"
-                      data-caption="A city panel: the production queue, the jobs, and the tiles it is working.">
-                <img src="media/standards-in-smoke/thumbs/04-city.jpg" alt="A city management panel showing production and jobs" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/03-world.jpg?v=20261031"
+                      data-caption="The whole world on the chartmaker&rsquo;s desk: realms, seas, and everything still to take.">
+                <img src="media/standards-in-smoke/thumbs/03-world.jpg?v=20261031" alt="The world chart lying on a leather desk with an inkwell and dividers" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/05-tech.jpg"
-                      data-caption="The tech tree, and the long road out of the crossbow.">
-                <img src="media/standards-in-smoke/thumbs/05-tech.jpg" alt="The technology tree" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/04-city.jpg?v=20261031"
+                      data-caption="A town&rsquo;s panel: production, jobs, lands that grow with its people, and its walls.">
+                <img src="media/standards-in-smoke/thumbs/04-city.jpg?v=20261031" alt="The city panel for Berlin over the map" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/06-kingdoms.png"
-                      data-caption="Every kingdom on the map, and how it is doing against you.">
-                <img src="media/standards-in-smoke/thumbs/06-kingdoms.jpg" alt="A panel listing every kingdom in the game" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/05-tech.jpg?v=20261031"
+                      data-caption="The tech tree, and the long road from the crossbow to the rifled musket.">
+                <img src="media/standards-in-smoke/thumbs/05-tech.jpg?v=20261031" alt="The technology tree" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/07-court.png"
-                      data-caption="The royal court: the houses, their opinion of you, and how close they are to acting on it.">
-                <img src="media/standards-in-smoke/thumbs/07-court.jpg" alt="The royal court panel showing noble houses and their opinions" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/06-kingdoms.jpg?v=20261031"
+                      data-caption="Every kingdom on the map, what it thinks of you, and the treaties on offer.">
+                <img src="media/standards-in-smoke/thumbs/06-kingdoms.jpg?v=20261031" alt="The kingdoms panel listing rival realms" loading="lazy">
               </button>
-              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/08-laws.png"
-                      data-caption="Laws of the realm &mdash; governance, labour, culture and order, and the trade each one asks for.">
-                <img src="media/standards-in-smoke/thumbs/08-laws.jpg" alt="The laws of the realm panel" loading="lazy">
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/07-court.jpg?v=20261031"
+                      data-caption="The royal court: the noble houses, their heads, and how far each can be trusted.">
+                <img src="media/standards-in-smoke/thumbs/07-court.jpg?v=20261031" alt="The royal court panel showing noble houses" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/08-laws.jpg?v=20261031"
+                      data-caption="Laws of the realm: governance, labour, culture and order, each a trade.">
+                <img src="media/standards-in-smoke/thumbs/08-laws.jpg?v=20261031" alt="The laws of the realm panel" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/09-battle.jpg?v=20261031"
+                      data-caption="Battle: musket lines firing into each other through the powder smoke.">
+                <img src="media/standards-in-smoke/thumbs/09-battle.jpg?v=20261031" alt="Two musket lines firing in clouds of powder smoke" loading="lazy">
+              </button>
+              <button class="sp-thumb" data-type="image" data-src="media/standards-in-smoke/10-siege.jpg?v=20261031"
+                      data-caption="A siege: an army and its guns ringing the bastioned town of Dresden.">
+                <img src="media/standards-in-smoke/thumbs/10-siege.jpg?v=20261031" alt="An army surrounding a fortified town" loading="lazy">
               </button>
             </div>
             <button class="sp-strip-arrow" data-dir="1" aria-label="Scroll thumbnails right">&#8250;</button>
@@ -155,7 +178,7 @@
           <p class="sp-blurb">A Napoleonic-era strategy game on a hex map. Take one of <strong>twenty-one historical nations</strong>, put cities on the ground, research your way out of the crossbow, and hold a court full of noble houses that are running out of patience with you.</p>
           <dl class="sp-meta">
             <div><dt>All Reviews:</dt><dd id="spReviewSummary">No user reviews</dd></div>
-            <div><dt>Release Date:</dt><dd>In beta &mdash; 5.4, updated 5 May 2026</dd></div>
+            <div><dt>Release Date:</dt><dd>In beta &mdash; 12.3, updated 31 October 2026</dd></div>
             <div><dt>Developer:</dt><dd>Roan Fraese</dd></div>
             <div><dt>Publisher:</dt><dd><a href="index.html">DeadlyDog Productions</a></dd></div>
             <div><dt>Platform:</dt><dd>Any web browser</dd></div>
