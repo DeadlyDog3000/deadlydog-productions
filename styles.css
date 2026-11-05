@@ -2276,3 +2276,49 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .news-small { grid-column: 1 / -1; font-size: .8rem; color: var(--text-muted); }
 .news-small a { color: var(--text-secondary); }
 @media (max-width: 760px) { .news-inner { grid-template-columns: 1fr; gap: 18px; } .news-band { padding: 40px 0; } }
+
+.sp-features a {
+  color: var(--red-text);
+}
+
+/* --- Historical starts: one small card a year ------------------------ */
+.sp-starts-intro {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 760px;
+  margin-bottom: 16px;
+}
+
+.sp-starts {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.sp-starts li {
+  background: var(--bg-card);
+  border: 1px solid #1e1e1e;
+  border-top: 2px solid var(--red-primary);
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.sp-starts .sp-start-year {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  color: var(--red-text);
+  line-height: 1.1;
+}
+
+.sp-starts b {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 2px 0 4px;
+}
