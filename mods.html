@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Old World Mods — Free Downloads | DeadlyDog Productions</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="description" content="DeadlyDog's Old World Tweaks: 20 free mods for Old World, from 20-man legions and fallen soldiers to all the wonders and loyal families. Download for Steam, Epic or GOG.">
+  <meta name="author" content="Roan Fraese">
+  <link rel="canonical" href="https://deadlydog3000.github.io/deadlydog-productions/mods.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DeadlyDog Productions">
+  <meta property="og:title" content="DeadlyDog's Old World Tweaks — free mods">
+  <meta property="og:description" content="20 free mods for Old World. Download them for any version of the game: Steam, Epic or GOG.">
+  <meta property="og:url" content="https://deadlydog3000.github.io/deadlydog-productions/mods.html">
+  <meta property="og:image" content="https://deadlydog3000.github.io/deadlydog-productions/media/mods/the-complete-collection.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="styles.css?v=20261031n">
+  <link rel="preload" href="fonts/Oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    :root {
+      --gold: #d4ae62;
+      --gold-soft: rgba(212, 174, 98, 0.16);
+      --parchment: #efe2c2;
+      --ink: #2a1c10;
+      --serif: Didot, 'Bodoni 72', 'Bodoni MT', 'Playfair Display', Georgia, 'Times New Roman', serif;
+    }
+    .ow-hero { position: relative; min-height: 92vh; display: grid; align-items: center; padding: 120px 0 80px; overflow: hidden; isolation: isolate; }
+    .ow-hero::before { content: ""; position: absolute; inset: -20%; z-index: -2;
+      background: radial-gradient(60% 50% at 72% 48%, rgba(212, 174, 98, 0.22), transparent 70%),
+                  radial-gradient(45% 45% at 20% 80%, rgba(230, 48, 40, 0.16), transparent 70%), var(--bg-primary); }
+    .ow-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.5;
+      background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.018) 0 2px, transparent 2px 9px); }
+    .ow-hero .container { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+    .ow-eyebrow { display: inline-flex; gap: 10px; align-items: center; font-family: var(--font-heading); letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.82rem; color: var(--gold); }
+    .ow-eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--gold); }
+    .ow-title { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(2.6rem, 6.4vw, 5.2rem); line-height: 1.02; margin: 18px 0 20px; letter-spacing: -0.01em; }
+    .ow-title span { display: block; font-style: normal; font-family: var(--font-heading); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.42em; color: var(--red-text); margin-top: 10px; }
+    .ow-lede { color: var(--text-secondary); font-size: 1.12rem; max-width: 34em; }
+    .ow-stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 26px 0 32px; padding: 0; list-style: none; }
+    .ow-stats li { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; color: var(--text-muted); }
+    .ow-stats b { display: block; font-size: 1.9rem; color: var(--text-primary); letter-spacing: 0.02em; font-weight: 600; line-height: 1.1; }
+    .ow-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+    .ow-fan { position: relative; height: min(520px, 46vw); }
+    .ow-fan img { position: absolute; top: 50%; left: 50%; width: min(300px, 26vw); aspect-ratio: 1; border-radius: 10px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(212,174,98,0.35); transform-origin: 50% 120%;
+      transform: translate(-50%, -50%) rotate(var(--r)) translateX(var(--x)); transition: transform 0.6s cubic-bezier(.2,.8,.2,1); }
+    .ow-fan:hover img { transform: translate(-50%, -50%) rotate(calc(var(--r) * 1.6)) translateX(calc(var(--x) * 1.5)); }
+    .ow-fan img:nth-child(1) { --r: -24deg; --x: -28%; }
+    .ow-fan img:nth-child(2) { --r: -12deg; --x: -14%; }
+    .ow-fan img:nth-child(3) { --r: 0deg; --x: 0%; }
+    .ow-fan img:nth-child(4) { --r: 12deg; --x: 14%; }
+    .ow-fan img:nth-child(5) { --r: 24deg; --x: 28%; }
+    @media (prefers-reduced-motion: no-preference) {
+      .ow-fan img { animation: owDeal 0.9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 90ms + 150ms); }
+      @keyframes owDeal { from { transform: translate(-50%, -30%) rotate(0deg); opacity: 0; } }
+    }
+
+    .ow-section { padding: 96px 0; position: relative; }
+    .ow-section + .ow-section { border-top: 1px solid rgba(255,255,255,0.05); }
+    .ow-head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+    .ow-head h2 { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.15; }
+    .ow-head p { color: var(--text-secondary); margin-top: 12px; }
+    .ow-rule { width: 70px; height: 2px; margin: 16px auto 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+    /* the install steps */
+    .ow-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; counter-reset: step; }
+    .ow-step { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 28px 24px 24px; position: relative; }
+    .ow-step::before { counter-increment: step; content: counter(step, upper-roman); position: absolute; top: -18px; left: 24px; font-family: var(--serif); font-style: italic;
+      font-size: 1.4rem; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--parchment); color: var(--ink); box-shadow: 0 0 0 4px var(--bg-primary); }
+    .ow-step h3 { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.05em; font-size: 1.15rem; margin: 6px 0 8px; }
+    .ow-step p { color: var(--text-secondary); font-size: 0.95rem; }
+    .ow-os { display: inline-flex; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 3px; margin: 4px 0 10px; }
+    .ow-os button { font: 600 0.78rem var(--font-body); color: var(--text-muted); background: none; border: 0; border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+    .ow-os button[aria-pressed="true"] { background: var(--gold); color: var(--ink); }
+    .ow-path { display: flex; align-items: center; gap: 8px; background: #0a0a0a; border: 1px solid var(--gold-soft); border-radius: 8px; padding: 8px 8px 8px 12px; }
+    .ow-path code { flex: 1; min-width: 0; font: 0.82rem ui-monospace, Menlo, Consolas, monospace; color: var(--parchment); overflow-wrap: anywhere; }
+    .ow-path button { flex: none; font: 600 0.72rem var(--font-body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); background: var(--gold-soft); border: 0; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+    .ow-note { text-align: center; color: var(--text-muted); font-size: 0.92rem; margin-top: 26px; }
+    .ow-note a { color: var(--gold); }
+
+    /* the Collection */
+    .ow-feature { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; padding: 36px;
+      border-radius: 18px; background: linear-gradient(135deg, rgba(212,174,98,0.14), rgba(230,48,40,0.06) 60%, transparent), var(--bg-card);
+      border: 1px solid rgba(212,174,98,0.3); margin-bottom: 56px; }
+    .ow-feature img { width: 100%; border-radius: 12px; box-shadow: 0 24px 50px rgba(0,0,0,0.5); }
+    .ow-feature .ow-badge { color: var(--gold); }
+    .ow-feature h3 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; margin: 8px 0 12px; }
+    .ow-feature p { color: var(--text-secondary); }
+    .ow-feature .ow-btns { margin-top: 22px; }
+
+    /* the filter */
+    .ow-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 34px; }
+    .ow-filter button { font: 600 0.85rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); background: transparent;
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: all 0.2s; }
+    .ow-filter button:hover { border-color: var(--gold); color: var(--text-primary); }
+    .ow-filter button[aria-pressed="true"] { background: var(--parchment); border-color: var(--parchment); color: var(--ink); }
+    .ow-filter small { opacity: 0.6; margin-left: 4px; }
+
+    /* the mod cards */
+    .ow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+    .ow-card { display: flex; flex-direction: column; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; overflow: hidden;
+      transition: transform 0.3s cubic-bezier(.2,.8,.2,1), border-color 0.3s, box-shadow 0.3s; }
+    .ow-card:hover { transform: translateY(-6px); border-color: rgba(212,174,98,0.45); box-shadow: 0 24px 50px rgba(0,0,0,0.5), 0 0 40px rgba(212,174,98,0.08); }
+    .ow-card[hidden] { display: none; }
+    .ow-card .ow-pic { position: relative; aspect-ratio: 1; overflow: hidden; background: #d9c79d; }
+    .ow-card .ow-pic img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.2,.8,.2,1); }
+    .ow-card:hover .ow-pic img { transform: scale(1.05); }
+    .ow-kind { position: absolute; bottom: 12px; left: 12px; font: 700 0.68rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.14em;
+      padding: 4px 10px; border-radius: 999px; background: rgba(10,10,10,0.82); color: var(--parchment); backdrop-filter: blur(4px); }
+    .ow-new { position: absolute; bottom: 12px; right: 12px; font: 700 0.68rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.14em;
+      padding: 4px 10px; border-radius: 999px; background: var(--red-button); color: #fff; }
+    .ow-body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+    .ow-badge { font: 600 0.75rem var(--font-heading); letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-text); }
+    .ow-card h3 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.55rem; line-height: 1.15; margin: 4px 0 6px; }
+    .ow-tag { color: var(--text-secondary); font-size: 0.95rem; }
+    .ow-card details { margin-top: 10px; color: var(--text-muted); font-size: 0.88rem; }
+    .ow-card summary { cursor: pointer; color: var(--gold); font-weight: 600; font-size: 0.82rem; list-style: none; }
+    .ow-card summary::-webkit-details-marker { display: none; }
+    .ow-card summary::after { content: " +"; }
+    .ow-card details[open] summary::after { content: " \2212"; }
+    .ow-card details p { margin-top: 8px; }
+    .ow-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 16px; }
+    .ow-dl { display: inline-flex; align-items: center; gap: 8px; font: 600 0.9rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em;
+      color: #fff; background: var(--red-button); border-radius: 8px; padding: 10px 16px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .ow-dl:hover { background: var(--red-primary); transform: translateY(-1px); }
+    .ow-dl svg { width: 16px; height: 16px; }
+    .ow-dl small { font: 400 0.75rem var(--font-body); text-transform: none; letter-spacing: 0; opacity: 0.8; }
+    .ow-ws { display: inline-flex; align-items: center; font: 600 0.82rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; padding: 10px 14px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .ow-ws:hover { border-color: var(--gold); color: var(--text-primary); }
+    .ow-feature .ow-dl { font-size: 1rem; padding: 14px 22px; }
+
+    /* our games */
+    .ow-games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .ow-game { position: relative; display: block; border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 5; text-decoration: none; color: #fff; isolation: isolate;
+      border: 1px solid rgba(255,255,255,0.08); transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s; }
+    .ow-game img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 0.8s cubic-bezier(.2,.8,.2,1); }
+    .ow-game::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.95) 80%); }
+    .ow-game:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(230,48,40,0.5); }
+    .ow-game:hover img { transform: scale(1.06); }
+    .ow-game-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; }
+    .ow-game-tag { font: 700 0.7rem var(--font-heading); letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--red-button); }
+    .ow-game h3 { font-family: var(--font-heading); text-transform: uppercase; font-size: 1.7rem; letter-spacing: 0.03em; margin: 12px 0 6px; line-height: 1.1; }
+    .ow-game p { color: #ddd; font-size: 0.92rem; }
+    .ow-game-go { display: inline-block; margin-top: 14px; font: 600 0.85rem var(--font-heading); letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-text); }
+    .ow-game:hover .ow-game-go { color: #fff; }
+    .ow-fine { text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 0 0 40px; }
+
+    @media (max-width: 900px) {
+      .ow-hero { min-height: 0; padding-top: 110px; }
+      .ow-hero .container { grid-template-columns: minmax(0, 1fr); }
+      .ow-fan { height: 300px; order: -1; }
+      .ow-fan img { width: 190px; }
+      .ow-steps, .ow-games { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+      .ow-games { gap: 18px; }
+      .ow-game { aspect-ratio: auto; min-height: 440px; }
+      .ow-feature { grid-template-columns: minmax(0, 1fr); padding: 22px; gap: 22px; }
+      .ow-feature img { max-width: 300px; margin: 0 auto; }
+      .ow-section { padding: 70px 0; }
+    }
+    @media (max-width: 560px) {
+      .ow-fan img { width: 150px; }
+      .ow-fan { height: 240px; }
+      .ow-grid { grid-template-columns: minmax(0, 1fr); }
+      .ow-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="deadlydog-112.png" alt="DeadlyDog Productions home" width="50" height="50">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#install">Install</a></li>
+        <li><a href="#mods">The Mods</a></li>
+        <li><a href="#games">Our Games</a></li>
+        <li><a href="index.html">Studio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="ow-hero">
+      <div class="container">
+        <div>
+          <span class="ow-eyebrow">Free mods for Old World</span>
+          <h1 class="ow-title">DeadlyDog's Old&nbsp;World Tweaks<span>Every version of the game</span></h1>
+          <p class="ow-lede">Twenty-man legions, soldiers who fall, every wonder, five tech cards, families who forgive. Twenty mods, free, for Old World on Steam, Epic or GOG.</p>
+          <ul class="ow-stats">
+            <li><b>20</b>mods</li>
+            <li><b>Free</b>always</li>
+            <li><b>Saves</b>keep working</li>
+          </ul>
+          <div class="ow-cta">
+            <a class="btn btn-primary" href="mods/files/the-complete-collection.zip" download rel="nofollow">Download everything</a>
+            <a class="btn btn-outline" href="#install">How to install</a>
+          </div>
+        </div>
+        <div class="ow-fan" aria-hidden="true">
+          <img src="media/mods/battle-lines.jpg" alt="" style="--i:0">
+          <img src="media/mods/all-wonders.jpg" alt="" style="--i:1">
+          <img src="media/mods/armies.jpg" alt="" style="--i:2">
+          <img src="media/mods/loyal-families.jpg" alt="" style="--i:3">
+          <img src="media/mods/fallen-soldiers.jpg" alt="" style="--i:4">
+        </div>
+      </div>
+    </section>
+
+    <section class="ow-section" id="install">
+      <div class="container">
+        <div class="ow-head">
+          <h2>Install in a minute</h2>
+          <div class="ow-rule"></div>
+          <p>For Epic, GOG, or a Steam copy without the Workshop. On Steam you can simply subscribe on the Workshop instead.</p>
+        </div>
+        <div class="ow-steps">
+          <div class="ow-step">
+            <h3>Download</h3>
+            <p>Pick a mod below, or take <strong>The Complete Collection</strong>, which holds all of them in one.</p>
+          </div>
+          <div class="ow-step">
+            <h3>Unzip into Mods</h3>
+            <div class="ow-os" role="group" aria-label="Your computer">
+              <button type="button" data-os="win" aria-pressed="true">Windows</button>
+              <button type="button" data-os="mac" aria-pressed="false">Mac</button>
+            </div>
+            <div class="ow-path"><code id="owPath">Documents\My Games\OldWorld\Mods</code><button type="button" id="owCopy">Copy</button></div>
+            <p style="margin-top:10px">Make the <strong>Mods</strong> folder if it isn't there. Each mod is a folder of its own inside it.</p>
+          </div>
+          <div class="ow-step">
+            <h3>Switch it on</h3>
+            <p>Start Old World, open <strong>Mods</strong> from the main menu, tick the mod, and start or load a game. Your saves keep working.</p>
+          </div>
+        </div>
+        <p class="ow-note">Using The Complete Collection? Leave the single mods off, since they're already inside it.</p>
+      </div>
+    </section>
+
+    <section class="ow-section" id="mods">
+      <div class="container">
+        <!--COLLECTION-->
+        <div class="ow-feature">
+          <img src="media/mods/the-complete-collection.jpg" alt="The Complete Collection preview" width="480" height="480" loading="lazy">
+          <div>
+            <span class="ow-badge">Everything in one</span>
+            <h3>The Complete Collection</h3>
+            <p>Every tweak in a single download: Battle Lines' armies with fleets, Fallen Soldiers, the faster pace and clearer map, every rule change and Loyal Families. One folder, one tick in the Mods menu.</p>
+            <div class="ow-btns"><a class="ow-dl" href="mods/files/the-complete-collection.zip" download rel="nofollow" aria-label="Download The Complete Collection, 261 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>261 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843745688" target="_blank" rel="noopener" aria-label="The Complete Collection on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+          </div>
+        </div>
+        <!--/COLLECTION-->
+        <div class="ow-head">
+          <h2>Or pick your own</h2>
+          <div class="ow-rule"></div>
+          <p>Each one changes a single thing. Mix them as you like.</p>
+        </div>
+        <div class="ow-filter" role="group" aria-label="Show">
+          <button type="button" data-k="" aria-pressed="true">All <small>20</small></button>
+          <button type="button" data-k="looks" aria-pressed="false">Armies &amp; looks <small>5</small></button>
+          <button type="button" data-k="rules" aria-pressed="false">Rules <small>11</small></button>
+          <button type="button" data-k="setup" aria-pressed="false">Convenience <small>4</small></button>
+        </div>
+        <div class="ow-grid">
+          <!--CARDS-->
+          <article class="ow-card" data-k="setup">
+            <div class="ow-pic"><img src="media/mods/all-wonders.jpg" alt="All Wonders preview" width="480" height="480" loading="lazy"><span class="ow-kind">Convenience</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. I</span>
+              <h3>All Wonders</h3>
+              <p class="ow-tag">Every wonder you own, in every game.</p>
+              <details><summary>What it does</summary><p>Vanilla Old World quietly switches off every wonder above 13 when a new game starts. This mod lifts the cap, so every wonder from the base game and every DLC you own can be raced for, built, and lost to your rivals.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/all-wonders.zip" download rel="nofollow" aria-label="Download All Wonders, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634880" target="_blank" rel="noopener" aria-label="All Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="setup">
+            <div class="ow-pic"><img src="media/mods/more-quicksaves.jpg" alt="More Quicksaves preview" width="480" height="480" loading="lazy"><span class="ow-kind">Convenience</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. II</span>
+              <h3>More Quicksaves</h3>
+              <p class="ow-tag">Ten quicksaves deep. Undo your regrets.</p>
+              <details><summary>What it does</summary><p>The game normally keeps only 2 quicksaves. This keeps your last 10, rolling the oldest off the end.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-quicksaves.zip" download rel="nofollow" aria-label="Download More Quicksaves, 246 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>246 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634438" target="_blank" rel="noopener" aria-label="More Quicksaves on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/five-tech-cards.jpg" alt="Five Tech Cards preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. III</span>
+              <h3>Five Tech Cards</h3>
+              <p class="ow-tag">One more card in every research draw.</p>
+              <details><summary>What it does</summary><p>Your research hand holds 5 cards instead of 4, so you get more say in where your nation goes next. Bonuses that add a card still stack on top.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/five-tech-cards.zip" download rel="nofollow" aria-label="Download Five Tech Cards, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634555" target="_blank" rel="noopener" aria-label="Five Tech Cards on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="setup">
+            <div class="ow-pic"><img src="media/mods/more-heir-names.jpg" alt="More Heir Names preview" width="480" height="480" loading="lazy"><span class="ow-kind">Convenience</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. IV</span>
+              <h3>More Heir Names</h3>
+              <p class="ow-tag">Six names to choose from for every newborn.</p>
+              <details><summary>What it does</summary><p>When a child is born you choose from 6 names instead of 4.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-heir-names.zip" download rel="nofollow" aria-label="Download More Heir Names, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634461" target="_blank" rel="noopener" aria-label="More Heir Names on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/swift-wonders.jpg" alt="Swift Wonders preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. V</span>
+              <h3>Swift Wonders</h3>
+              <p class="ow-tag">Wonders rise in half the time.</p>
+              <details><summary>What it does</summary><p>Every wonder takes half as many turns to build (rounded up). Costs are unchanged, so you still need the stone, the civics and the nerve.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-wonders.zip" download rel="nofollow" aria-label="Download Swift Wonders, 243 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>243 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634374" target="_blank" rel="noopener" aria-label="Swift Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/quick-assimilation.jpg" alt="Quick Assimilation preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. VI</span>
+              <h3>Quick Assimilation</h3>
+              <p class="ow-tag">Conquered cities join you in half the time.</p>
+              <details><summary>What it does</summary><p>Captured cities assimilate in 10 turns instead of 20, so their output penalty ends sooner.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/quick-assimilation.zip" download rel="nofollow" aria-label="Download Quick Assimilation, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634425" target="_blank" rel="noopener" aria-label="Quick Assimilation on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/grizzled-generals.jpg" alt="Grizzled Generals preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. VII</span>
+              <h3>Grizzled Generals</h3>
+              <p class="ow-tag">Generals serve until 75, not 60.</p>
+              <details><summary>What it does</summary><p>Generals keep their commands until age 75 instead of retiring at 60. The AI knows about the change too.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/grizzled-generals.zip" download rel="nofollow" aria-label="Download Grizzled Generals, 241 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>241 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634532" target="_blank" rel="noopener" aria-label="Grizzled Generals on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/hold-the-line.jpg" alt="Hold the Line preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. VIII</span>
+              <h3>Hold the Line</h3>
+              <p class="ow-tag">Fortified troops dig in twice as hard.</p>
+              <details><summary>What it does</summary><p>Each turn of fortifying adds +10% defence instead of +5%, up to the usual maximum number of turns, so a fully dug-in unit has +50% instead of +25%. The in-game tooltip shows the new numbers.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/hold-the-line.zip" download rel="nofollow" aria-label="Download Hold the Line, 240 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>240 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634512" target="_blank" rel="noopener" aria-label="Hold the Line on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/veteran-legions.jpg" alt="Veteran Legions preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. IX</span>
+              <h3>Veteran Legions</h3>
+              <p class="ow-tag">Units earn 50% more XP from combat.</p>
+              <details><summary>What it does</summary><p>Base combat experience goes from 10 to 15 per fight (still multiplied for kills), so units reach promotions faster.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/veteran-legions.zip" download rel="nofollow" aria-label="Download Veteran Legions, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634299" target="_blank" rel="noopener" aria-label="Veteran Legions on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/field-medicine.jpg" alt="Field Medicine preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. X</span>
+              <h3>Field Medicine</h3>
+              <p class="ow-tag">Wounded units recover faster.</p>
+              <details><summary>What it does</summary><p>The Heal order restores 7 HP instead of 5, and units resting without orders recover 2 HP instead of 1. Healing bonuses from cities and improvements still stack on top.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/field-medicine.zip" download rel="nofollow" aria-label="Download Field Medicine, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634584" target="_blank" rel="noopener" aria-label="Field Medicine on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/swift-envoys.jpg" alt="Swift Envoys preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XI</span>
+              <h3>Swift Envoys</h3>
+              <p class="ow-tag">Spy networks and trade outposts set up faster.</p>
+              <details><summary>What it does</summary><p>Agent networks are established in 3 turns instead of 5, and trade outposts in 6 turns instead of 10.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-envoys.zip" download rel="nofollow" aria-label="Download Swift Envoys, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634401" target="_blank" rel="noopener" aria-label="Swift Envoys on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="setup">
+            <div class="ow-pic"><img src="media/mods/far-horizons.jpg" alt="Far Horizons preview" width="480" height="480" loading="lazy"><span class="ow-kind">Convenience</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XII</span>
+              <h3>Far Horizons</h3>
+              <p class="ow-tag">Start the game seeing more of the world.</p>
+              <details><summary>What it does</summary><p>The map revealed around your starting position goes from 5 tiles to 8, so you can plan your first cities before your scout has taken a step.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/far-horizons.zip" download rel="nofollow" aria-label="Download Far Horizons, 243 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>243 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634615" target="_blank" rel="noopener" aria-label="Far Horizons on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/brisk-marches.jpg" alt="Brisk Marches preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XIII</span>
+              <h3>Brisk Marches</h3>
+              <p class="ow-tag">Units move across the map 50% faster.</p>
+              <details><summary>What it does</summary><p>Movement animations play 50% faster, yours and the AI&#x27;s. Purely visual: nothing about the rules changes.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/brisk-marches.zip" download rel="nofollow" aria-label="Download Brisk Marches, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634842" target="_blank" rel="noopener" aria-label="Brisk Marches on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/fair-markets.jpg" alt="Fair Markets preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XIV</span>
+              <h3>Fair Markets</h3>
+              <p class="ow-tag">Lose 25% when you sell goods, not 50%.</p>
+              <details><summary>What it does</summary><p>Selling food, wood, stone or iron normally loses half its value. With this mod you keep 75% of the price. Laws and bonuses that remove the penalty still work.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/fair-markets.zip" download rel="nofollow" aria-label="Download Fair Markets, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634732" target="_blank" rel="noopener" aria-label="Fair Markets on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="looks">
+            <div class="ow-pic"><img src="media/mods/armies.jpg" alt="Armies preview" width="480" height="480" loading="lazy"><span class="ow-kind">Armies &amp; looks</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XV</span>
+              <h3>Armies</h3>
+              <p class="ow-tag">Twenty men to a legion. Every unit an army.</p>
+              <details><summary>What it does</summary><p>Every unit on the map is drawn with far more soldiers. A legion is a dense block of 20 men, warbands are loose mobs of 20, archers stand in staggered lines of 20, cavalry ride in squadrons of 12, and chariots, elephants and siege engines come in batteries. Settlers, scouts, caravans and disciples travel in small groups (workers stay single, because the game sends every worker figure to the same build spot). Figures are scaled down so every unit still fits its hex. Warbands and skirmishers stand a little out of line so they look like people, not a spreadsheet.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/armies.zip" download rel="nofollow" aria-label="Download Armies, 246 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>246 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701378" target="_blank" rel="noopener" aria-label="Armies on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="looks">
+            <div class="ow-pic"><img src="media/mods/grand-scale.jpg" alt="Grand Scale preview" width="480" height="480" loading="lazy"><span class="ow-kind">Armies &amp; looks</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XVI</span>
+              <h3>Grand Scale</h3>
+              <p class="ow-tag">Armies and fleets on an imperial scale.</p>
+              <details><summary>What it does</summary><p>Two changes that make the map feel the size of an empire. Armies: every land unit is drawn with far more soldiers (20-man legions and warbands, 20 archers, squadrons of 12 horse). Fleets: warships sail in pairs instead of alone.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/grand-scale.zip" download rel="nofollow" aria-label="Download Grand Scale, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701993" target="_blank" rel="noopener" aria-label="Grand Scale on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="looks">
+            <div class="ow-pic"><img src="media/mods/battle-lines.jpg" alt="Battle Lines preview" width="480" height="480" loading="lazy"><span class="ow-kind">Armies &amp; looks</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XVII</span>
+              <h3>Battle Lines</h3>
+              <p class="ow-tag">Every army drawn up as it fought.</p>
+              <details><summary>What it does</summary><p>Armies, rebuilt around how ancient armies actually stood. Legions and phalanxes form tight blocks of 20. Archers and slingers stand in long staggered lines. Shock cavalry charges in a wedge, while horse archers ride in a loose swarm. Tribal warbands come at you as wild, sprawling hordes. Siege engines deploy as batteries of four, caravans travel as trains of six, disciples walk as pilgrim bands and settlers move as families. Warships sail in pairs. Workers stay single, because the game sends every worker figure to the same build spot.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/battle-lines.zip" download rel="nofollow" aria-label="Download Battle Lines, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701563" target="_blank" rel="noopener" aria-label="Battle Lines on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="looks">
+            <div class="ow-pic"><img src="media/mods/pace-and-presentation.jpg" alt="Pace and Presentation preview" width="480" height="480" loading="lazy"><span class="ow-kind">Armies &amp; looks</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XVIII</span>
+              <h3>Pace and Presentation</h3>
+              <p class="ow-tag">Brisk marches, lingering battles, clear map.</p>
+              <details><summary>What it does</summary><p>Brisk Marches: movement animations play 50% faster. Cinematic Battles: when you follow the AI&#x27;s moves, the camera holds on each battle for 4 seconds instead of 2.5, so you actually see the fight. Clear Map: resources (herds, ores, crops) are drawn 25% smaller, so a crowded late-game map stays readable.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/pace-and-presentation.zip" download rel="nofollow" aria-label="Download Pace and Presentation, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701843" target="_blank" rel="noopener" aria-label="Pace and Presentation on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="looks">
+            <div class="ow-pic"><img src="media/mods/fallen-soldiers.jpg" alt="Fallen Soldiers preview" width="480" height="480" loading="lazy"><span class="ow-kind">Armies &amp; looks</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XIX</span>
+              <h3>Fallen Soldiers</h3>
+              <p class="ow-tag">Wounded units lose men. The rest break ranks.</p>
+              <details><summary>What it does</summary><p>When a unit takes damage, men in its formation fall and die. A legion at half health shows half its men; a unit at a quarter of its health is down to a quarter. The men drop when the clash is over, using the game&#x27;s own death animation, lie where they fell for a moment, and fade away.</p><p>The survivors lose their neat ranks as their comrades fall. A fresh unit stands in parade-ground lines; one that has lost half its men stands loose and ragged, every man a little out of place and turned a little off the line; a unit down to its last few is a scattered knot of men. When the unit heals, men return and the ranks close up again.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/fallen-soldiers.zip" download rel="nofollow" aria-label="Download Fallen Soldiers, 322 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>322 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3844257545" target="_blank" rel="noopener" aria-label="Fallen Soldiers on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="rules">
+            <div class="ow-pic"><img src="media/mods/loyal-families.jpg" alt="Loyal Families preview" width="480" height="480" loading="lazy"><span class="ow-kind">Rules</span><span class="ow-new">New</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">No. XX</span>
+              <h3>Loyal Families</h3>
+              <p class="ow-tag">The great houses forgive more and value their place at court.</p>
+              <details><summary>What it does</summary><p>Every grudge a family holds against you is half as strong: a slight at court, a refused law, a city given away, an exiled member. Grudges still last just as long, so a family still remembers how you treated it.</p><p>Ties of blood and office count for more. A family whose member sits on the throne, stands as heir, or married into your line warms to you more. So does a family whose cities enjoy your luxuries.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/loyal-families.zip" download rel="nofollow" aria-label="Download Loyal Families, 343 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>343 KB</small></a></div>
+            </div>
+          </article>
+          <!--/CARDS-->
+        </div>
+      </div>
+    </section>
+
+    <section class="ow-section" id="games">
+      <div class="container">
+        <div class="ow-head">
+          <h2>Like history? Play my games</h2>
+          <div class="ow-rule"></div>
+          <p>Strategy and survival set in the seventeenth and eighteenth centuries, made by one person. Two are free in your browser.</p>
+        </div>
+        <div class="ow-games">
+          <a class="ow-game" href="reckoning.html">
+            <img src="media/cards/14-charge.jpg" alt="Cavalry charging in Forester: Reckoning" loading="lazy">
+            <div class="ow-game-text">
+              <span class="ow-game-tag">Free demo</span>
+              <h3>Forester: Reckoning</h3>
+              <p>Hamburg, 1683. Survive the woods, build a city, march into the great battles of the age and take a kingdom on the campaign map.</p>
+              <span class="ow-game-go">Trailer &amp; demo &rsaquo;</span>
+            </div>
+          </a>
+          <a class="ow-game" href="standards-in-smoke.html">
+            <img src="media/cards/smoke_trailer_card.jpg" alt="Armies on the hex map of Standards In Smoke" loading="lazy">
+            <div class="ow-game-text">
+              <span class="ow-game-tag">Free in your browser</span>
+              <h3>Standards In Smoke</h3>
+              <p>Napoleonic grand strategy on a hex map: twenty-one nations, noble houses losing patience, and twelve historical starts from 1672 to 1812.</p>
+              <span class="ow-game-go">See it &amp; play &rsaquo;</span>
+            </div>
+          </a>
+          <a class="ow-game" href="forester.html">
+            <img src="media/cards/forester_key_art.jpg" alt="Forester key art" loading="lazy">
+            <div class="ow-game-text">
+              <span class="ow-game-tag">Free in your browser</span>
+              <h3>Forester</h3>
+              <p>A pixel-art colony builder about a family driven into the woods. Raise a settlement, hold off raiders, carve your mark on the map of Europe.</p>
+              <span class="ow-game-go">See it &amp; play &rsaquo;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <p class="ow-fine">Old World is made by Mohawk Games. These are fan mods, not affiliated with or endorsed by Mohawk.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <img src="deadlydog-112.png" alt="DeadlyDog Productions" width="40" height="40">
+      </div>
+      <nav class="footer-links" aria-label="Games">
+        <a href="reckoning.html">Forester: Reckoning</a>
+        <a href="forester.html">Forester</a>
+        <a href="standards-in-smoke.html">Standards In Smoke</a>
+        <a href="mods.html">Old World mods</a>
+        <a href="presskit.html">Press kit</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+      <p>&copy; 2026 DeadlyDog Productions &mdash; founded by Roan Fraese. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector('.nav-toggle'), links = document.querySelector('.nav-links');
+      var setNav = function (open) { links.classList.toggle('active', open); toggle.classList.toggle('active', open); document.body.classList.toggle('nav-open', open); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+      setNav(false);
+      toggle.addEventListener('click', function () { setNav(!links.classList.contains('active')); });
+      links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setNav(false); }); });
+      var nav = document.querySelector('.navbar');
+      var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 50); };
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+      // Windows or Mac folder (a Mac visitor sees the Mac path first)
+      var PATHS = { win: 'Documents\\My Games\\OldWorld\\Mods', mac: '~/Library/Application Support/OldWorld/Mods' };
+      var path = document.getElementById('owPath'), osBtns = document.querySelectorAll('.ow-os button');
+      var pick = function (os) { path.textContent = PATHS[os]; osBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.os === os ? 'true' : 'false'); }); };
+      osBtns.forEach(function (b) { b.addEventListener('click', function () { pick(b.dataset.os); }); });
+      if (/Mac/.test(navigator.platform || navigator.userAgent)) pick('mac');
+      document.getElementById('owCopy').addEventListener('click', function () {
+        var b = this; (navigator.clipboard ? navigator.clipboard.writeText(path.textContent) : Promise.reject()).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); }, function () { b.textContent = 'Select it'; });
+      });
+
+      // the filter
+      var fBtns = document.querySelectorAll('.ow-filter button'), cards = document.querySelectorAll('.ow-card');
+      fBtns.forEach(function (b) { b.addEventListener('click', function () {
+        fBtns.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+        cards.forEach(function (c) { c.hidden = !!b.dataset.k && c.dataset.k !== b.dataset.k; });
+      }); });
+    })();
+  </script>
+  <script src="admin-link.js?v=2"></script>
+  <script src="visit.js?v=5" data-s="site"></script>
+</body>
+</html>

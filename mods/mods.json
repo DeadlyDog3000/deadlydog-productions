@@ -1,0 +1,277 @@
+[
+ {
+  "name": "All Wonders",
+  "slug": "all-wonders",
+  "no": "I",
+  "tag": "Every wonder you own, in every game.",
+  "what": [
+   "Vanilla Old World quietly switches off every wonder above 13 when a new game starts. This mod lifts the cap, so every wonder from the base game and every DLC you own can be raced for, built, and lost to your rivals."
+  ],
+  "kind": "setup",
+  "workshop": "3843634880",
+  "kb": 242,
+  "code": false
+ },
+ {
+  "name": "More Quicksaves",
+  "slug": "more-quicksaves",
+  "no": "II",
+  "tag": "Ten quicksaves deep. Undo your regrets.",
+  "what": [
+   "The game normally keeps only 2 quicksaves. This keeps your last 10, rolling the oldest off the end."
+  ],
+  "kind": "setup",
+  "workshop": "3843634438",
+  "kb": 246,
+  "code": false
+ },
+ {
+  "name": "Five Tech Cards",
+  "slug": "five-tech-cards",
+  "no": "III",
+  "tag": "One more card in every research draw.",
+  "what": [
+   "Your research hand holds 5 cards instead of 4, so you get more say in where your nation goes next. Bonuses that add a card still stack on top."
+  ],
+  "kind": "rules",
+  "workshop": "3843634555",
+  "kb": 242,
+  "code": false
+ },
+ {
+  "name": "More Heir Names",
+  "slug": "more-heir-names",
+  "no": "IV",
+  "tag": "Six names to choose from for every newborn.",
+  "what": [
+   "When a child is born you choose from 6 names instead of 4."
+  ],
+  "kind": "setup",
+  "workshop": "3843634461",
+  "kb": 245,
+  "code": false
+ },
+ {
+  "name": "Swift Wonders",
+  "slug": "swift-wonders",
+  "no": "V",
+  "tag": "Wonders rise in half the time.",
+  "what": [
+   "Every wonder takes half as many turns to build (rounded up). Costs are unchanged, so you still need the stone, the civics and the nerve."
+  ],
+  "kind": "rules",
+  "workshop": "3843634374",
+  "kb": 243,
+  "code": false
+ },
+ {
+  "name": "Quick Assimilation",
+  "slug": "quick-assimilation",
+  "no": "VI",
+  "tag": "Conquered cities join you in half the time.",
+  "what": [
+   "Captured cities assimilate in 10 turns instead of 20, so their output penalty ends sooner."
+  ],
+  "kind": "rules",
+  "workshop": "3843634425",
+  "kb": 245,
+  "code": false
+ },
+ {
+  "name": "Grizzled Generals",
+  "slug": "grizzled-generals",
+  "no": "VII",
+  "tag": "Generals serve until 75, not 60.",
+  "what": [
+   "Generals keep their commands until age 75 instead of retiring at 60. The AI knows about the change too."
+  ],
+  "kind": "rules",
+  "workshop": "3843634532",
+  "kb": 241,
+  "code": false
+ },
+ {
+  "name": "Hold the Line",
+  "slug": "hold-the-line",
+  "no": "VIII",
+  "tag": "Fortified troops dig in twice as hard.",
+  "what": [
+   "Each turn of fortifying adds +10% defence instead of +5%, up to the usual maximum number of turns, so a fully dug-in unit has +50% instead of +25%. The in-game tooltip shows the new numbers."
+  ],
+  "kind": "rules",
+  "workshop": "3843634512",
+  "kb": 240,
+  "code": false
+ },
+ {
+  "name": "Veteran Legions",
+  "slug": "veteran-legions",
+  "no": "IX",
+  "tag": "Units earn 50% more XP from combat.",
+  "what": [
+   "Base combat experience goes from 10 to 15 per fight (still multiplied for kills), so units reach promotions faster."
+  ],
+  "kind": "rules",
+  "workshop": "3843634299",
+  "kb": 244,
+  "code": false
+ },
+ {
+  "name": "Field Medicine",
+  "slug": "field-medicine",
+  "no": "X",
+  "tag": "Wounded units recover faster.",
+  "what": [
+   "The Heal order restores 7 HP instead of 5, and units resting without orders recover 2 HP instead of 1. Healing bonuses from cities and improvements still stack on top."
+  ],
+  "kind": "rules",
+  "workshop": "3843634584",
+  "kb": 242,
+  "code": false
+ },
+ {
+  "name": "Swift Envoys",
+  "slug": "swift-envoys",
+  "no": "XI",
+  "tag": "Spy networks and trade outposts set up faster.",
+  "what": [
+   "Agent networks are established in 3 turns instead of 5, and trade outposts in 6 turns instead of 10."
+  ],
+  "kind": "rules",
+  "workshop": "3843634401",
+  "kb": 245,
+  "code": false
+ },
+ {
+  "name": "Far Horizons",
+  "slug": "far-horizons",
+  "no": "XII",
+  "tag": "Start the game seeing more of the world.",
+  "what": [
+   "The map revealed around your starting position goes from 5 tiles to 8, so you can plan your first cities before your scout has taken a step."
+  ],
+  "kind": "setup",
+  "workshop": "3843634615",
+  "kb": 243,
+  "code": false
+ },
+ {
+  "name": "Brisk Marches",
+  "slug": "brisk-marches",
+  "no": "XIII",
+  "tag": "Units move across the map 50% faster.",
+  "what": [
+   "Movement animations play 50% faster, yours and the AI's. Purely visual: nothing about the rules changes."
+  ],
+  "kind": "rules",
+  "workshop": "3843634842",
+  "kb": 245,
+  "code": false
+ },
+ {
+  "name": "Fair Markets",
+  "slug": "fair-markets",
+  "no": "XIV",
+  "tag": "Lose 25% when you sell goods, not 50%.",
+  "what": [
+   "Selling food, wood, stone or iron normally loses half its value. With this mod you keep 75% of the price. Laws and bonuses that remove the penalty still work."
+  ],
+  "kind": "rules",
+  "workshop": "3843634732",
+  "kb": 244,
+  "code": false
+ },
+ {
+  "name": "Armies",
+  "slug": "armies",
+  "no": "XV",
+  "tag": "Twenty men to a legion. Every unit an army.",
+  "what": [
+   "Every unit on the map is drawn with far more soldiers. A legion is a dense block of 20 men, warbands are loose mobs of 20, archers stand in staggered lines of 20, cavalry ride in squadrons of 12, and chariots, elephants and siege engines come in batteries. Settlers, scouts, caravans and disciples travel in small groups (workers stay single, because the game sends every worker figure to the same build spot). Figures are scaled down so every unit still fits its hex. Warbands and skirmishers stand a little out of line so they look like people, not a spreadsheet."
+  ],
+  "kind": "looks",
+  "workshop": "3843701378",
+  "kb": 246,
+  "code": false
+ },
+ {
+  "name": "Grand Scale",
+  "slug": "grand-scale",
+  "no": "XVI",
+  "tag": "Armies and fleets on an imperial scale.",
+  "what": [
+   "Two changes that make the map feel the size of an empire. Armies: every land unit is drawn with far more soldiers (20-man legions and warbands, 20 archers, squadrons of 12 horse). Fleets: warships sail in pairs instead of alone."
+  ],
+  "kind": "looks",
+  "workshop": "3843701993",
+  "kb": 249,
+  "code": false
+ },
+ {
+  "name": "Battle Lines",
+  "slug": "battle-lines",
+  "no": "XVII",
+  "tag": "Every army drawn up as it fought.",
+  "what": [
+   "Armies, rebuilt around how ancient armies actually stood. Legions and phalanxes form tight blocks of 20. Archers and slingers stand in long staggered lines. Shock cavalry charges in a wedge, while horse archers ride in a loose swarm. Tribal warbands come at you as wild, sprawling hordes. Siege engines deploy as batteries of four, caravans travel as trains of six, disciples walk as pilgrim bands and settlers move as families. Warships sail in pairs. Workers stay single, because the game sends every worker figure to the same build spot."
+  ],
+  "kind": "looks",
+  "workshop": "3843701563",
+  "kb": 249,
+  "code": false
+ },
+ {
+  "name": "Pace and Presentation",
+  "slug": "pace-and-presentation",
+  "no": "XVIII",
+  "tag": "Brisk marches, lingering battles, clear map.",
+  "what": [
+   "Brisk Marches: movement animations play 50% faster. Cinematic Battles: when you follow the AI's moves, the camera holds on each battle for 4 seconds instead of 2.5, so you actually see the fight. Clear Map: resources (herds, ores, crops) are drawn 25% smaller, so a crowded late-game map stays readable."
+  ],
+  "kind": "looks",
+  "workshop": "3843701843",
+  "kb": 244,
+  "code": false
+ },
+ {
+  "name": "Fallen Soldiers",
+  "slug": "fallen-soldiers",
+  "no": "XIX",
+  "tag": "Wounded units lose men. The rest break ranks.",
+  "what": [
+   "When a unit takes damage, men in its formation fall and die. A legion at half health shows half its men; a unit at a quarter of its health is down to a quarter. The men drop when the clash is over, using the game's own death animation, lie where they fell for a moment, and fade away.",
+   "The survivors lose their neat ranks as their comrades fall. A fresh unit stands in parade-ground lines; one that has lost half its men stands loose and ragged, every man a little out of place and turned a little off the line; a unit down to its last few is a scattered knot of men. When the unit heals, men return and the ranks close up again."
+  ],
+  "kind": "looks",
+  "workshop": "3844257545",
+  "kb": 322,
+  "code": true
+ },
+ {
+  "name": "Loyal Families",
+  "slug": "loyal-families",
+  "no": "XX",
+  "tag": "The great houses forgive more and value their place at court.",
+  "what": [
+   "Every grudge a family holds against you is half as strong: a slight at court, a refused law, a city given away, an exiled member. Grudges still last just as long, so a family still remembers how you treated it.",
+   "Ties of blood and office count for more. A family whose member sits on the throne, stands as heir, or married into your line warms to you more. So does a family whose cities enjoy your luxuries."
+  ],
+  "kind": "rules",
+  "workshop": "",
+  "kb": 343,
+  "code": false
+ },
+ {
+  "name": "The Complete Collection",
+  "slug": "the-complete-collection",
+  "no": "",
+  "tag": "Every tweak in one mod.",
+  "what": [
+   "Every mod in DeadlyDog's Old World Tweaks in a single download: the 15 tweaks, the Battle Lines army visuals with fleets, Fallen Soldiers, and Pace and Presentation."
+  ],
+  "kind": "all",
+  "workshop": "3843745688",
+  "kb": 261,
+  "code": true
+ }
+]
