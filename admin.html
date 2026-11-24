@@ -47,9 +47,9 @@ h1 span { display: block; font-size: 12.5px; font-weight: 500; color: var(--text
 .btn { font: inherit; font-size: 12.5px; color: var(--text-secondary); padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
 .btn.on { color: var(--accent); border-color: var(--accent); }
 .btn:hover { color: var(--text-primary); border-color: var(--accent); }
-.tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 14px; }
 /* (five across when there's room; otherwise three and two, or two by two, never four and one left on its own) */
-@media (max-width: 1040px) { .tiles { grid-template-columns: repeat(6, 1fr); } .tiles > * { grid-column: span 2; } .tiles > :nth-child(n+4) { grid-column: span 3; } }
+@media (max-width: 1040px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 560px) { .tiles { grid-template-columns: 1fr 1fr; } .tiles > *, .tiles > :nth-child(n+4) { grid-column: auto; } .tiles > :last-child:nth-child(odd) { grid-column: span 2; } }
 .tile, .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.18); }
 .tile { position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease; }
@@ -148,6 +148,7 @@ body.locked .lock { display: grid; }
     <div class="tile" title="Players connected to the game server this minute, in Reckoning's online games and Forester's online world."><div class="label"><i>🟢</i>Online<span class="per">right now</span></div><div class="value" id="tOn">–</div><div class="sub" id="sOn">&nbsp;</div></div>
     <div class="tile" title="Different people who opened the website, Forester in the browser or Standards In Smoke in the last 7 days, counted by the game server. Added up across the three, so someone who visited two of them counts twice. Your own visits aren't counted."><div class="label"><i>🌐</i>Web visitors<span class="per">7 days</span></div><div class="value" id="tWeb">–</div><div class="sub" id="sWeb">&nbsp;</div></div>
     <div class="tile" title="Copies of Forester: Reckoning bought through the shop and paid for, since it opened, refunds not taken off. Keys given away to creators and the press are never counted."><div class="label"><i>💰</i>Copies sold<span class="per">all time</span></div><div class="value" id="tSold">–</div><div class="sub" id="sSold">&nbsp;</div></div>
+    <div class="tile" title="Old World mods installed through the Steam Workshop right now: Steam's own count of subscriptions, all the mods added together, so one player with three mods counts three times. Your own subscriptions are in there too. Downloads of the zips on the website can't be counted (GitHub Pages keeps no counts)."><div class="label"><i>🧩</i>Mod installs<span class="per">right now</span></div><div class="value" id="tMod">–</div><div class="sub" id="sMod">&nbsp;</div></div>
   </section>
 
   <section class="card" style="margin-bottom:14px">
@@ -199,6 +200,11 @@ body.locked .lock { display: grid; }
     <div class="card"><h2>Keys given away</h2><p class="note">Free copies of Forester: Reckoning for creators and the press. Never counted as sales. Each works on 3 computers, like a bought key.</p>
       <form id="pkForm" class="pk-form"><input id="pkWho" maxlength="80" placeholder="Who it's for (channel or outlet)" required><button type="submit">Make a key</button></form>
       <p class="note" id="pkMsg" style="margin:6px 0 0"></p><div id="pkList"></div></div>
+  </section>
+  <section class="card" style="margin-bottom:16px">
+    <h2>Old World mods</h2>
+    <p class="note">Installs through the Steam Workshop, from Steam's own public counts. “Installed now” is how many players have the mod subscribed today; “ever” never goes down, so the gap is players who removed it. Your own subscriptions count too. A mod with no Workshop page yet, and downloads of the zips on the website, aren't counted.</p>
+    <div style="overflow-x:auto"><table id="mods"><thead><tr><th>Mod</th><th class="n">Installed now</th><th class="n">Ever</th><th class="n">Favourites</th><th class="n">Page views</th></tr></thead><tbody></tbody></table></div>
   </section>
   <section class="card">
     <h2>Errors in players' games</h2>
@@ -352,6 +358,11 @@ function glance(D) {
   const play = g => PL && PL[g];
   const pv = (g, n1, n0) => W && W[g] ? span(W[g].days, "views", n1, n0) : null;
   const ev7 = (W && W.site && W.site.events7) || {};
+  // (mod installs: this panel's half-hourly record of Steam's all-time subscriptions, [time, now, ever])
+  const M = D.mods && !D.mods.error ? D.mods : null, ms = D.history.mods || [], mFirst = ms.length ? ms[0][0] : null;
+  const mAt = t => { let v = null; for (const x of ms) { if (x[0] > t) break; v = x[2]; } return v; };
+  const modSince = t => !M || mFirst == null || mFirst > t ? null : Math.max(0, M.ever - mAt(t));
+  const modBetween = (a, b) => mFirst == null || mFirst > a ? null : Math.max(0, (mAt(b) ?? 0) - (mAt(a) ?? 0));
   const keysOut = D.press && D.press.keys ? D.press.keys.filter(k => !k.revoked).length : null;
   const revN = D.reviews && D.reviews.games ? Object.values(D.reviews.games).reduce((n, g) => n + (g.count || 0), 0) : null;
   // [label, what it counts, today, 7 days, the 7 before, 30 days, all time, format]
@@ -387,6 +398,10 @@ function glance(D) {
       ["People", "Different people who opened the game's page.", W && W.forester && W.forester.today, W && W.forester && W.forester.week, null, null, null, I],
       ["Page views", "Every time the game's page was opened. Kept for 90 days.", pv("forester", 0), pv("forester", 6), pv("forester", 13, 7), pv("forester", 29), W && W.forester ? span(W.forester.days, "views", 89) : null, I],
       ["Time played", "Minutes of real play, the tab in front.", play("forester") && span(play("forester").days, "minutes", 0), play("forester") && span(play("forester").days, "minutes", 6), play("forester") && span(play("forester").days, "minutes", 13, 7), play("forester") && span(play("forester").days, "minutes", 29), play("forester") && play("forester").total, Hm],
+    ]],
+    ["Old World mods (Steam Workshop)", [
+      ["New installs", "Steam's all-time subscriptions, every mod added together, gained in each period. From this panel's half-hourly record, which began 23 November 2026, so a period from before then shows –. Your days.", modSince(midnight.getTime()), modSince(T - 7 * DAY), modBetween(T - 14 * DAY, T - 7 * DAY), modSince(T - 30 * DAY), M ? M.ever : null, I],
+      ["Installed now", "Subscriptions right now, every mod added together: new installs less players who removed a mod.", null, null, null, null, M ? M.now : null, I],
     ]],
     ["Following", [
       ["Mailing list", "People who signed up on the website and confirmed by email.", null, D.list && !D.list.error ? D.list.week : null, null, null, D.list && !D.list.error ? D.list.count : null, I],
@@ -464,6 +479,11 @@ function render(D) {
   const R = (D.downloads && D.downloads.games && D.downloads.games["Forester: Reckoning"]) || null;
   if (R) { $("tDl").textContent = num(R.mac + R.windows); $("sDl").innerHTML = `<b>${num(R.mac)}</b> Mac · <b>${num(R.windows)}</b> Windows<br>our own fetches taken off`; }
   else $("sDl").textContent = D.downloads && D.downloads.error ? "Couldn't reach GitHub" : "";
+
+  const MD = D.mods;
+  if (MD && !MD.error) { $("tMod").textContent = num(MD.now); $("sMod").innerHTML = `<b>${num(MD.ever)}</b> ever · ${nn(MD.mods.length, "mod")} on the Workshop<br>${nn(MD.favs, "favourite")} · ${nn(MD.views, "page view")}`;
+    $("mods").querySelector("tbody").innerHTML = MD.mods.map(m => `<tr><td><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${esc(m.id)}" target="_blank" rel="noopener" style="color:inherit">${esc(m.name)}</a>${m.ok ? "" : ` <span class="muted">(Steam didn't answer for it)</span>`}</td><td class="n">${num(m.now)}</td><td class="n">${num(m.ever)}</td><td class="n">${num(m.favs)}</td><td class="n">${num(m.views)}</td></tr>`).join(""); }
+  else { $("tMod").textContent = "–"; $("sMod").textContent = MD && MD.error ? (/Steam/.test(MD.error) ? "Couldn't reach Steam" : MD.error) : "Restart the panel to count these"; $("mods").querySelector("tbody").innerHTML = `<tr><td colspan="5" class="muted">${esc(MD && MD.error || "The panel running now is older than this page: restart it (see the README).")}</td></tr>`; }
 
   const P = D.players;
   if (P && !P.error) { $("tPl").textContent = num(P.installs); $("sPl").innerHTML = `<b>${num(P.today)}</b> today · <b>${num(P.week)}</b> in the last 7 days<br>${nn(P.launches, "start")} of the game in all`; }

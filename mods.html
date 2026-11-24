@@ -135,6 +135,57 @@
     .ow-ws:hover { border-color: var(--gold); color: var(--text-primary); }
     .ow-feature .ow-dl { font-size: 1rem; padding: 14px 22px; }
 
+    /* comments on each mod (mod-comments.js) */
+    .ow-cm { display: inline-flex; align-items: center; gap: 6px; font: 600 0.82rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); background: transparent;
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; padding: 0 12px; min-height: 40px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .ow-cm:hover { border-color: var(--gold); color: var(--text-primary); }
+    .ow-cm svg { width: 17px; height: 17px; }
+    .ow-cm-n { font: 700 0.72rem var(--font-body); background: var(--gold-soft); color: var(--gold); border-radius: 999px; padding: 1px 7px; }
+    .ow-cm-n:empty { display: none; }
+    .cm-dlg { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(620px, calc(100vw - 32px)); max-height: min(760px, calc(100vh - 48px)); padding: 0; border: 1px solid rgba(212,174,98,0.35); border-radius: 16px;
+      background: var(--bg-card); color: var(--text-primary); box-shadow: 0 40px 90px rgba(0,0,0,0.7); overflow: hidden; }
+    .cm-dlg[open] { display: flex; flex-direction: column; }
+    .cm-dlg::backdrop { background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
+    .cm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 24px 14px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .cm-eyebrow { font: 600 0.72rem var(--font-heading); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .cm-head h2 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.8rem; line-height: 1.1; margin-top: 2px; }
+    .cm-x { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.16); background: none; color: var(--text-secondary); font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .cm-x:hover { border-color: var(--gold); color: var(--text-primary); }
+    .cm-scroll { overflow-y: auto; padding: 6px 24px; flex: 1; min-height: 80px; }
+    .cm-list { list-style: none; padding: 0; margin: 0; }
+    .cm-item { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cm-item:last-child { border-bottom: 0; }
+    .cm-item.mine .cm-meta b { color: var(--gold); }
+    .cm-meta { display: flex; gap: 10px; align-items: baseline; font-size: 0.85rem; }
+    .cm-meta span { color: var(--text-muted); font-size: 0.8rem; }
+    .cm-body { margin-top: 4px; color: var(--text-secondary); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .cm-own { display: flex; gap: 14px; margin-top: 6px; }
+    .cm-empty, .cm-note { color: var(--text-muted); font-size: 0.9rem; padding: 14px 0; }
+    .cm-foot { padding: 14px 24px 20px; border-top: 1px solid rgba(255,255,255,0.07); background: rgba(0,0,0,0.18); }
+    .cm-foot .cm-note { padding: 8px 0 0; font-size: 0.82rem; }
+    .cm-signin p { color: var(--text-secondary); margin-bottom: 10px; }
+    .cm-form { display: flex; flex-direction: column; gap: 10px; }
+    .cm-form h3 { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; font-size: 1rem; }
+    .cm-form label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--text-secondary); }
+    .cm-form label em { color: var(--text-muted); font-style: normal; }
+    .cm-form input, .cm-form textarea { font: 1rem var(--font-body); color: var(--text-primary); background: #0b0b0b; border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; padding: 10px 12px; width: 100%; box-sizing: border-box; }
+    .cm-form textarea { resize: vertical; min-height: 84px; }
+    .cm-form input:focus, .cm-form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+    .cm-who { font-size: 0.85rem; color: var(--text-muted); }
+    .cm-who b { color: var(--text-primary); }
+    .cm-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .cm-btn { font: 600 0.85rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; color: #fff; background: var(--red-button); border: 0; border-radius: 8px; padding: 10px 18px; min-height: 40px; cursor: pointer; }
+    .cm-btn:hover { background: var(--red-primary); }
+    .cm-btn:disabled { opacity: 0.6; cursor: default; }
+    .cm-ghost { font: 600 0.82rem var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); background: none; border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; padding: 10px 14px; min-height: 40px; cursor: pointer; }
+    .cm-ghost:hover { border-color: var(--gold); color: var(--text-primary); }
+    .cm-link { font: 600 0.8rem var(--font-body); color: var(--gold); background: none; border: 0; padding: 0; cursor: pointer; }
+    .cm-link:hover { text-decoration: underline; }
+    .cm-msg { font-size: 0.85rem; color: var(--text-secondary); }
+    .cm-msg.bad { color: var(--red-text); }
+    .cm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 560px) { .cm-dlg { max-height: calc(100vh - 24px); } .cm-head, .cm-scroll, .cm-foot { padding-left: 16px; padding-right: 16px; } }
+
     /* our games */
     .ow-games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
     .ow-game { position: relative; display: block; border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 5; text-decoration: none; color: #fff; isolation: isolate;
@@ -259,7 +310,7 @@
             <span class="ow-badge">Everything in one</span>
             <h3>The Complete Collection</h3>
             <p>Every tweak in a single download: Battle Lines' armies with fleets, Fallen Soldiers, the faster pace and clearer map, every rule change and Loyal Families. One folder, one tick in the Mods menu.</p>
-            <div class="ow-btns"><a class="ow-dl" href="mods/files/the-complete-collection.zip" download rel="nofollow" aria-label="Download The Complete Collection, 261 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>261 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843745688" target="_blank" rel="noopener" aria-label="The Complete Collection on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+            <div class="ow-btns"><a class="ow-dl" href="mods/files/the-complete-collection.zip" download rel="nofollow" aria-label="Download The Complete Collection, 261 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>261 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843745688" target="_blank" rel="noopener" aria-label="The Complete Collection on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="the-complete-collection" data-name="The Complete Collection" aria-label="Comments on The Complete Collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
           </div>
         </div>
         <!--/COLLECTION-->
@@ -269,10 +320,11 @@
           <p>Each one changes a single thing. Mix them as you like.</p>
         </div>
         <div class="ow-filter" role="group" aria-label="Show">
-          <button type="button" data-k="" aria-pressed="true">All <small>20</small></button>
+          <button type="button" data-k="" aria-pressed="true">All <small>21</small></button>
           <button type="button" data-k="looks" aria-pressed="false">Armies &amp; looks <small>5</small></button>
           <button type="button" data-k="rules" aria-pressed="false">Rules <small>11</small></button>
           <button type="button" data-k="setup" aria-pressed="false">Convenience <small>4</small></button>
+          <button type="button" data-k="packs" aria-pressed="false">Packs <small>1</small></button>
         </div>
         <div class="ow-grid">
           <!--CARDS-->
@@ -283,7 +335,7 @@
               <h3>All Wonders</h3>
               <p class="ow-tag">Every wonder you own, in every game.</p>
               <details><summary>What it does</summary><p>Vanilla Old World quietly switches off every wonder above 13 when a new game starts. This mod lifts the cap, so every wonder from the base game and every DLC you own can be raced for, built, and lost to your rivals.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/all-wonders.zip" download rel="nofollow" aria-label="Download All Wonders, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634880" target="_blank" rel="noopener" aria-label="All Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/all-wonders.zip" download rel="nofollow" aria-label="Download All Wonders, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634880" target="_blank" rel="noopener" aria-label="All Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="all-wonders" data-name="All Wonders" aria-label="Comments on All Wonders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="setup">
@@ -293,7 +345,7 @@
               <h3>More Quicksaves</h3>
               <p class="ow-tag">Ten quicksaves deep. Undo your regrets.</p>
               <details><summary>What it does</summary><p>The game normally keeps only 2 quicksaves. This keeps your last 10, rolling the oldest off the end.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-quicksaves.zip" download rel="nofollow" aria-label="Download More Quicksaves, 246 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>246 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634438" target="_blank" rel="noopener" aria-label="More Quicksaves on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-quicksaves.zip" download rel="nofollow" aria-label="Download More Quicksaves, 246 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>246 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634438" target="_blank" rel="noopener" aria-label="More Quicksaves on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="more-quicksaves" data-name="More Quicksaves" aria-label="Comments on More Quicksaves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -303,7 +355,7 @@
               <h3>Five Tech Cards</h3>
               <p class="ow-tag">One more card in every research draw.</p>
               <details><summary>What it does</summary><p>Your research hand holds 5 cards instead of 4, so you get more say in where your nation goes next. Bonuses that add a card still stack on top.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/five-tech-cards.zip" download rel="nofollow" aria-label="Download Five Tech Cards, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634555" target="_blank" rel="noopener" aria-label="Five Tech Cards on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/five-tech-cards.zip" download rel="nofollow" aria-label="Download Five Tech Cards, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634555" target="_blank" rel="noopener" aria-label="Five Tech Cards on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="five-tech-cards" data-name="Five Tech Cards" aria-label="Comments on Five Tech Cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="setup">
@@ -313,7 +365,7 @@
               <h3>More Heir Names</h3>
               <p class="ow-tag">Six names to choose from for every newborn.</p>
               <details><summary>What it does</summary><p>When a child is born you choose from 6 names instead of 4.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-heir-names.zip" download rel="nofollow" aria-label="Download More Heir Names, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634461" target="_blank" rel="noopener" aria-label="More Heir Names on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/more-heir-names.zip" download rel="nofollow" aria-label="Download More Heir Names, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634461" target="_blank" rel="noopener" aria-label="More Heir Names on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="more-heir-names" data-name="More Heir Names" aria-label="Comments on More Heir Names"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -323,7 +375,7 @@
               <h3>Swift Wonders</h3>
               <p class="ow-tag">Wonders rise in half the time.</p>
               <details><summary>What it does</summary><p>Every wonder takes half as many turns to build (rounded up). Costs are unchanged, so you still need the stone, the civics and the nerve.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-wonders.zip" download rel="nofollow" aria-label="Download Swift Wonders, 243 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>243 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634374" target="_blank" rel="noopener" aria-label="Swift Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-wonders.zip" download rel="nofollow" aria-label="Download Swift Wonders, 243 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>243 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634374" target="_blank" rel="noopener" aria-label="Swift Wonders on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="swift-wonders" data-name="Swift Wonders" aria-label="Comments on Swift Wonders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -333,7 +385,7 @@
               <h3>Quick Assimilation</h3>
               <p class="ow-tag">Conquered cities join you in half the time.</p>
               <details><summary>What it does</summary><p>Captured cities assimilate in 10 turns instead of 20, so their output penalty ends sooner.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/quick-assimilation.zip" download rel="nofollow" aria-label="Download Quick Assimilation, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634425" target="_blank" rel="noopener" aria-label="Quick Assimilation on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/quick-assimilation.zip" download rel="nofollow" aria-label="Download Quick Assimilation, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634425" target="_blank" rel="noopener" aria-label="Quick Assimilation on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="quick-assimilation" data-name="Quick Assimilation" aria-label="Comments on Quick Assimilation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -343,7 +395,7 @@
               <h3>Grizzled Generals</h3>
               <p class="ow-tag">Generals serve until 75, not 60.</p>
               <details><summary>What it does</summary><p>Generals keep their commands until age 75 instead of retiring at 60. The AI knows about the change too.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/grizzled-generals.zip" download rel="nofollow" aria-label="Download Grizzled Generals, 241 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>241 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634532" target="_blank" rel="noopener" aria-label="Grizzled Generals on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/grizzled-generals.zip" download rel="nofollow" aria-label="Download Grizzled Generals, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634532" target="_blank" rel="noopener" aria-label="Grizzled Generals on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="grizzled-generals" data-name="Grizzled Generals" aria-label="Comments on Grizzled Generals"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -353,7 +405,7 @@
               <h3>Hold the Line</h3>
               <p class="ow-tag">Fortified troops dig in twice as hard.</p>
               <details><summary>What it does</summary><p>Each turn of fortifying adds +10% defence instead of +5%, up to the usual maximum number of turns, so a fully dug-in unit has +50% instead of +25%. The in-game tooltip shows the new numbers.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/hold-the-line.zip" download rel="nofollow" aria-label="Download Hold the Line, 240 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>240 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634512" target="_blank" rel="noopener" aria-label="Hold the Line on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/hold-the-line.zip" download rel="nofollow" aria-label="Download Hold the Line, 241 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>241 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634512" target="_blank" rel="noopener" aria-label="Hold the Line on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="hold-the-line" data-name="Hold the Line" aria-label="Comments on Hold the Line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -363,7 +415,7 @@
               <h3>Veteran Legions</h3>
               <p class="ow-tag">Units earn 50% more XP from combat.</p>
               <details><summary>What it does</summary><p>Base combat experience goes from 10 to 15 per fight (still multiplied for kills), so units reach promotions faster.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/veteran-legions.zip" download rel="nofollow" aria-label="Download Veteran Legions, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634299" target="_blank" rel="noopener" aria-label="Veteran Legions on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/veteran-legions.zip" download rel="nofollow" aria-label="Download Veteran Legions, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634299" target="_blank" rel="noopener" aria-label="Veteran Legions on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="veteran-legions" data-name="Veteran Legions" aria-label="Comments on Veteran Legions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -373,7 +425,7 @@
               <h3>Field Medicine</h3>
               <p class="ow-tag">Wounded units recover faster.</p>
               <details><summary>What it does</summary><p>The Heal order restores 7 HP instead of 5, and units resting without orders recover 2 HP instead of 1. Healing bonuses from cities and improvements still stack on top.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/field-medicine.zip" download rel="nofollow" aria-label="Download Field Medicine, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634584" target="_blank" rel="noopener" aria-label="Field Medicine on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/field-medicine.zip" download rel="nofollow" aria-label="Download Field Medicine, 242 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>242 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634584" target="_blank" rel="noopener" aria-label="Field Medicine on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="field-medicine" data-name="Field Medicine" aria-label="Comments on Field Medicine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -383,7 +435,7 @@
               <h3>Swift Envoys</h3>
               <p class="ow-tag">Spy networks and trade outposts set up faster.</p>
               <details><summary>What it does</summary><p>Agent networks are established in 3 turns instead of 5, and trade outposts in 6 turns instead of 10.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-envoys.zip" download rel="nofollow" aria-label="Download Swift Envoys, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634401" target="_blank" rel="noopener" aria-label="Swift Envoys on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/swift-envoys.zip" download rel="nofollow" aria-label="Download Swift Envoys, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634401" target="_blank" rel="noopener" aria-label="Swift Envoys on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="swift-envoys" data-name="Swift Envoys" aria-label="Comments on Swift Envoys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="setup">
@@ -393,7 +445,7 @@
               <h3>Far Horizons</h3>
               <p class="ow-tag">Start the game seeing more of the world.</p>
               <details><summary>What it does</summary><p>The map revealed around your starting position goes from 5 tiles to 8, so you can plan your first cities before your scout has taken a step.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/far-horizons.zip" download rel="nofollow" aria-label="Download Far Horizons, 243 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>243 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634615" target="_blank" rel="noopener" aria-label="Far Horizons on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/far-horizons.zip" download rel="nofollow" aria-label="Download Far Horizons, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634615" target="_blank" rel="noopener" aria-label="Far Horizons on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="far-horizons" data-name="Far Horizons" aria-label="Comments on Far Horizons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -403,7 +455,7 @@
               <h3>Brisk Marches</h3>
               <p class="ow-tag">Units move across the map 50% faster.</p>
               <details><summary>What it does</summary><p>Movement animations play 50% faster, yours and the AI&#x27;s. Purely visual: nothing about the rules changes.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/brisk-marches.zip" download rel="nofollow" aria-label="Download Brisk Marches, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634842" target="_blank" rel="noopener" aria-label="Brisk Marches on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/brisk-marches.zip" download rel="nofollow" aria-label="Download Brisk Marches, 245 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>245 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634842" target="_blank" rel="noopener" aria-label="Brisk Marches on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="brisk-marches" data-name="Brisk Marches" aria-label="Comments on Brisk Marches"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -413,7 +465,7 @@
               <h3>Fair Markets</h3>
               <p class="ow-tag">Lose 25% when you sell goods, not 50%.</p>
               <details><summary>What it does</summary><p>Selling food, wood, stone or iron normally loses half its value. With this mod you keep 75% of the price. Laws and bonuses that remove the penalty still work.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/fair-markets.zip" download rel="nofollow" aria-label="Download Fair Markets, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634732" target="_blank" rel="noopener" aria-label="Fair Markets on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/fair-markets.zip" download rel="nofollow" aria-label="Download Fair Markets, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843634732" target="_blank" rel="noopener" aria-label="Fair Markets on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="fair-markets" data-name="Fair Markets" aria-label="Comments on Fair Markets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="looks">
@@ -423,7 +475,7 @@
               <h3>Armies</h3>
               <p class="ow-tag">Twenty men to a legion. Every unit an army.</p>
               <details><summary>What it does</summary><p>Every unit on the map is drawn with far more soldiers. A legion is a dense block of 20 men, warbands are loose mobs of 20, archers stand in staggered lines of 20, cavalry ride in squadrons of 12, and chariots, elephants and siege engines come in batteries. Settlers, scouts, caravans and disciples travel in small groups (workers stay single, because the game sends every worker figure to the same build spot). Figures are scaled down so every unit still fits its hex. Warbands and skirmishers stand a little out of line so they look like people, not a spreadsheet.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/armies.zip" download rel="nofollow" aria-label="Download Armies, 246 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>246 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701378" target="_blank" rel="noopener" aria-label="Armies on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/armies.zip" download rel="nofollow" aria-label="Download Armies, 247 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>247 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701378" target="_blank" rel="noopener" aria-label="Armies on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="armies" data-name="Armies" aria-label="Comments on Armies"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="looks">
@@ -433,7 +485,7 @@
               <h3>Grand Scale</h3>
               <p class="ow-tag">Armies and fleets on an imperial scale.</p>
               <details><summary>What it does</summary><p>Two changes that make the map feel the size of an empire. Armies: every land unit is drawn with far more soldiers (20-man legions and warbands, 20 archers, squadrons of 12 horse). Fleets: warships sail in pairs instead of alone.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/grand-scale.zip" download rel="nofollow" aria-label="Download Grand Scale, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701993" target="_blank" rel="noopener" aria-label="Grand Scale on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/grand-scale.zip" download rel="nofollow" aria-label="Download Grand Scale, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701993" target="_blank" rel="noopener" aria-label="Grand Scale on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="grand-scale" data-name="Grand Scale" aria-label="Comments on Grand Scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="looks">
@@ -443,7 +495,7 @@
               <h3>Battle Lines</h3>
               <p class="ow-tag">Every army drawn up as it fought.</p>
               <details><summary>What it does</summary><p>Armies, rebuilt around how ancient armies actually stood. Legions and phalanxes form tight blocks of 20. Archers and slingers stand in long staggered lines. Shock cavalry charges in a wedge, while horse archers ride in a loose swarm. Tribal warbands come at you as wild, sprawling hordes. Siege engines deploy as batteries of four, caravans travel as trains of six, disciples walk as pilgrim bands and settlers move as families. Warships sail in pairs. Workers stay single, because the game sends every worker figure to the same build spot.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/battle-lines.zip" download rel="nofollow" aria-label="Download Battle Lines, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701563" target="_blank" rel="noopener" aria-label="Battle Lines on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/battle-lines.zip" download rel="nofollow" aria-label="Download Battle Lines, 249 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>249 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701563" target="_blank" rel="noopener" aria-label="Battle Lines on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="battle-lines" data-name="Battle Lines" aria-label="Comments on Battle Lines"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="looks">
@@ -453,7 +505,7 @@
               <h3>Pace and Presentation</h3>
               <p class="ow-tag">Brisk marches, lingering battles, clear map.</p>
               <details><summary>What it does</summary><p>Brisk Marches: movement animations play 50% faster. Cinematic Battles: when you follow the AI&#x27;s moves, the camera holds on each battle for 4 seconds instead of 2.5, so you actually see the fight. Clear Map: resources (herds, ores, crops) are drawn 25% smaller, so a crowded late-game map stays readable.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/pace-and-presentation.zip" download rel="nofollow" aria-label="Download Pace and Presentation, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701843" target="_blank" rel="noopener" aria-label="Pace and Presentation on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/pace-and-presentation.zip" download rel="nofollow" aria-label="Download Pace and Presentation, 244 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>244 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3843701843" target="_blank" rel="noopener" aria-label="Pace and Presentation on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="pace-and-presentation" data-name="Pace and Presentation" aria-label="Comments on Pace and Presentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="looks">
@@ -463,7 +515,7 @@
               <h3>Fallen Soldiers</h3>
               <p class="ow-tag">Wounded units lose men. The rest break ranks.</p>
               <details><summary>What it does</summary><p>When a unit takes damage, men in its formation fall and die. A legion at half health shows half its men; a unit at a quarter of its health is down to a quarter. The men drop when the clash is over, using the game&#x27;s own death animation, lie where they fell for a moment, and fade away.</p><p>The survivors lose their neat ranks as their comrades fall. A fresh unit stands in parade-ground lines; one that has lost half its men stands loose and ragged, every man a little out of place and turned a little off the line; a unit down to its last few is a scattered knot of men. When the unit heals, men return and the ranks close up again.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/fallen-soldiers.zip" download rel="nofollow" aria-label="Download Fallen Soldiers, 322 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>322 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3844257545" target="_blank" rel="noopener" aria-label="Fallen Soldiers on the Steam Workshop (opens in a new tab)">Steam Workshop</a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/fallen-soldiers.zip" download rel="nofollow" aria-label="Download Fallen Soldiers, 322 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>322 KB</small></a><a class="ow-ws" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3844257545" target="_blank" rel="noopener" aria-label="Fallen Soldiers on the Steam Workshop (opens in a new tab)">Steam Workshop</a><button type="button" class="ow-cm" data-cm="fallen-soldiers" data-name="Fallen Soldiers" aria-label="Comments on Fallen Soldiers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <article class="ow-card" data-k="rules">
@@ -473,7 +525,17 @@
               <h3>Loyal Families</h3>
               <p class="ow-tag">The great houses forgive more and value their place at court.</p>
               <details><summary>What it does</summary><p>Every grudge a family holds against you is half as strong: a slight at court, a refused law, a city given away, an exiled member. Grudges still last just as long, so a family still remembers how you treated it.</p><p>Ties of blood and office count for more. A family whose member sits on the throne, stands as heir, or married into your line warms to you more. So does a family whose cities enjoy your luxuries.</p></details>
-              <div class="ow-btns"><a class="ow-dl" href="mods/files/loyal-families.zip" download rel="nofollow" aria-label="Download Loyal Families, 343 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>343 KB</small></a></div>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/loyal-families.zip" download rel="nofollow" aria-label="Download Loyal Families, 343 KB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>343 KB</small></a><button type="button" class="ow-cm" data-cm="loyal-families" data-name="Loyal Families" aria-label="Comments on Loyal Families"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
+            </div>
+          </article>
+          <article class="ow-card" data-k="packs">
+            <div class="ow-pic"><img src="media/mods/merchant-empires.jpg" alt="Merchant Empires preview" width="480" height="480" loading="lazy"><span class="ow-kind">Packs</span><span class="ow-new">New</span></div>
+            <div class="ow-body">
+              <span class="ow-badge">Pack</span>
+              <h3>Merchant Empires</h3>
+              <p class="ow-tag">Win the markets, and the gold follows.</p>
+              <details><summary>What it does</summary><p>The world no longer has one price for food, wood, stone and iron. Each region trades at its own market city, and its prices follow what the region grows, uses and buys. Cities send merchants to market cities along roads, rivers and sea lanes, and those trade routes pay every turn. Whoever holds a market city takes duties from every foreigner who trades there, so taking a rival&#x27;s market, by war or by outlasting them, is how you build a merchant empire, as Venice did.</p><p>Three new nations are built around it: Venetia, Macedonia and Nabataea.</p></details>
+              <div class="ow-btns"><a class="ow-dl" href="mods/files/merchant-empires.zip" download rel="nofollow" aria-label="Download Merchant Empires, 6.4 MB zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg> Download <small>6.4 MB</small></a><button type="button" class="ow-cm" data-cm="merchant-empires" data-name="Merchant Empires" aria-label="Comments on Merchant Empires"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Comments<span class="ow-cm-n"></span></button></div>
             </div>
           </article>
           <!--/CARDS-->
@@ -570,5 +632,6 @@
   </script>
   <script src="admin-link.js?v=2"></script>
   <script src="visit.js?v=5" data-s="site"></script>
+  <script src="mod-comments.js?v=1" defer></script>
 </body>
 </html>

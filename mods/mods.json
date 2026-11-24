@@ -87,7 +87,7 @@
   ],
   "kind": "rules",
   "workshop": "3843634532",
-  "kb": 241,
+  "kb": 242,
   "code": false
  },
  {
@@ -100,7 +100,7 @@
   ],
   "kind": "rules",
   "workshop": "3843634512",
-  "kb": 240,
+  "kb": 241,
   "code": false
  },
  {
@@ -113,7 +113,7 @@
   ],
   "kind": "rules",
   "workshop": "3843634299",
-  "kb": 244,
+  "kb": 245,
   "code": false
  },
  {
@@ -152,7 +152,7 @@
   ],
   "kind": "setup",
   "workshop": "3843634615",
-  "kb": 243,
+  "kb": 244,
   "code": false
  },
  {
@@ -191,7 +191,7 @@
   ],
   "kind": "looks",
   "workshop": "3843701378",
-  "kb": 246,
+  "kb": 247,
   "code": false
  },
  {
@@ -260,6 +260,20 @@
   "workshop": "",
   "kb": 343,
   "code": false
+ },
+ {
+  "name": "Merchant Empires",
+  "slug": "merchant-empires",
+  "no": "",
+  "tag": "Win the markets, and the gold follows.",
+  "what": [
+   "The world no longer has one price for food, wood, stone and iron. Each region trades at its own market city, and its prices follow what the region grows, uses and buys. Cities send merchants to market cities along roads, rivers and sea lanes, and those trade routes pay every turn. Whoever holds a market city takes duties from every foreigner who trades there, so taking a rival's market, by war or by outlasting them, is how you build a merchant empire, as Venice did.",
+   "Three new nations are built around it: Venetia, Macedonia and Nabataea."
+  ],
+  "kind": "packs",
+  "workshop": "",
+  "kb": 6604,
+  "code": true
  },
  {
   "name": "The Complete Collection",
