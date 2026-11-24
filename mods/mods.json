@@ -230,7 +230,7 @@
   ],
   "kind": "looks",
   "workshop": "3843701843",
-  "kb": 244,
+  "kb": 245,
   "code": false
  },
  {
@@ -257,7 +257,7 @@
    "Ties of blood and office count for more. A family whose member sits on the throne, stands as heir, or married into your line warms to you more. So does a family whose cities enjoy your luxuries."
   ],
   "kind": "rules",
-  "workshop": "",
+  "workshop": "3845031391",
   "kb": 343,
   "code": false
  },
@@ -268,11 +268,11 @@
   "tag": "Win the markets, and the gold follows.",
   "what": [
    "The world no longer has one price for food, wood, stone and iron. Each region trades at its own market city, and its prices follow what the region grows, uses and buys. Cities send merchants to market cities along roads, rivers and sea lanes, and those trade routes pay every turn. Whoever holds a market city takes duties from every foreigner who trades there, so taking a rival's market, by war or by outlasting them, is how you build a merchant empire, as Venice did.",
-   "Three new nations are built around it: Venetia, Macedonia and Nabataea."
+   "Play it with Lost Kingdoms and its six nations get trade perks of their own."
   ],
   "kind": "packs",
   "workshop": "3845020897",
-  "kb": 6605,
+  "kb": 6589,
   "code": true
  },
  {
@@ -288,6 +288,20 @@
   "workshop": "3845020954",
   "kb": 4223,
   "code": true
+ },
+ {
+  "name": "Lost Kingdoms",
+  "slug": "lost-kingdoms",
+  "no": "",
+  "tag": "Six forgotten kingdoms take the field.",
+  "what": [
+   "Six new nations from the edges of the Old World that the base game leaves out: the merchant lagoons of Venetia, the Argead kingdom of Macedonia before Philip, the caravan kingdom of Nabataea, Lydia of the first coins, Saba of the incense and the great dam, and silver Tartessos at the end of the sea. None of them overlaps a nation already in the game, or takes another nation's cities.",
+   "Each has its own perk, two unique units, two dynasties, four families, twenty cities and its own names, and starts at home on the game's real-world maps."
+  ],
+  "kind": "packs",
+  "workshop": "",
+  "kb": 356,
+  "code": false
  },
  {
   "name": "The Complete Collection",
