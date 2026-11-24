@@ -2335,3 +2335,104 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 .sp-more-txt span { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.45; }
 .sp-faq a { color: var(--red-text); }
 @media (max-width: 760px) { .sp-more-grid { grid-template-columns: minmax(0, 1fr); } .sp-more-card { flex-direction: row; } .sp-more-card img { width: 38%; aspect-ratio: auto; flex: none; } }
+
+/* =====================================================================
+   Game pages, refreshed (2026-11-23): wider, the game's own colour,
+   softer cards, the features packed like a wall instead of a grid.
+   Each page sets its game on <body>: sp-g-reckoning, sp-g-forester, sp-g-smoke.
+   ===================================================================== */
+body.sp { --accent: #e0574a; --accent-rgb: 224, 87, 74; }
+body.sp-g-reckoning { --accent: #d9a441; --accent-rgb: 217, 164, 65; }
+body.sp-g-forester  { --accent: #8cc084; --accent-rgb: 140, 192, 132; }
+body.sp-g-smoke     { --accent: #d4ae62; --accent-rgb: 212, 174, 98; }
+
+.sp-wrap { max-width: 1180px; padding: 0 24px; }
+.sp-top { grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; }
+
+/* the art behind the title: brighter, and taller */
+.sp-backdrop { height: 860px; filter: blur(10px) saturate(0.85); opacity: 0.42; }
+.sp-backdrop::after { background: linear-gradient(to bottom, rgba(5,5,5,0.35) 0%, rgba(5,5,5,0.72) 50%, var(--bg-primary) 100%); }
+.sp-title { font-size: clamp(2.2rem, 4.6vw, 3.4rem); text-shadow: 0 4px 30px rgba(0,0,0,0.6); }
+.sp-crumbs a:hover { color: var(--accent); }
+
+/* softer cards everywhere on the page */
+.sp-stage, .sp-side, .sp-buy, .sp-xpromo, .sp-faq details, .sp-sysreq > div, .sp-more-card, .sp-features li { border-radius: 10px; }
+.sp-stage { box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.sp-side { background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.07), transparent 40%), var(--bg-card); border: 1px solid rgba(var(--accent-rgb), 0.18); overflow: hidden; }
+.sp-capsule { border-radius: 6px; }
+.sp-tag { border-radius: 99px; padding-left: 10px; padding-right: 10px; }
+
+/* the play/buy box stands out */
+.sp-buy { background: linear-gradient(120deg, rgba(var(--accent-rgb), 0.14), rgba(var(--accent-rgb), 0.02) 55%), var(--bg-card); border: 1px solid rgba(var(--accent-rgb), 0.3); box-shadow: 0 18px 50px rgba(0,0,0,0.4); }
+.sp-xpromo { background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.10), transparent 70%), var(--bg-card); border-color: rgba(var(--accent-rgb), 0.18); overflow: hidden; }
+.sp-xpromo:hover { border-color: rgba(var(--accent-rgb), 0.55); }
+
+/* section headings: the game's colour, an underline rather than a bar */
+.sp-h2 { font-size: 1.3rem; letter-spacing: 0.1em; background: none; border-left: 0; padding: 0 0 12px; margin: 56px 0 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.sp-h2::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 64px; height: 2px; background: var(--accent); }
+
+/* reading copy: bigger, and kept to a readable width */
+.sp-about { max-width: 78ch; }
+.sp-about p { font-size: 1.02rem; line-height: 1.8; }
+
+/* features: a wall of cards, each as tall as its words */
+.sp-features { display: block; columns: 3 280px; column-gap: 16px; }
+.sp-features li { break-inside: avoid; margin: 0 0 16px; padding: 18px 20px; font-size: 0.92rem; border: 1px solid rgba(255,255,255,0.06); border-top: 2px solid var(--accent);
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.06), transparent 60%), var(--bg-card); transition: transform 0.25s, border-color 0.25s; }
+.sp-features li:hover { transform: translateY(-3px); border-color: rgba(var(--accent-rgb), 0.35); border-top-color: var(--accent); }
+.sp-features strong { color: var(--accent); font-size: 0.95rem; margin-bottom: 7px; }
+.sp-features a, .sp-faq a { color: var(--accent); }
+
+.sp-faq summary:hover { color: var(--accent); }
+.sp-faq details[open] { border-color: rgba(var(--accent-rgb), 0.3); }
+.sp-more-card { border-color: rgba(255,255,255,0.06); }
+.sp-more-card:hover { border-color: rgba(var(--accent-rgb), 0.55); }
+
+@media (max-width: 900px) { .sp-wrap { padding: 0 16px; } .sp-h2 { margin-top: 44px; } }
+.sp-about { max-width: none; columns: 2 420px; column-gap: 40px; }
+.sp-about p { break-inside: avoid; }
+.sp-tag { color: rgba(var(--accent-rgb), 1); background: rgba(var(--accent-rgb), 0.10); border-color: rgba(var(--accent-rgb), 0.28); }
+.sp-xpromo-kicker { color: var(--accent) !important; }
+
+/* =====================================================================
+   Game pages, our own layout (2026-11-23): a full-width hero in the
+   game's own art with the pitch and the main buttons, then the trailer
+   and the facts, then everything else. Pages opt in with body.gp.
+   ===================================================================== */
+.gp .sp-backdrop { display: none; }
+.gp .sp-page { padding-top: 0; }
+.gp-hero { position: relative; isolation: isolate; min-height: min(88vh, 860px); display: flex; align-items: flex-end; padding: 150px 0 72px; margin-bottom: 36px; overflow: hidden; }
+.gp-hero::before { content: ''; position: absolute; inset: 0; z-index: -2; background: var(--gp-art) no-repeat; background-size: var(--gp-size, cover); background-position: var(--gp-pos, center); background-color: #0a0a0a; transform: scale(1.04);
+  animation: gpDrift 24s ease-in-out infinite alternate; }
+.gp-hero::after { content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(5,5,5,0.55) 38%, rgba(5,5,5,0.15) 70%, rgba(5,5,5,0.45) 100%),
+              linear-gradient(90deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 45%, rgba(5,5,5,0) 80%); }
+@keyframes gpDrift { from { transform: scale(1.04) translateX(0); } to { transform: scale(1.1) translateX(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .gp-hero::before { animation: none; } }
+.gp-hero-in { width: 100%; }
+.gp-hero .sp-crumbs { margin-bottom: 28px; }
+.gp-eyebrow { display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.gp-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--accent); }
+.gp-hero .sp-title { font-size: clamp(2.6rem, 7.2vw, 5.6rem); line-height: 0.98; max-width: 13ch; margin-bottom: 22px; text-shadow: 0 6px 40px rgba(0,0,0,0.7); }
+.gp-hero .sp-beta { vertical-align: middle; font-size: 0.9rem; }
+.gp-pitch { max-width: 60ch; font-size: 1.1rem; line-height: 1.7; color: #e4e4e4; margin-bottom: 12px; text-shadow: 0 2px 14px rgba(0,0,0,0.8); }
+.gp-pitch strong { color: #fff; }
+.gp-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.gp-cta .sp-btn-play { font-size: 1rem; padding: 15px 30px; border-radius: 10px; box-shadow: 0 12px 34px rgba(220, 50, 40, 0.35); }
+.gp-cta-ghost { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #fff; text-decoration: none; padding: 14px 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); transition: border-color 0.2s, background 0.2s; }
+.gp-cta-ghost:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.12); }
+.gp-cta-ghost svg { width: 18px; height: 18px; color: var(--accent); }
+
+/* below the hero: the trailer with a slim facts card */
+.gp .sp-capsule { display: none; }
+.gp .sp-top { grid-template-columns: minmax(0, 1fr) 300px; margin-bottom: 32px; }
+.gp .sp-side { padding-top: 18px; }
+@media (max-width: 900px) {
+  .gp-hero { min-height: 0; padding: 120px 0 44px; }
+  .gp-hero::before { background-size: cover; }
+  .gp-hero::after { background: linear-gradient(to top, var(--bg-primary) 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,0.45) 100%); }
+  .gp-pitch { font-size: 1rem; }
+  .gp .sp-top { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) { .gp-pitch + .gp-pitch { display: none; } .gp-hero .sp-crumbs { display: none; } }
