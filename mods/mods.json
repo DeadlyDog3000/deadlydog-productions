@@ -271,7 +271,7 @@
    "Three new nations are built around it: Venetia, Macedonia and Nabataea."
   ],
   "kind": "packs",
-  "workshop": "",
+  "workshop": "3845020897",
   "kb": 6604,
   "code": true
  },
@@ -285,7 +285,7 @@
    "A unit in supply can heal anywhere supply reaches, even in enemy land, where the base game allows healing only on friendly ground. Away from friendly ground it heals at half the pace: a Heal takes two turns to do what one does at home. A unit that is cut off cannot heal and suffers attrition every turn, and it gets worse the longer it goes without supply:\n\nTurns cut offStateEach turn\n1\u20132Short of Supplies\u22121 HP, \u22125% strength\n3\u20134Hungry\u22122 HP, \u221210% strength\n5+Starving\u22123 HP, \u221220% strength, \u22121 march\n\nBack in supply, the hunger is gone at the start of the next turn. Short of Supplies and Hungry wear a unit down to its last hit point; Starving can kill: a starving unit whose hunger would take its last hit points dies."
   ],
   "kind": "packs",
-  "workshop": "",
+  "workshop": "3845020954",
   "kb": 4222,
   "code": true
  },
