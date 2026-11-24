@@ -47,13 +47,32 @@
       if (win && d.windows) button(prefix + 'Windows', d.windows, true);
       if (d.mac) button(prefix + 'Mac', d.mac, true);
       if (!win && d.windows) button(prefix + 'Windows', d.windows, true);
-      /* (once a download starts, the install help opens beside it: the first launch on a Mac needs a step people miss) */
+      /* (once a download starts, three plain steps for that computer appear right under the buttons: the first launch
+          meets a security warning on both Mac and Windows, and that is where people give up) */
       Array.prototype.forEach.call(act.querySelectorAll('a.sp-btn-ghost'), function (a) {
-        a.addEventListener('click', function () {
-          var help = box.querySelector('.sp-buy-help');
-          if (help && !help.open) { help.open = true; setTimeout(function () { help.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 150); }
-        });
+        a.addEventListener('click', function () { showSteps(/Windows/.test(a.textContent) ? 'win' : 'mac', a.href); });
       });
+    }
+    function showSteps(os, href) {
+      var old = box.querySelector('.sp-steps'); if (old) old.remove();
+      var name = escapeHtml(GAME.name || 'the game');
+      var steps = os === 'win' ? [
+        'Open <b>Forester-Reckoning-windows-setup.exe</b> from your Downloads.',
+        'If a blue box says <b>\u201cWindows protected your PC\u201d</b>, click <b>More info</b>, then <b>Run anyway</b>. (It says that about any new game that isn\u2019t from a big company.)',
+        'Click through the installer. ' + name + ' is now on your desktop and Start menu: open it and play.'
+      ] : [
+        'Open <b>Forester-Reckoning-mac.dmg</b> from your Downloads and drag the game into <b>Applications</b>.',
+        'Open it from Applications. If macOS says it <b>can\u2019t check it</b>, click <b>Done</b>, then open <b>System Settings \u2192 Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>.',
+        'Open the game once more and click <b>Open</b>. From then on it opens like any app.'
+      ];
+      var el = document.createElement('div'); el.className = 'sp-steps'; el.setAttribute('role', 'status');
+      el.innerHTML = '<p class="sp-steps-head"><b>Your download has started.</b> Three steps to play' + (os === 'win' ? ' on Windows' : ' on a Mac') + ':</p>'
+        + '<ol>' + steps.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ol>'
+        + '<p class="sp-steps-foot">Didn\u2019t start? <a href="' + escapeHtml(href) + '" rel="nofollow">Download again</a>' + (os === 'mac' ? ' \u00b7 needs a Mac with Apple silicon (M1 or newer)' : '')
+        + ' \u00b7 Stuck? <a href="index.html?subject=Game%20Support#contact">Write to us</a> and we\u2019ll help.</p>';
+      var row = box.querySelector('.sp-buy-row');
+      row.parentNode.insertBefore(el, row.nextSibling);
+      setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 150);
     }
     if (paid) {
       if (h) h.textContent = 'Thank you';
@@ -89,6 +108,17 @@
         + (GAME.downloadNote ? '<details class="sp-buy-help"><summary>Installing &amp; first launch</summary><p>' + escapeHtml(GAME.downloadNote).replace(/^(Mac:)/, '<b>$1</b>').replace(/ (Windows:)/, '</p><p><b>$1</b>') + '</p><p>Still stuck, or lost your key? <a href="index.html?subject=Game%20Support#contact">Write to us</a>.</p></details>' : '');
       note.parentNode.replaceChild(info, note);
     }
+    /* the hero's main button downloads the free demo for this computer in one click, and shows the same three steps */
+    (function heroDemo() {
+      var main = document.querySelector('.gp-cta-main'), d = GAME.downloads || {};
+      if (!main || !d.mac || !d.windows) return;
+      var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+      if (navigator.maxTouchPoints > 1 || /android|iphone|ipad|cros/i.test(navigator.userAgent) || /linux/i.test(p)) return;   /* (phones, tablets and Linux keep the button to the buy box) */
+      var os = /win/i.test(p) ? 'win' : 'mac';
+      main.href = os === 'win' ? d.windows : d.mac; main.rel = 'nofollow';
+      main.textContent = 'Free demo for ' + (os === 'win' ? 'Windows' : 'Mac');
+      main.addEventListener('click', function () { showSteps(os, main.href); });
+    })();
     if (act) { act.innerHTML = ''; downloads('Free demo \u00b7 '); button('Buy' + (sale ? ' \u2014 ' + sale.price : GAME.price ? ' \u2014 ' + GAME.price : ''), GAME.shop + '/shop/buy'); phoneNote(act, true); platformNote(act); }
   })();
 
