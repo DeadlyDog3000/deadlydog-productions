@@ -2445,5 +2445,8 @@ body.sp-g-smoke     { --accent: #d4ae62; --accent-rgb: 212, 174, 98; }
 .sp-steps li::before { content: counter(st); position: absolute; left: 0; top: -1px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
   font: 700 0.85rem var(--font-heading); background: var(--accent, #e0574a); color: #111; }
 .sp-steps li b { color: var(--text-primary); }
+.sp-steps-key { display: block; margin-bottom: 4px; padding: 6px 10px; border-radius: 6px; background: rgba(var(--accent-rgb, 224, 87, 74), 0.16); color: var(--text-primary); }
+.sp-buy-warn { margin: 10px 0 0; font-size: 0.88rem; color: var(--text-secondary); }
+.sp-buy-warn b { color: var(--text-primary); }
 .sp-steps-foot { margin: 12px 0 0; font-size: 0.82rem; color: var(--text-muted); }
 .sp-steps-foot a { color: var(--accent, #e0574a); }

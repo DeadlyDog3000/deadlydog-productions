@@ -49,6 +49,11 @@
       if (!win && d.windows) button(prefix + 'Windows', d.windows, true);
       /* (once a download starts, three plain steps for that computer appear right under the buttons: the first launch
           meets a security warning on both Mac and Windows, and that is where people give up) */
+      if (d.mac || d.windows) {
+        var w = document.createElement('p'); w.className = 'sp-buy-warn';
+        w.innerHTML = '<b>Heads up:</b> the first time you open it, a security warning pops up. That\u2019s normal for a small studio\u2019s game \u2014 click <b>' + (win ? 'More info \u2192 Run anyway' : 'Open Anyway') + '</b> and play.';
+        act.parentNode.insertBefore(w, act.nextSibling);
+      }
       Array.prototype.forEach.call(act.querySelectorAll('a.sp-btn-ghost'), function (a) {
         a.addEventListener('click', function () { showSteps(/Windows/.test(a.textContent) ? 'win' : 'mac', a.href); });
       });
@@ -58,11 +63,11 @@
       var name = escapeHtml(GAME.name || 'the game');
       var steps = os === 'win' ? [
         'Open <b>Forester-Reckoning-windows-setup.exe</b> from your Downloads.',
-        'If a blue box says <b>\u201cWindows protected your PC\u201d</b>, click <b>More info</b>, then <b>Run anyway</b>. (It says that about any new game that isn\u2019t from a big company.)',
+        '<span class="sp-steps-key">A blue box will say <b>\u201cWindows protected your PC\u201d</b>. That\u2019s normal: just click <b>More info</b>, then <b>Run anyway</b>.</span> Windows shows it for every game whose maker hasn\u2019t paid for a signing certificate. We\u2019re a small studio and haven\u2019t; the game is safe.',
         'Click through the installer. ' + name + ' is now on your desktop and Start menu: open it and play.'
       ] : [
         'Open <b>Forester-Reckoning-mac.dmg</b> from your Downloads and drag the game into <b>Applications</b>.',
-        'Open it from Applications. If macOS says it <b>can\u2019t check it</b>, click <b>Done</b>, then open <b>System Settings \u2192 Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>.',
+        'Open it from Applications. <span class="sp-steps-key">macOS will say it <b>can\u2019t check it</b>. That\u2019s normal: click <b>Done</b>, open <b>System Settings \u2192 Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>.</span> Apple shows it for every game whose maker hasn\u2019t paid Apple for a signature. We\u2019re a small studio and haven\u2019t; the game is safe.',
         'Open the game once more and click <b>Open</b>. From then on it opens like any app.'
       ];
       var el = document.createElement('div'); el.className = 'sp-steps'; el.setAttribute('role', 'status');

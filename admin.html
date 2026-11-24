@@ -47,9 +47,9 @@ h1 span { display: block; font-size: 12.5px; font-weight: 500; color: var(--text
 .btn { font: inherit; font-size: 12.5px; color: var(--text-secondary); padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
 .btn.on { color: var(--accent); border-color: var(--accent); }
 .btn:hover { color: var(--text-primary); border-color: var(--accent); }
-.tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 14px; }
 /* (five across when there's room; otherwise three and two, or two by two, never four and one left on its own) */
-@media (max-width: 1040px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 1040px) { .tiles { grid-template-columns: repeat(6, 1fr); } .tiles > * { grid-column: span 2; } .tiles > :nth-child(n+4) { grid-column: span 3; } }
 @media (max-width: 560px) { .tiles { grid-template-columns: 1fr 1fr; } .tiles > *, .tiles > :nth-child(n+4) { grid-column: auto; } .tiles > :last-child:nth-child(odd) { grid-column: span 2; } }
 .tile, .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.18); }
 .tile { position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease; }
@@ -132,6 +132,11 @@ body.locked .lock { display: grid; }
 .rate .rv { font-size: 22px; font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; border: 0; margin: 0; padding: 0; }
 .rate .rl { font-size: 12.5px; font-weight: 600; color: var(--text-secondary); }
 .rate .rd { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+.tabs { display: flex; gap: 8px; margin: 0 0 16px; }
+.tabs .btn { font-size: 13.5px; padding: 8px 16px; }
+.tiles.four { grid-template-columns: repeat(4, 1fr); }
+.tiles.four > * { grid-column: auto !important; }
+@media (max-width: 760px) { .tiles.four { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body class="locked">
@@ -142,13 +147,14 @@ body.locked .lock { display: grid; }
     <div class="bar"><div class="upd"><i class="dot" id="dot"></i><span id="upd">Loading…</span></div><a class="btn" id="onSite" style="display:none;text-decoration:none" href="https://deadlydog3000.github.io/deadlydog-productions/admin.html#owner" title="Opens this panel on your website, and shows the Admin button in the site's menu in this browser">Open on website</a><button class="btn" id="notify" type="button" title="While this panel is open, your computer tells you when a copy sells or a review is written">Notify me of sales</button><button class="btn" id="theme" type="button">Theme</button></div>
   </header>
 
+  <nav class="tabs" aria-label="Sections"><button class="btn on" type="button" data-tab="main">Games &amp; website</button><button class="btn" type="button" data-tab="mods">Old World mods</button></nav>
+  <div id="tab-main">
   <section class="tiles" aria-label="Headline numbers">
     <div class="tile" title="Mac and Windows installers of Forester: Reckoning fetched from GitHub, since the first release. Our own fetches (data/own-downloads.json) are taken off. Game updates aren't counted here."><div class="label"><i>⬇︎</i>Reckoning downloads<span class="per">all time</span></div><div class="value" id="tDl">–</div><div class="sub" id="sDl">&nbsp;</div></div>
     <div class="tile" title="Different installs of Forester: Reckoning that have started the game at least once, since the game server began counting. One person on two computers is two installs. Your own copies count too unless they've been taken off on the server."><div class="label"><i>🎮</i>Reckoning players<span class="per">all time</span></div><div class="value" id="tPl">–</div><div class="sub" id="sPl">&nbsp;</div></div>
     <div class="tile" title="Players connected to the game server this minute, in Reckoning's online games and Forester's online world."><div class="label"><i>🟢</i>Online<span class="per">right now</span></div><div class="value" id="tOn">–</div><div class="sub" id="sOn">&nbsp;</div></div>
     <div class="tile" title="Different people who opened the website, Forester in the browser or Standards In Smoke in the last 7 days, counted by the game server. Added up across the three, so someone who visited two of them counts twice. Your own visits aren't counted."><div class="label"><i>🌐</i>Web visitors<span class="per">7 days</span></div><div class="value" id="tWeb">–</div><div class="sub" id="sWeb">&nbsp;</div></div>
     <div class="tile" title="Copies of Forester: Reckoning bought through the shop and paid for, since it opened, refunds not taken off. Keys given away to creators and the press are never counted."><div class="label"><i>💰</i>Copies sold<span class="per">all time</span></div><div class="value" id="tSold">–</div><div class="sub" id="sSold">&nbsp;</div></div>
-    <div class="tile" title="Old World mods installed through the Steam Workshop right now: Steam's own count of subscriptions, all the mods added together, so one player with three mods counts three times. Your own subscriptions are in there too. Downloads of the zips on the website can't be counted (GitHub Pages keeps no counts)."><div class="label"><i>🧩</i>Mod installs<span class="per">right now</span></div><div class="value" id="tMod">–</div><div class="sub" id="sMod">&nbsp;</div></div>
   </section>
 
   <section class="card" style="margin-bottom:14px">
@@ -201,11 +207,6 @@ body.locked .lock { display: grid; }
       <form id="pkForm" class="pk-form"><input id="pkWho" maxlength="80" placeholder="Who it's for (channel or outlet)" required><button type="submit">Make a key</button></form>
       <p class="note" id="pkMsg" style="margin:6px 0 0"></p><div id="pkList"></div></div>
   </section>
-  <section class="card" style="margin-bottom:16px">
-    <h2>Old World mods</h2>
-    <p class="note">Installs through the Steam Workshop, from Steam's own public counts. “Installed now” is how many players have the mod subscribed today; “ever” never goes down, so the gap is players who removed it. Your own subscriptions count too. A mod with no Workshop page yet, and downloads of the zips on the website, aren't counted.</p>
-    <div style="overflow-x:auto"><table id="mods"><thead><tr><th>Mod</th><th class="n">Installed now</th><th class="n">Ever</th><th class="n">Favourites</th><th class="n">Page views</th></tr></thead><tbody></tbody></table></div>
-  </section>
   <section class="card">
     <h2>Errors in players' games</h2>
     <p class="note">Error reports from players who said yes to sending them, grouped by error, the latest first. Each is the error and where in the code it happened, the version and the screen: nothing about the player.</p>
@@ -226,6 +227,21 @@ body.locked .lock { display: grid; }
     <p class="note">GitHub's own counts. They count every fetch of the file: your own tests, our checks that a new upload works, and link-checking bots, not only players. A file uploaded again starts at nought on GitHub; this panel carries the old count forward. Fetches we know were our own (listed in data/own-downloads.json) are taken off. For real people, see Players.</p>
     <table id="files"><thead><tr><th>File</th><th>Release</th><th>What it is</th><th class="n">Downloads</th></tr></thead><tbody></tbody></table>
   </section>
+  </div>
+
+  <div id="tab-mods" hidden>
+  <section class="tiles four" aria-label="Old World mods">
+    <div class="tile" title="Players who have an Old World mod subscribed on the Steam Workshop right now, every mod added together, so one player with three mods counts three times. Your own subscriptions are in there too."><div class="label"><i>🧩</i>Installed now<span class="per">right now</span></div><div class="value" id="tMod">–</div><div class="sub" id="sMod">&nbsp;</div></div>
+    <div class="tile" title="Steam's all-time subscriptions, every mod added together. It never goes down, so the gap to Installed now is players who removed a mod."><div class="label"><i>📦</i>Installs ever<span class="per">all time</span></div><div class="value" id="tModEver">–</div><div class="sub" id="sModEver">&nbsp;</div></div>
+    <div class="tile" title="New installs in the last 7 days, every mod added together, from this panel's half-hourly record (it began 23 November 2026)."><div class="label"><i>📈</i>New installs<span class="per">7 days</span></div><div class="value" id="tModWeek">–</div><div class="sub" id="sModWeek">&nbsp;</div></div>
+    <div class="tile" title="Favourites and page views on the Workshop, every mod added together."><div class="label"><i>⭐</i>Favourites<span class="per">all time</span></div><div class="value" id="tModFav">–</div><div class="sub" id="sModFav">&nbsp;</div></div>
+  </section>
+  <section class="card" style="margin-bottom:16px">
+    <h2>Each mod</h2>
+    <p class="note">Installs through the Steam Workshop, from Steam's own public counts. “Installed now” is how many players have the mod subscribed today; “ever” never goes down, so the gap is players who removed it. Your own subscriptions count too. A mod with no Workshop page yet, and downloads of the zips on the website, aren't counted (GitHub Pages keeps no counts).</p>
+    <div style="overflow-x:auto"><table id="mods"><thead><tr><th>Mod</th><th class="n">Installed now</th><th class="n">Ever</th><th class="n">Favourites</th><th class="n">Page views</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  </div>
 </main>
 
 <script>
@@ -358,11 +374,6 @@ function glance(D) {
   const play = g => PL && PL[g];
   const pv = (g, n1, n0) => W && W[g] ? span(W[g].days, "views", n1, n0) : null;
   const ev7 = (W && W.site && W.site.events7) || {};
-  // (mod installs: this panel's half-hourly record of Steam's all-time subscriptions, [time, now, ever])
-  const M = D.mods && !D.mods.error ? D.mods : null, ms = D.history.mods || [], mFirst = ms.length ? ms[0][0] : null;
-  const mAt = t => { let v = null; for (const x of ms) { if (x[0] > t) break; v = x[2]; } return v; };
-  const modSince = t => !M || mFirst == null || mFirst > t ? null : Math.max(0, M.ever - mAt(t));
-  const modBetween = (a, b) => mFirst == null || mFirst > a ? null : Math.max(0, (mAt(b) ?? 0) - (mAt(a) ?? 0));
   const keysOut = D.press && D.press.keys ? D.press.keys.filter(k => !k.revoked).length : null;
   const revN = D.reviews && D.reviews.games ? Object.values(D.reviews.games).reduce((n, g) => n + (g.count || 0), 0) : null;
   // [label, what it counts, today, 7 days, the 7 before, 30 days, all time, format]
@@ -398,10 +409,6 @@ function glance(D) {
       ["People", "Different people who opened the game's page.", W && W.forester && W.forester.today, W && W.forester && W.forester.week, null, null, null, I],
       ["Page views", "Every time the game's page was opened. Kept for 90 days.", pv("forester", 0), pv("forester", 6), pv("forester", 13, 7), pv("forester", 29), W && W.forester ? span(W.forester.days, "views", 89) : null, I],
       ["Time played", "Minutes of real play, the tab in front.", play("forester") && span(play("forester").days, "minutes", 0), play("forester") && span(play("forester").days, "minutes", 6), play("forester") && span(play("forester").days, "minutes", 13, 7), play("forester") && span(play("forester").days, "minutes", 29), play("forester") && play("forester").total, Hm],
-    ]],
-    ["Old World mods (Steam Workshop)", [
-      ["New installs", "Steam's all-time subscriptions, every mod added together, gained in each period. From this panel's half-hourly record, which began 23 November 2026, so a period from before then shows –. Your days.", modSince(midnight.getTime()), modSince(T - 7 * DAY), modBetween(T - 14 * DAY, T - 7 * DAY), modSince(T - 30 * DAY), M ? M.ever : null, I],
-      ["Installed now", "Subscriptions right now, every mod added together: new installs less players who removed a mod.", null, null, null, null, M ? M.now : null, I],
     ]],
     ["Following", [
       ["Mailing list", "People who signed up on the website and confirmed by email.", null, D.list && !D.list.error ? D.list.week : null, null, null, D.list && !D.list.error ? D.list.count : null, I],
@@ -481,7 +488,16 @@ function render(D) {
   else $("sDl").textContent = D.downloads && D.downloads.error ? "Couldn't reach GitHub" : "";
 
   const MD = D.mods;
-  if (MD && !MD.error) { $("tMod").textContent = num(MD.now); $("sMod").innerHTML = `<b>${num(MD.ever)}</b> ever · ${nn(MD.mods.length, "mod")} on the Workshop<br>${nn(MD.favs, "favourite")} · ${nn(MD.views, "page view")}`;
+  // (new installs: this panel's half-hourly record of Steam's all-time subscriptions, [time, now, ever])
+  const ms = (D.history && D.history.mods) || [], mAt = t => { let v = null; for (const x of ms) { if (x[0] > t) break; v = x[2]; } return v; };
+  const mSince = t => !MD || MD.error || !ms.length || ms[0][0] > t ? null : Math.max(0, MD.ever - mAt(t));
+  if (MD && !MD.error) { $("tMod").textContent = num(MD.now); $("sMod").innerHTML = `${nn(MD.mods.length, "mod")} on the Workshop`;
+    $("tModEver").textContent = num(MD.ever); $("sModEver").innerHTML = `<b>${num(Math.max(0, MD.ever - MD.now))}</b> removed since`;
+    const wk = mSince(Date.now() - 7 * 86400000), td = mSince(new Date().setHours(0, 0, 0, 0));
+    const since = ms.length ? Math.max(0, MD.ever - ms[0][2]) : null;
+    $("tModWeek").textContent = wk != null ? num(wk) : since != null ? num(since) : "–";
+    $("sModWeek").innerHTML = (td == null ? "" : `<b>${num(td)}</b> today`) + (wk == null && since != null ? (td == null ? "" : " · ") + "since counting began 23 November" : "");
+    $("tModFav").textContent = num(MD.favs); $("sModFav").innerHTML = nn(MD.views, "page view");
     $("mods").querySelector("tbody").innerHTML = MD.mods.map(m => `<tr><td><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=${esc(m.id)}" target="_blank" rel="noopener" style="color:inherit">${esc(m.name)}</a>${m.ok ? "" : ` <span class="muted">(Steam didn't answer for it)</span>`}</td><td class="n">${num(m.now)}</td><td class="n">${num(m.ever)}</td><td class="n">${num(m.favs)}</td><td class="n">${num(m.views)}</td></tr>`).join(""); }
   else { $("tMod").textContent = "–"; $("sMod").textContent = MD && MD.error ? (/Steam/.test(MD.error) ? "Couldn't reach Steam" : MD.error) : "Restart the panel to count these"; $("mods").querySelector("tbody").innerHTML = `<tr><td colspan="5" class="muted">${esc(MD && MD.error || "The panel running now is older than this page: restart it (see the README).")}</td></tr>`; }
 
@@ -588,6 +604,13 @@ async function poll() {
   }
 }
 // (the theme: the system's, until it's chosen here; the choice remembered on this computer)
+function showTab(t) {
+  document.querySelectorAll(".tabs .btn").forEach(b => b.classList.toggle("on", b.dataset.tab === t));
+  $("tab-main").hidden = t !== "main"; $("tab-mods").hidden = t !== "mods";
+  try { localStorage.setItem("dd-tab", t); } catch (e) {}
+}
+document.querySelectorAll(".tabs .btn").forEach(b => b.onclick = () => showTab(b.dataset.tab));
+{ let t = location.hash === "#mods" ? "mods" : null; try { t = t || localStorage.getItem("dd-tab"); } catch (e) {} if (t === "mods") showTab("mods"); }
 try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 $("theme").onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"), nx = cur === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("theme", nx); } catch (e) {} };
 poll(); setInterval(poll, 60000);
