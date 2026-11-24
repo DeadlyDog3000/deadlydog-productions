@@ -2325,7 +2325,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visibl
 
 /* --- More from DeadlyDog (the foot of each game page) ----------------- */
 .sp-more { margin-top: 48px; }
-.sp-more-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.sp-more-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .sp-more-card { display: flex; flex-direction: column; background: var(--bg-card); border: 1px solid #1e1e1e; text-decoration: none; color: var(--text-primary);
   transition: border-color 0.2s, transform 0.2s; overflow: hidden; }
 .sp-more-card:hover { border-color: var(--red-primary); transform: translateY(-3px); }
